@@ -10,7 +10,7 @@ app = flask.Flask(__name__)
 def login():
 	conn = sqlite3.connect("bss.db",  check_same_thread=False)
 	cursor = conn.cursor()
-	cursor.execute("SELECT * FROM members")
+	cursor.execute("SELECT * FROM personalData")
 	data = cursor.fetchall()
 	for item in data:
 		return jsonify(item)
