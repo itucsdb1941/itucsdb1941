@@ -7,7 +7,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { Food } from '../models/app.model';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json'})
 };
 
 @Injectable({ providedIn: 'root' })
@@ -15,10 +15,12 @@ export class AppService {
 
   private userUrl = 'http://localhost:5000';  // URL to REST API
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { 
+    
+  }
 
   /** GET users from the server */
-  getFoods(): Observable<Food[]> {
+  getFood(): Observable<Food[]> {
     return this.http.get<Food[]>(this.userUrl + '/foods-list');
   }
   

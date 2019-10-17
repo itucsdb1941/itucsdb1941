@@ -12,14 +12,15 @@ export class FoodListComponent implements OnInit {
 
   foods: Food[] = [];
 
-	constructor(private route: ActivatedRoute, private userService: AppService) { }
+	constructor(private route: ActivatedRoute, private appService: AppService) { }
 
 	ngOnInit() {
 		this.getFoods();
+		//console.log(this.foods);
 	}
 
 	getFoods(): void {
-		this.userService.getFoods().subscribe(food => this.foods = food);
+		this.appService.getFood().subscribe(food => this.foods = food);
 	}
   
 

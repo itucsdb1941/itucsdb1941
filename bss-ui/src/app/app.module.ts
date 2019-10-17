@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FoodListComponent } from './components/food-list/food-list.component';
-
+import { HttpClientModule} from '@angular/common/http';
 
 
 @NgModule({
@@ -14,7 +14,8 @@ import { FoodListComponent } from './components/food-list/food-list.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
