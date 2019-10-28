@@ -54,14 +54,17 @@ def newPass(id):
     return jsonify(data)
 
 
-@app.route('/sign-register', methods=['GET', 'POST'])
+@app.route('/sign-page', methods=['GET', 'POST'])
 def post_sign():
     data = request.data
     if data:
         item = json.loads(data)
         for i in item:
-            print(i['FirstName'])
-        return jsonify(i['FirstName'])
+            username = i['UserName']
+            password = i['Password']
+            cursor.execute("INSERT INTO members (username, userPassword, e_mail, recoveryQues, recoveryAns)"
+                           "VALUES ('username','password','aa','bb','cc')")
+            return jsonify("ok")
     else:
         return "empty"
     """sign_keys = ["personalID", "name", "surname", "birthdate", "sex", "location","memberID"];"""
