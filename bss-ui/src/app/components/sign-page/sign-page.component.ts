@@ -21,10 +21,12 @@ export class SignComponent implements OnInit {
 	RecoveryResult: string;
 	Email: string;
 	ele: any;
+	selected: string;
 
 	constructor(private route: ActivatedRoute, private appService: AppService) { }
 
 	ngOnInit() {
+		console.log(this.selected)
 	}
 
 	
@@ -39,6 +41,10 @@ export class SignComponent implements OnInit {
 			'Location':this.Location
 		});
 		this.appService.postPerson(this.person);
+	}
+	onGenderChange(event : any)
+	{
+		console.log(event.target.value);
 	}
   
 
