@@ -293,6 +293,23 @@ body {
   margin-left: 25%;
   
 }
+.back {
+	background-color:transparent;
+	display:inline-block;
+	cursor:pointer;
+	color:#eee3d1;
+	font-family: 'Exo', sans-serif;
+	font-size:14px;
+	padding:0px 0px;
+	border: none;
+}
+.back:hover {
+	background-color:transparent;
+}
+.back:active {
+	position:relative;
+	top:1px;
+}
 input {
     border: 1px solid #c5583d;
     border-radius: 4px;

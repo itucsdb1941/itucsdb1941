@@ -54,7 +54,7 @@ def newPass(id):
     return jsonify(data)
 
 
-@app.route('/sign-page', methods=['GET', 'POST'])
+@app.route('/sign-register', methods=['GET', 'POST'])
 def post_sign():
     data = request.data
     if data:

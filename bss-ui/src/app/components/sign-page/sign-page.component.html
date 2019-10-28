@@ -27,16 +27,15 @@
           </select>
       </div>
 
-
-
-        
-          
         <input type="text" placeholder="location" [(ngModel)]="Location" required autofocus><br>
         <input type="text" placeholder="recovery question" [(ngModel)]="RecoveryQuestion" required autofocus><br>
         <input type="text" placeholder="recovery answer" [(ngModel)]="RecoveryResult" required autofocus><br>
         
 
-				<input type="button" (click) = "sign()" value="Sign Up">
+        <input type="button" (click) = "sign()" value="Sign Up">
+        
+
+        <button class="back" (click) = "login()">Go back</button>
 		
 		</div>
 

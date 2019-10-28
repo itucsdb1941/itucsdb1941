@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Food } from '../../models/app.model';
 import { AppService } from '../../services/app.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'sign-page',
@@ -23,7 +23,7 @@ export class SignComponent implements OnInit {
 	ele: any;
 	selected: string;
 
-	constructor(private route: ActivatedRoute, private appService: AppService) { }
+	constructor(private route: ActivatedRoute, private appService: AppService, private router: Router) { }
 
 	ngOnInit() {
 		console.log(this.selected)
@@ -47,5 +47,8 @@ export class SignComponent implements OnInit {
 		console.log(event.target.value);
 	}
   
+	login(): void{
+		this.router.navigateByUrl('/login-page');
+	}
 
 }

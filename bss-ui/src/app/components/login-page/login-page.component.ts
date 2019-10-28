@@ -41,9 +41,11 @@ export class LoginPageComponent implements OnInit {
 	}
 
 	password(): void{
-		this.members.forEach(row => {
 			this.router.navigateByUrl('/new-password');
-		})
+	}
+
+	sign(): void{
+			this.router.navigateByUrl('/sign-page');
 	}
 	
 

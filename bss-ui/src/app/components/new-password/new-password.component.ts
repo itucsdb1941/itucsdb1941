@@ -27,12 +27,8 @@ export class NewPasswordComponent implements OnInit {
 		this.appService.getMembers().subscribe(member => this.members = member);
 	}
 
-  login(): void{
-		this.members.forEach(row => {
-		
-			this.router.navigateByUrl('/login-page');
-			
-		})
+  login(): void{	
+		this.router.navigateByUrl('/login-page');		
 	}
 	
 }
