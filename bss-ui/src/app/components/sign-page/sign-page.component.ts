@@ -38,13 +38,16 @@ export class SignComponent implements OnInit {
 			'Password': this.Password,
 			'Birthdate':this.Birthdate,
 			'Gender':this.Gender,
-			'Location':this.Location
+			'Location':this.Location,
+			'Email': this.Email,
+			'RecoveryQuestion': this.RecoveryQuestion,
+			'RecoveryAnswer': this.RecoveryResult
 		});
 		this.appService.postPerson(this.person);
 	}
 	onGenderChange(event : any)
 	{
-		console.log(event.target.value);
+		this.Gender = event.target.value;
 	}
   
 
