@@ -23,7 +23,12 @@ export class AppService {
   getFood(): Observable<Food[]> {
     return this.http.get<Food[]>(this.userUrl + '/foods-list');
   }
-  
+  getMembers(): Observable<any[]> {
+    return this.http.get<any[]>(this.userUrl + '/login-page');
+  }
+  password(): Observable<any[]> {
+    return this.http.get<any[]>(this.userUrl + '/new-password');
+  }
   /** GET user by id. Will 404 if id not found */
   postPerson(data : any): any {
     //console.log("ddata" , data , JSON.stringify(data));

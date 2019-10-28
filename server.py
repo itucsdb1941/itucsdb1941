@@ -13,9 +13,11 @@ cursor = conn.cursor()
 
 @app.route('/')
 def login():
-    cursor.execute("SELECT * FROM personalData")
+    res = []
+    cursor.execute("SELECT * FROM members")
     data = cursor.fetchall()
-    return jsonify(data)
+    if data:
+        return jsonify(data)
 
 
 @app.route('/foods-list', methods=['GET'])
@@ -28,6 +30,28 @@ def get_all_food():
     for i in data:
         res.append(dict(zip(food_keys, i)))
     return jsonify(res)
+
+
+@app.route('/login-page', methods=['GET','POST'])
+def get_members():
+    res = []
+    member_keys = ["memberID", "username", "userPassword", "e_mail", "recoveryQues", "recoveryAns"];
+    cursor.execute("SELECT * FROM members")
+    data = cursor.fetchall()
+
+    for i in data:
+        res.append(dict(zip(member_keys, i)))
+    return jsonify(res)
+
+
+@app.route('/new-password/<int:id>', methods=['GET'])
+def newPass(id):
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM username WHERE id = {id}")
+    old_data = cursor.fetchone()
+    data = cursor.fetchall()
+
+    return jsonify(data)
 
 
 @app.route('/sign-register', methods=['GET', 'POST'])
@@ -45,4 +69,3 @@ def post_sign():
 
 if __name__ == '_main_':
     app.run(port=5000, debug=True)
-
