@@ -1,4 +1,3 @@
-
 import sqlite3
 import flask
 import json
@@ -14,7 +13,7 @@ cursor = conn.cursor()
 @app.route('/')
 def login():
     res = []
-    cursor.execute("SELECT * FROM members")
+    cursor.execute("SELECT * FROM personalData")
     data = cursor.fetchall()
     if data:
         return jsonify(data)
@@ -44,14 +43,17 @@ def get_members():
     return jsonify(res)
 
 
-@app.route('/new-password/<int:id>', methods=['GET'])
-def newPass(id):
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM username WHERE id = {id}")
-    old_data = cursor.fetchone()
-    data = cursor.fetchall()
-
-    return jsonify(data)
+@app.route('/new-password', methods=['GET'])
+def newPass():
+    data = request.data
+    if data:
+        item = json.loads(data)
+        for i in item:
+            cursor.execute("SELECT * FROM members WHERE username =?", [i['UserName']])
+            old_data = cursor.fetchone()
+            return jsonify(old_data)
+    else:
+        return jsonify("empty")
 
 
 @app.route('/sign-register', methods=['GET', 'POST'])
@@ -60,14 +62,17 @@ def post_sign():
     if data:
         item = json.loads(data)
         for i in item:
-            username = i['UserName']
-            password = i['Password']
-            cursor.execute("INSERT INTO members (username, userPassword, e_mail, recoveryQues, recoveryAns)"
-                           "VALUES ('username','password','aa','bb','cc')")
+            cursor.execute("INSERT INTO members (username, userPassword, e_mail, recoveryQues, recoveryAns) VALUES (?,?, 'aa','bb','cc')", (i['UserName'], i['Password']))
+            cursor.execute("SELECT memberID FROM members WHERE username = ?", [i['UserName']])
+            sql = cursor.fetchone()
+            cursor.execute("INSERT INTO personalData (name, surname, birthdate, sex, location, memberID) "
+                                       "VALUES (?,?,?,?,? , ?)", (i['FirstName'], i['LastName'], sql[0]))
+            conn.commit()
+
             return jsonify("ok")
     else:
         return "empty"
-    """sign_keys = ["personalID", "name", "surname", "birthdate", "sex", "location","memberID"];"""
+
 
 
 if __name__ == '_main_':
