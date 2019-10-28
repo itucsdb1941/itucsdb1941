@@ -26,8 +26,10 @@ export class LoginPageComponent implements OnInit {
 
 	userLogin(): void {
 		this.appService.getMembers().subscribe(member => this.members = member);
+		
 	}
 	login(): void{
+		console.log(this.members)
 		this.members.forEach(row => {
 			if(row.username === this.Username && row.userPassword === this.Password)
 			{

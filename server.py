@@ -62,11 +62,13 @@ def post_sign():
     if data:
         item = json.loads(data)
         for i in item:
-            cursor.execute("INSERT INTO members (username, userPassword, e_mail, recoveryQues, recoveryAns) VALUES (?,?, 'aa','bb','cc')", (i['UserName'], i['Password']))
+
+            cursor.execute("INSERT INTO members (username, userPassword, e_mail, recoveryQues, recoveryAns) VALUES (?,?, ?,?,?)", (i['UserName'], i['Password'], i['Email'], i['RecoveryQuestion'], i['RecoveryAnswer']))
             cursor.execute("SELECT memberID FROM members WHERE username = ?", [i['UserName']])
             sql = cursor.fetchone()
             cursor.execute("INSERT INTO personalData (name, surname, birthdate, sex, location, memberID) "
-                                       "VALUES (?,?,?,?,? , ?)", (i['FirstName'], i['LastName'], sql[0]))
+                                       "VALUES (?,?,?,?,?,?)", (i['FirstName'], i['LastName'], i['Birthdate'], i['Gender'], i['Location'], sql[0]))
+
             conn.commit()
 
             return jsonify("ok")

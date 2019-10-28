@@ -39,13 +39,19 @@ export class SignComponent implements OnInit {
 			'Birthdate':this.Birthdate,
 			'Gender':this.Gender,
 			'Location':this.Location,
+<<<<<<< HEAD
 			'Email':this.Email
+=======
+			'Email': this.Email,
+			'RecoveryQuestion': this.RecoveryQuestion,
+			'RecoveryAnswer': this.RecoveryResult
+>>>>>>> 35e99c3c3cf383851909d7b9f1823e7719052d69
 		});
 		this.appService.postPerson(this.person);
 	}
 	onGenderChange(event : any)
 	{
-		console.log(event.target.value);
+		this.Gender = event.target.value;
 	}
   
 	login(): void{

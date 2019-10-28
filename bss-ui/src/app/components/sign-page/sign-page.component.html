@@ -20,7 +20,9 @@
        <div> 
        <div><span id="dateofbirth">Date Of Birth</span><span id="gender">Gender</span></div>
          <input type="date" name="dateofbirth" id="datepicker" [(ngModel)]="Birthdate">
-          <select class="dropdown" (change)="onGenderChange($event)">
+         
+          <select class="dropdown"  (change)="onGenderChange($event)">
+            <option value=""hidden>choose</option>
             <option value="Female">Female</option>
             <option value="Male">Male</option>
             <option value="Others">Others</option>
