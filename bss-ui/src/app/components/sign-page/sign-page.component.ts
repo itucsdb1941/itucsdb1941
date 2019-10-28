@@ -38,7 +38,8 @@ export class SignComponent implements OnInit {
 			'Password': this.Password,
 			'Birthdate':this.Birthdate,
 			'Gender':this.Gender,
-			'Location':this.Location
+			'Location':this.Location,
+			'Email':this.Email
 		});
 		this.appService.postPerson(this.person);
 	}

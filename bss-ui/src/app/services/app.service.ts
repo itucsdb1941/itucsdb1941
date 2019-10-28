@@ -26,10 +26,9 @@ export class AppService {
   getMembers(): Observable<any[]> {
     return this.http.get<any[]>(this.userUrl + '/login-page');
   }
-  password(): Observable<any[]> {
+  getPassword(): Observable<any[]> {
     return this.http.get<any[]>(this.userUrl + '/new-password');
   }
-  /** GET user by id. Will 404 if id not found */
   postPerson(data : any): any {
     return this.http.post<any[]>(this.userUrl + '/sign-register' , data , httpOptions ).subscribe(element => console.log(element));
   }
