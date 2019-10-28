@@ -8,7 +8,7 @@ import { SignComponent } from './components/sign-page/sign-page.component';
 import { HttpClientModule} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { LoginPageComponent } from './components/login-page/login-page.component';
-//import { NewPasswordComponent } from './components/new-password/new-password.component';
+import { NewPasswordComponent } from './components/new-password/new-password.component';
 
 
 @NgModule({
@@ -17,7 +17,7 @@ import { LoginPageComponent } from './components/login-page/login-page.component
     FoodListComponent,
     SignComponent,
     LoginPageComponent,
-    //NewPasswordComponent
+    NewPasswordComponent
   ],
   imports: [
     BrowserModule,

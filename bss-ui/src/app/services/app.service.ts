@@ -31,6 +31,6 @@ export class AppService {
   }
   /** GET user by id. Will 404 if id not found */
   postPerson(data : any): any {
-    return this.http.post<any[]>(this.userUrl + '/sign-page' , data , httpOptions ).subscribe(element => console.log(element));
+    return this.http.post<any[]>(this.userUrl + '/sign-register' , data , httpOptions ).subscribe(element => console.log(element));
   }
 }
