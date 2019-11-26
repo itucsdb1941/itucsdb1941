@@ -9,6 +9,7 @@ import { Food } from '../models/app.model';
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json'})
 };
+  
 
 @Injectable({ providedIn: 'root' })
 export class AppService {
@@ -20,9 +21,7 @@ export class AppService {
   }
 
   /** GET users from the server */
-  getFood(): Observable<Food[]> {
-    return this.http.get<Food[]>(this.userUrl + '/foods-list');
-  }
+  
   getMembers(): Observable<any[]> {
     return this.http.get<any[]>(this.userUrl + '/login-page');
   }
@@ -32,4 +31,25 @@ export class AppService {
   postPerson(data : any): any {
     return this.http.post<any[]>(this.userUrl + '/sign-register' , data , httpOptions ).subscribe(element => console.log(element));
   }
+  foodMenu(): Observable<any[]> {
+    return this.http.get<any[]>(this.userUrl + '/food-menu');
+  }
+  drinkMenu(): Observable<any[]> {
+    return this.http.get<any[]>(this.userUrl + '/drink-menu');
+  }
+  dessertMenu(): Observable<any[]> {
+    return this.http.get<any[]>(this.userUrl + '/dessert-menu');
+  }
+  recipePage(id: number, type: string): any {
+    console.log(id);
+    return this.http.get<any>(this.userUrl + '/recipe/'+ type +"/"+ id);
+  }
+  getComments(): Observable<any[]> {
+    return this.http.get<any[]>(this.userUrl + '/foods-list');
+  }
+
+
+
+
+
 }

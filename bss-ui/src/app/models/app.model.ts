@@ -1,5 +1,5 @@
 export class Food {
-    foodId?: number;
+    foodID?: number;
     foodName: string;
     foodIngre: string;
     foodRecipe: string;

@@ -9,7 +9,10 @@ import { HttpClientModule} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { LoginPageComponent } from './components/login-page/login-page.component';
 import { NewPasswordComponent } from './components/new-password/new-password.component';
-
+import { FoodMenuComponent } from './components/food-menu/food-menu.component';
+import { DrinkMenuComponent } from './components/drink-menu/drink-menu.component';
+import { DessertMenuComponent } from './components/dessert-menu/dessert-menu.component';
+import { RecipeComponent } from './components/recipe/recipe.component';
 
 @NgModule({
   declarations: [
@@ -17,15 +20,24 @@ import { NewPasswordComponent } from './components/new-password/new-password.com
     FoodListComponent,
     SignComponent,
     LoginPageComponent,
-    NewPasswordComponent
+    NewPasswordComponent,
+    FoodMenuComponent,
+    DrinkMenuComponent,
+    DessertMenuComponent,
+    RecipeComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
+
+
+
+    
+    
 export class AppModule { }

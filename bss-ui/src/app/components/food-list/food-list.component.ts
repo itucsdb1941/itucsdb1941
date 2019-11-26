@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Food } from '../../models/app.model';
 import { AppService } from '../../services/app.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'food-list',
@@ -10,18 +10,26 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class FoodListComponent implements OnInit {
 
-  foods: Food[] = [];
+  	comments: Food[] = [];
 
-	constructor(private route: ActivatedRoute, private appService: AppService) { }
+	constructor(private route: ActivatedRoute, private appService: AppService, private router: Router) { 
 
+	}
+	
 	ngOnInit() {
-		this.getFoods();
-		//console.log(this.foods);
+		this.getComment();
 	}
-
-	getFoods(): void {
-		this.appService.getFood().subscribe(food => this.foods = food);
+	foodMenu(): void{	
+		this.router.navigateByUrl('/food-menu');		
 	}
-  
-
+	drinkMenu(): void{	
+		this.router.navigateByUrl('/drink-menu');		
+	}
+	dessertMenu(): void{	
+		this.router.navigateByUrl('/dessert-menu');		
+	}
+    getComment(): void {
+        this.appService.getComments().subscribe(comment => this.comments = comment);
+        console.log(this.comments);
+    }
 }
