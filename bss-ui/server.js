@@ -12,8 +12,8 @@ app.get('/*', function(req,res) {
 res.sendFile(path.join(__dirname+'/dist/itucsdb1941/index.html'));
 });
 
-app.get('/sign-page', function(req, res) {
-    res.sendFile(path.join(__dirname+ '/src/app/components/sign-page/sign-page.component.html'));
+app.get('/login-page', function(req, res) {
+    res.sendFile(path.join(__dirname+ '/src/app/components/login-page/login-page.component.html'));
 });
 
 // Start the app by listening on the default Heroku port
