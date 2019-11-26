@@ -3,10 +3,14 @@ import flask
 import json
 from flask import jsonify, request
 from flask_cors import CORS
+import os
+import psycopg2 as dpapi
 
+#url = "'wezrrgcd' user='wezrrgcd' host='salt.db.elephantsql.com' password='gh4WaN_uVpfMTkAMF3AG-h2nXbbNr1FH' "
+url = os.getenv("DB_URL")
 app = flask.Flask(__name__)
 CORS(app)
-conn = sqlite3.connect("bss.db", check_same_thread=False)
+conn = dpapi.connect(url)
 cursor = conn.cursor()
 
 @app.route('/')
