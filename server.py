@@ -1,7 +1,7 @@
 import sqlite3, psycopg2
 import flask
 import json
-from flask import jsonify, request, render_template, redirect, url_for
+from flask import jsonify, request, render_template, redirect, send_from_directory
 import os
 import psycopg2 as dpapi
 
@@ -45,7 +45,7 @@ def get_members():
 
     for i in data:
         res.append(dict(zip(member_keys, i)))
-    return redirect(url_for('login-page'))
+    return send_from_directory('./', 'login-page')
 
 
 @app.route('/new-password', methods=['GET'])
