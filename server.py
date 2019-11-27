@@ -11,13 +11,13 @@ app = flask.Flask(__name__)
 conn = dpapi.connect(url)
 cursor = conn.cursor()
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def login():
     res = []
     cursor.execute("SELECT * FROM personalData")
     data = cursor.fetchall()
-    if data:
-        return render_template('hello world')
+    if request.get:
+        return render_template('dist/index.html')
 
 
 @app.route('/foods-list', methods=['GET'])
