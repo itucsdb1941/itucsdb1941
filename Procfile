@@ -1,1 +1,1 @@
-web: npm start
+web: ./bss-ui npm start
