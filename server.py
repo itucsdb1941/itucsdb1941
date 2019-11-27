@@ -13,6 +13,10 @@ cursor = conn.cursor()
 
 @app.route('/')
 def login():
+    return render_template('index.html')
+
+@app.route('/')
+def login():
     res = []
     cursor.execute("SELECT * FROM personalData")
     data = cursor.fetchall()
