@@ -7,7 +7,7 @@ import psycopg2 as dpapi
 
 #url = "'wezrrgcd' user='wezrrgcd' host='salt.db.elephantsql.com' password='gh4WaN_uVpfMTkAMF3AG-h2nXbbNr1FH' "
 url = os.getenv("DB_URL")
-app = flask.Flask(__name__, template_folder='templates')
+app = flask.Flask(__name__, template_folder='templates', static_folder="bss-ui/dist/")
 conn = dpapi.connect(url)
 cursor = conn.cursor()
 
@@ -38,14 +38,17 @@ def get_all_comment():
 
 @app.route('/login-page', methods=['GET','POST'])
 def get_members():
-    res = []
-    member_keys = ["memberID", "username", "userPassword", "e_mail", "recoveryQues", "recoveryAns"];
-    cursor.execute("SELECT * FROM members")
-    data = cursor.fetchall()
+    if request.method == 'GET':
+        return end_from_directory("angular/dist", 'login-page')
+    else if request.methos == 'POST':
+        res = []
+        member_keys = ["memberID", "username", "userPassword", "e_mail", "recoveryQues", "recoveryAns"];
+        cursor.execute("SELECT * FROM members")
+        data = cursor.fetchall()
 
-    for i in data:
-        res.append(dict(zip(member_keys, i)))
-    return send_from_directory('./', 'login-page')
+        for i in data:
+            res.append(dict(zip(member_keys, i)))
+        return jsonify(res)
 
 
 @app.route('/new-password', methods=['GET'])
