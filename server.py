@@ -17,7 +17,7 @@ def login():
     cursor.execute("SELECT * FROM personalData")
     data = cursor.fetchall()
     if request.get:
-        return render_template('dist/index.html')
+        return 'hello world'
 
 
 @app.route('/foods-list', methods=['GET'])
