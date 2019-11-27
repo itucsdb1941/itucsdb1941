@@ -6,6 +6,8 @@ import os
 import psycopg2 as dpapi
 
 #url = "'wezrrgcd' user='wezrrgcd' host='salt.db.elephantsql.com' password='gh4WaN_uVpfMTkAMF3AG-h2nXbbNr1FH' "
+os.system('cd bss-ui')
+os.system('ng serve')
 url = os.getenv("DB_URL")
 app = flask.Flask(__name__)
 conn = dpapi.connect(url)
