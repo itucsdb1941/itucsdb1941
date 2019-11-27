@@ -40,7 +40,7 @@ def get_all_comment():
 def get_members():
     if request.method == 'GET':
         return end_from_directory("angular/dist", 'login-page')
-    else if request.methos == 'POST':
+    elif request.method == 'POST':
         res = []
         member_keys = ["memberID", "username", "userPassword", "e_mail", "recoveryQues", "recoveryAns"];
         cursor.execute("SELECT * FROM members")
