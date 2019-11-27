@@ -1,0 +1,230 @@
+
+object {
+  display: none;
+}
+html, body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+body {
+  background-color: rgb(255, 255, 255);
+  color: rgb(59, 67, 68);
+  font-family: 'Montserrat', sans-serif;
+  background-image: url(http://assets.mugfoundation.com/images/textures/noisy/noisy1px.png);
+}
+h1, h2, h3{
+  margin: 0;
+  padding: 0;
+}
+ul, p{
+  margin: 0;
+  padding: 0 0 1em 0;
+}
+h1,h2 {
+  color: rgb(241, 47, 93);
+}
+h1 {
+  font-size: 137.5%;
+}
+h2 {
+  font-size: 125%;
+}
+h3 {
+  font-size: 100%;
+}
+a:link, a:visited{
+  color: rgba(261, 47, 93, 0.8);
+}
+a:hover, a:active{
+  color: rgb(241, 47, 93);
+}
+.nav{
+  list-style-type: none;
+  padding: 0;
+  border-top: 1.5px solid rgb(59, 67, 68);
+}
+.nav a:link, .nav a:visited{
+  text-decoration: none;
+  display: block;
+  border-top: 1px solid rgb(232, 243, 248);
+  padding: 0.5em 0 0.5em 0;
+  color: rgb(66, 148, 182);
+}
+.nav a:hover, .nav a:active{
+  background-color: rgba(232, 243, 248, 0.3);
+}
+
+.infobox {
+  .avatar, .avatar img {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+  }
+  border-top: 1.5px solid rgb(59, 67, 68);
+  //border-bottom: 1.5px solid rgb(59, 67, 68);
+  p {
+    text-align: center;
+    font-size: 120%;
+  }
+  .title {
+    text-align: center;
+    font-size: 2em;
+  }
+  .quote{
+    background-color: rgb(238, 238, 238);
+    padding: 5px;
+    font-size: 130%;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+.menu-des {
+  background-image: url(waffle.jpg);
+}
+.social{
+  margin-top: 2%;
+  border-top: 1.5px solid rgb(59, 67, 68);
+  ul{
+    list-style-type: none;
+    padding: 0;
+  }
+}
+.wrapper{
+  width: 100%;
+  margin: 0 auto 0 auto;
+}
+.header{
+  text-align: right;
+  padding: 2.5% 0 0 0;
+  border-bottom: 8px solid rgb(59, 67, 68);
+  margin-bottom: 2%;
+  h1{
+    font-size: 200%;
+    margin-bottom: 2%;
+    color: rgb(59, 67, 68);
+    span{
+      font-weight: bold;
+      color: rgb(241, 47, 93);
+    }
+  }
+}
+.main{
+  position: relative;
+}
+.article{
+  padding-left: 1.7em;
+  position: absolute;
+  left: 20%;
+  top: 0;
+  width: 48%;
+  margin-left: 1.5%;
+  .thumbnail, .thumbnail img {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+  }
+}
+.right{
+  width: 25%;
+  position: absolute;
+  right: 0;
+  top: 0;
+  border-left: 1px solid rgb(59, 67, 68);
+  padding-left: 1%;
+}
+.footer{
+  margin-top: 2%;
+  border-top: 1.5px solid rgb(59, 67, 68);
+  a:link, a:visited{
+    color: rgba(261, 47, 93, 0.8);
+  }
+  a:hover, a:active{
+    color: rgb(241, 47, 93);
+  }
+  ul{
+    list-style-type: none;
+    padding: 0;
+  }
+  p{
+    font-size: 120%;
+    padding-bottom: 1%;
+  }
+}
+.left{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 20%;
+  border-right: 1.5px solid rgb(59, 67, 68);
+  margin-right: 1em;
+  padding-right: 1%;
+}
+@media only screen and (min-width: 768px){
+  .infobox {
+    .avatar, .avatar img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+      p {
+        text-align: center;
+        font-size: 100%;
+      }
+      .title {
+        text-align: center;
+        font-size: 110%;
+      }
+      .quote{
+        background-color: rgb(238, 238, 238);
+        padding: 5px;
+        font-size: 130%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+    }
+  .article{
+    .thumbnail, .thumbnail img {
+      width: 100px;
+      height: 100px;
+    }
+  }
+  .right{
+    witdth: 20%;
+  }
+}
+@media only screen and (min-width: 992px){
+  .infobox {
+    .avatar, .avatar img {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+    }
+      p {
+        text-align: center;
+        font-size: 100%;
+      }
+      .title {
+        text-align: center;
+        font-size: 110%;
+      }
+      .quote{
+        background-color: rgb(238, 238, 238);
+        padding: 5px;
+        font-size: 130%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+      }
+    }
+  .article{
+    .thumbnail, .thumbnail img {
+      width: 300px;
+      height: 300px;
+    }
+  }
+  .right{
+    witdth: 30%;
+  }
+}
