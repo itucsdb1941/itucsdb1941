@@ -1,2 +1,2 @@
-web:qunicorn server:app
-release:python server.py
+web: gunicorn server:app
+release: python server.py
