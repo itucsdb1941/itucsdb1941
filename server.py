@@ -1,13 +1,13 @@
 import sqlite3, psycopg2
 import flask
 import json
-from flask import jsonify, request, render_template
+from flask import jsonify, request, render_template, redirect
 import os
 import psycopg2 as dpapi
 
 #url = "'wezrrgcd' user='wezrrgcd' host='salt.db.elephantsql.com' password='gh4WaN_uVpfMTkAMF3AG-h2nXbbNr1FH' "
 url = os.getenv("DB_URL")
-app = flask.Flask(__name__, template_folder='templates')
+app = flask.Flask(__name__)
 conn = dpapi.connect(url)
 cursor = conn.cursor()
 
@@ -17,7 +17,7 @@ def login():
     cursor.execute("SELECT * FROM personalData")
     data = cursor.fetchall()
     if data:
-        return render_template('index.html')
+        return render_template('templates/index.html', data=data)
 
 
 @app.route('/foods-list', methods=['GET'])
@@ -45,7 +45,7 @@ def get_members():
 
     for i in data:
         res.append(dict(zip(member_keys, i)))
-    return jsonify(res)
+    return redirect(url_for('login-page'))
 
 
 @app.route('/new-password', methods=['GET'])
