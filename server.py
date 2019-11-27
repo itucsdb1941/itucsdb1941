@@ -39,7 +39,7 @@ def get_all_comment():
 @app.route('/login-page', methods=['GET','POST'])
 def get_members():
     if request.method == 'GET':
-        return send_from_directory("angular/dist", 'login-page')
+        return render_template("/login-page/login-page.component.html")
     elif request.method == 'POST':
         res = []
         member_keys = ["memberID", "username", "userPassword", "e_mail", "recoveryQues", "recoveryAns"];
