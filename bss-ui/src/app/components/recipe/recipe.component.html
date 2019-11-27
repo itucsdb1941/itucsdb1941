@@ -1,0 +1,159 @@
+
+
+<!-- Header Area Starts -->
+<header class="header-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-2">
+                <div class="logo-area">
+                    <a href="index.html"><img src="assets/images/logo/logo.png" alt="logo"></a>
+                </div>
+            </div>
+            <div class="col-lg-10">
+                <div class="custom-navbar">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>  
+                <div class="main-menu">
+                    <ul>
+                        <li class="active"><a href="index.html">home</a></li>
+                        <li><a href="about.html">recipes</a>
+                          <ul class="sub-menu">
+                            <li><a (click) = "foodMenu()">food</a></li>
+                            <li><a (click) = "drinkMenu()">drink</a></li>
+                            <li><a (click) = "dessertMenu()">dessert</a></li>
+                        </ul>
+                        </li>
+                        <li><a href="menu.html">sign up</a></li>
+                        <li><a href="#">sign in</a></li>
+                        <li> <i class="fa fa-search" aria-hidden="true"></i><li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- Header Area End -->
+
+    <!-- Receipe Content Area -->
+    <div class="receipe-content-area"  *ngIf="recipes" >
+            <section class="welcome-area section-padding2">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6 align-self-center">
+                                <div class="welcome-img">
+                                    <img src="assets/images/{{recipes[0][0]['Photo']}}" class="img-fluid" alt="">
+                                </div>
+                            </div>
+                            <div class="col-md-6 align-self-center">
+                                <div class="welcome-text mt-5 mt-md-0">
+                                    <h3><span class="style-change">{{recipes[0][0]['Name']}}</span> <br>to food fun</h3>
+                                    <div class="row">
+                                            <div class="col-12 col-md-8">
+                                                <div class="receipe-headline my-5">
+                                                    <div class="receipe-duration">
+                                                        <i class="fa fa-clock-o" aria-hidden="true"> Cook: {{recipes[0][0]['timing']}}</i> <br>
+                                                        <i class="fa fa-globe" aria-hidden="true"> Cuisine: {{recipes[0][0]['cuisine']}}</i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                            
+                                            <div class="col-12 col-md-4">
+                                                <div class="receipe-ratings text-right my-5">
+                                                        <span>April 05, 2018</span>
+                                                    <div class="ratings">
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+        <div class="container">
+             <div class="row" style="margin-top: 50px;">
+                <div class="col-12 col-lg-8" >
+                    <!-- Single Preparation Step -->
+                    <h4> <img src="https://img.icons8.com/bubbles/50/000000/food.png"> Directions</h4>
+                    <div class="single-preparation-step d-flex" >
+                        <p> {{recipes[0][0]['Recipe']}} </p>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-4">
+                    <div>
+                        <h4 >Ingredients</h4>
+                        <span *ngIf="recipes">
+                            <div class="custom-control custom-checkbox" *ngFor = "let recipe of recipes[0]">
+                                <label> {{recipe.amount}} {{recipe.unit}} </label>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+        </div>
+
+
+
+            
+
+
+
+
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading text-left">
+                      <h4><img src="https://img.icons8.com/plasticine/50/000000/speech-bubble-with-dots.png">Leave a comment</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                    <div >
+                            <textarea name="message" class="comment" id="message" cols="30" rows="10" placeholder="Message"></textarea>
+                        
+                    </div>
+                    <div class="rate">
+                        <input type="radio" id="star5" name="rate" value="5" />
+                        <label for="star5" title="text">5 stars</label>
+                        <input type="radio" id="star4" name="rate" value="4" />
+                        <label for="star4" title="text">4 stars</label>
+                        <input type="radio" id="star3" name="rate" value="3" />
+                        <label for="star3" title="text">3 stars</label>
+                        <input type="radio" id="star2" name="rate" value="2" />
+                        <label for="star2" title="text">2 stars</label>
+                        <input type="radio" id="star1" name="rate" value="1" />
+                        <label for="star1" title="text">1 star</label> 
+                    </div>
+                    <div>
+                            <input type="submit">
+                    </div>
+            </div>
+
+            <div style="margin-left: 17px;" class="comment-container theme--light" *ngFor = "let comment of recipes[1]">
+                <div class="comments" >
+                    <div  class="card v-card v-sheet theme--light elevation-2">
+                      <div  class="wrapper comment">
+                        <div  class="header">
+                        <span  class="displayName">{{comment.userName}}</span> <span  class="displayName2 caption">2 days ago</span></div>
+                      <!---->
+                        <p>{{comment.comment}}</p>
+                      </div>
+                      <div  class="actions">
+                      </div>
+                      <div  class="v-dialog__container" style="display: block;"></div>
+                    </div>
+                    <div  class="answers">
+                    </div>
+                </div>
+              </div>
+        </div>
+    </div>

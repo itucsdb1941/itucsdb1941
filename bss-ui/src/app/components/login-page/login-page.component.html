@@ -1,0 +1,28 @@
+
+
+
+<div class="body">
+
+</div>
+		<div class="grad">
+
+		</div>
+		<div class="header">
+			<div>BitterSweetSour</div>
+		</div>
+		<br>
+		<div class="login">
+				<input type="text" placeholder="username" [(ngModel)]="Username" required autofocus><br>
+				<input type="password" placeholder="password"[(ngModel)]="Password" required><br>
+				<input type="button" (click) = "login()" value="Sign In">
+				<div class="error">
+
+					<button class="forgot" (click) = "password()">Forgot password?</button>
+					<label *ngIf = "isCorrect"  >Please try again</label>
+
+				</div>	
+				
+				<button class="btn success" (click) = "sign()" > Create an account.</button>
+		</div>
+
+		
