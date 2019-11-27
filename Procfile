@@ -1,1 +1,2 @@
-web: ./bss-ui npm start
+web: npm start
+release: node server.js
