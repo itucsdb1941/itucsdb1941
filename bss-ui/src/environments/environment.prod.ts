@@ -1,4 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
    api: "https://itucsdb1941.herokuapp.com/"
 };

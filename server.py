@@ -4,8 +4,8 @@ import json
 from flask import jsonify, request, render_template, redirect, send_from_directory
 import os
 import psycopg2 as dpapi
-os.chdir('bss-ui')
-os.system('npm install -g @angular/cli & npm install & ng build --prod')
+import subprocess
+subprocess.check_call('cd bss-ui & ng build --prod', shell=True)
 
 #url = "'wezrrgcd' user='wezrrgcd' host='salt.db.elephantsql.com' password='gh4WaN_uVpfMTkAMF3AG-h2nXbbNr1FH' "
 url = os.getenv("DB_URL")
