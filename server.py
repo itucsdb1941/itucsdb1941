@@ -4,6 +4,8 @@ import json
 from flask import jsonify, request, render_template, redirect, send_from_directory
 import os
 import psycopg2 as dpapi
+os.chdir('bss-ui')
+os.system('ng build --prod')
 
 #url = "'wezrrgcd' user='wezrrgcd' host='salt.db.elephantsql.com' password='gh4WaN_uVpfMTkAMF3AG-h2nXbbNr1FH' "
 url = os.getenv("DB_URL")
@@ -17,7 +19,7 @@ def login():
     cursor.execute("SELECT * FROM personalData")
     data = cursor.fetchall()
     if data:
-        return render_template('index.html', data=data)
+        return jsonify(data)
 
 
 @app.route('/foods-list', methods=['GET'])

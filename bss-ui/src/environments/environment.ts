@@ -1,9 +1,10 @@
-// This file can be replaced during build by using the `fileReplacements` array.
+// This file can be replaced during build by using the `fileReplacements` array..web
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
   production: false
+  api: "https://itucsdb1941.herokuapp.com/"
 };
 
 /*
