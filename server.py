@@ -5,7 +5,8 @@ from flask import jsonify, request, render_template, redirect, send_from_directo
 import os
 import psycopg2 as dpapi
 import subprocess
-subprocess.check_call('cd bss-ui & ng build --prod', shell=True)
+subprocess.call('cd bss-ui', shell=True)
+subprocess.check_call('ng build --prod', shell=True)
 
 #url = "'wezrrgcd' user='wezrrgcd' host='salt.db.elephantsql.com' password='gh4WaN_uVpfMTkAMF3AG-h2nXbbNr1FH' "
 url = os.getenv("DB_URL")
