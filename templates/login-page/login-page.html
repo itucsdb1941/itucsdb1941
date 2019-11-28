@@ -20,8 +20,6 @@
 	<link rel="stylesheet" type="text/css" href="./static/assets/css/jquery.datetimepicker.min.css">
 	<link rel="stylesheet" type="text/css" href="./static/assets/css/style.css">
 
-	<link rel="stylesheet" type="text/css" href="./static/component-css/login-page.css">
-
 	<script src=".static/assets/js/vendor/jquery-2.2.4.min.js"></script>
 	<script src=".static/assets/js/vendor/bootstrap-4.1.3.min.js"></script>
 	<script src=".static/assets/js/vendor/wow.min.js"></script>
@@ -211,13 +209,13 @@ body{
 }
 </style>
 </head>
-<body style="background-image: url('./static/component-css/login.jpg');">
+<body style="background-image: url('./static/login.jpg');">
 	<div class="header">
 		<div>BitterSweetSour</div>
 	</div>
 	<br>
 	<div class="login">
-		<form method="post" action="">
+		<form method="POST" action="/login-page">
 			<input type="text" placeholder="username"  required autofocus><br>
 			<input type="password" placeholder="password"  required><br>
 			<input type="button" value="Sign In">
