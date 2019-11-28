@@ -40,13 +40,18 @@ def get_members():
     if request.method == 'GET':
         return render_template("login-page/login-page.component.html")
     elif request.method == 'POST':
+        if request.form.get("forgotPassword"):
+            return render_template("new-password/new-password.component.html")
         userName = request.form.get("username")
         passWord = request.form.get("password")
         res = []
         member_keys = ["memberID", "username", "userPassword", "e_mail", "recoveryQues", "recoveryAns"];
         cursor.execute("SELECT * FROM members where username = userName and userPassword = passWord")
         data = cursor.fetchall()
-        return render_template("index.html" , username = userName)
+        if data:
+            return render_template("index.html" , username = userName)
+        else:
+            return render_template("login-page/login-page.component.html", error="Please try again!")
 
 
 @app.route('/new-password', methods=['GET'])
