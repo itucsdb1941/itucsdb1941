@@ -22,13 +22,13 @@ def login():
 
 @app.route('/foods-list', methods=['GET'])
 def get_all_comment():
-        res = []
-        comment_keys = ["commentId", "userName", "score", "userComment", "commentDate", "commentLike", "foodID","foodName"];
-        cursor.execute("""SELECT comment.commentID, comment.userName, comment.score, comment.userComment, comment.commentDate, comment.commentLike, food.foodID, food.foodName FROM food
-                        INNER JOIN comment 
-                        ON comment.foodID= food.foodID;
-        """)
-        data = cursor.fetchall()
+    res = []
+    comment_keys = ["commentId", "userName", "score", "userComment", "commentDate", "commentLike", "foodID","foodName"];
+    cursor.execute("""SELECT comment.commentID, comment.userName, comment.score, comment.userComment, comment.commentDate, comment.commentLike, food.foodID, food.foodName FROM food
+                    INNER JOIN comment 
+                    ON comment.foodID= food.foodID;
+    """)
+    data = cursor.fetchall()
     for i in data:
         res.append(dict(zip(comment_keys, i)))
     return jsonify(res)
