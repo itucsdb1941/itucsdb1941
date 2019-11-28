@@ -4,9 +4,6 @@ import json
 from flask import jsonify, request, render_template, redirect, send_from_directory
 import os
 import psycopg2 as dpapi
-import subprocess
-subprocess.call('cd bss-ui', shell=True)
-subprocess.check_call('ng build --prod', shell=True)
 
 #url = "'wezrrgcd' user='wezrrgcd' host='salt.db.elephantsql.com' password='gh4WaN_uVpfMTkAMF3AG-h2nXbbNr1FH' "
 url = os.getenv("DB_URL")
@@ -16,22 +13,22 @@ cursor = conn.cursor()
 
 @app.route('/', methods=['GET'])
 def login():
-    res = []
-    cursor.execute("SELECT * FROM personalData")
-    data = cursor.fetchall()
-    if data:
-        return jsonify(data)
+    if request.method == 'GET':
+        res = []
+        cursor.execute("SELECT * FROM personalData")
+        data = cursor.fetchall()
+        if data:
+            return render_template('index.html')
 
 @app.route('/foods-list', methods=['GET'])
 def get_all_comment():
-    res = []
-    comment_keys = ["commentId", "userName", "score", "userComment", "commentDate", "commentLike", "foodID","foodName"];
-    cursor.execute("""SELECT comment.commentID, comment.userName, comment.score, comment.userComment, comment.commentDate, comment.commentLike, food.foodID, food.foodName FROM food
-                    INNER JOIN comment 
-                    ON comment.foodID= food.foodID;
-    """)
-    data = cursor.fetchall()
-
+        res = []
+        comment_keys = ["commentId", "userName", "score", "userComment", "commentDate", "commentLike", "foodID","foodName"];
+        cursor.execute("""SELECT comment.commentID, comment.userName, comment.score, comment.userComment, comment.commentDate, comment.commentLike, food.foodID, food.foodName FROM food
+                        INNER JOIN comment 
+                        ON comment.foodID= food.foodID;
+        """)
+        data = cursor.fetchall()
     for i in data:
         res.append(dict(zip(comment_keys, i)))
     return jsonify(res)
@@ -41,16 +38,15 @@ def get_all_comment():
 @app.route('/login-page', methods=['GET','POST'])
 def get_members():
     if request.method == 'GET':
-        return render_template("/login-page/login-page.component.html")
+        return render_template("login-page/login-page.component.html")
     elif request.method == 'POST':
+        userName = request.form.get("username")
+        passWord = request.form.get("password")
         res = []
         member_keys = ["memberID", "username", "userPassword", "e_mail", "recoveryQues", "recoveryAns"];
-        cursor.execute("SELECT * FROM members")
+        cursor.execute("SELECT * FROM members where username = userName and userPassword = passWord")
         data = cursor.fetchall()
-
-        for i in data:
-            res.append(dict(zip(member_keys, i)))
-        return jsonify(res)
+        return render_template("index.html" , username = userName)
 
 
 @app.route('/new-password', methods=['GET'])
