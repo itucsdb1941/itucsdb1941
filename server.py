@@ -5,7 +5,7 @@ from flask import jsonify, request, render_template, redirect, send_from_directo
 import os
 import psycopg2 as dpapi
 os.chdir('bss-ui')
-os.system('ng build --prod')
+os.system('npm install & ng build --prod')
 
 #url = "'wezrrgcd' user='wezrrgcd' host='salt.db.elephantsql.com' password='gh4WaN_uVpfMTkAMF3AG-h2nXbbNr1FH' "
 url = os.getenv("DB_URL")
