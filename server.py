@@ -9,7 +9,7 @@ os.system('ng build --prod')
 
 #url = "'wezrrgcd' user='wezrrgcd' host='salt.db.elephantsql.com' password='gh4WaN_uVpfMTkAMF3AG-h2nXbbNr1FH' "
 url = os.getenv("DB_URL")
-app = flask.Flask(__name__, template_folder='templates', static_folder="bss-ui/dist/")
+app = flask.Flask(__name__, template_folder='templates')
 conn = dpapi.connect(url)
 cursor = conn.cursor()
 
@@ -20,7 +20,6 @@ def login():
     data = cursor.fetchall()
     if data:
         return jsonify(data)
-
 
 @app.route('/foods-list', methods=['GET'])
 def get_all_comment():
