@@ -1,7 +1,6 @@
 import sqlite3, psycopg2
 import flask
 import json
-from flask_cors import CORS
 from flask import jsonify, request, render_template, redirect, send_from_directory
 import os
 import psycopg2 as dpapi
