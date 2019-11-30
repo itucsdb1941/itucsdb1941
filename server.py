@@ -9,6 +9,8 @@ import psycopg2 as dpapi
 url = os.getenv("DB_URL")
 conn = dpapi.connect(url)
 cursor = conn.cursor()
+app = flask.Flask(__name__,template_folder="templates")
+
 
 @app.route('/', methods=['GET'])
 def login():
