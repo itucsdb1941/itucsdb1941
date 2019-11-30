@@ -39,7 +39,7 @@ def get_all_comment():
 @app.route('/login-page', methods=['GET','POST'])
 def get_members():
     if request.method == 'GET':
-        return render_template("login-page/login-page.html")
+        return render_template("login-page.html")
     elif request.method == 'POST':
         if request.form.get("forgotPassword"):
             return render_template("index.html")
@@ -52,7 +52,7 @@ def get_members():
         if data:
             return render_template("index.html" , username = userName)
         else:
-            return render_template("login-page/login-page.html", error="Please try again!")
+            return render_template("login-page.html", error="Please try again!")
 
 
 @app.route('/new-password', methods=['GET'])
