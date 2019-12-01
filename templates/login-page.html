@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <base href="/login-page">
+  <base href="/sign-in">
   <meta name="viewport" content="width=device-width, initial-scale=1">
  
 	<!-- Page Title -->
-	<title>BSS | Login Page</title>
+	<title>BSS | Sign In</title>
 	<!-- Favicon -->
 	<link rel="shortcut icon" href="./static/assets/images/logo/favicon.png" type="image/x-icon">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -214,21 +214,22 @@ body{
 	</div>
 	<br>
 	<div class="login">
-		<form method="post" action="login-page">
-			<input type="text" placeholder="username"  required autofocus><br>
-			<input type="password" placeholder="password"  required><br>
-			<input type="button" value="Sign In">
-		</form>
+			<form method="get">
+				<input type="text" name="username" placeholder="username"  required autofocus><br>
+				<input type="password" name="password" placeholder="password"  required><br>
+				<button>Sign In</button>
+			</form>
 		<div class="error">
-
-		<button class="forgot" name="forgotPassword">Forgot password?</button>
-		{% if error %}
-		<label >{{ error }}</label> 
-		{% endif %}
-	
-
-		</div>		
-		<button class="btn success" formaction="/index.html" > Create an account.</button>
+			<form method="get" action="new-password">
+				<button class="forgot" >Forgot password?</button>
+			</form>
+			{% if error %}
+				<label >{{ error }}</label> 
+			{% endif %}
+		</div>
+		<form method="get" action="sign-up">		
+			<button class="btn success" > Create an account.</button>
+		</form>
 	</div>
 
 </body>

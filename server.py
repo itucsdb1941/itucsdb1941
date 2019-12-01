@@ -1,25 +1,21 @@
 import sqlite3, psycopg2
 import flask
 import json
-from flask import jsonify, request, render_template, redirect, send_from_directory
+from flask import jsonify, request, render_template,redirect, url_for, send_from_directory
 import os
 import psycopg2 as dpapi
 
-#url = "dbname='wezrrgcd' user='wezrrgcd' host='salt.db.elephantsql.com' password='gh4WaN_uVpfMTkAMF3AG-h2nXbbNr1FH' "
-url = os.getenv("DB_URL")
+url = "dbname='wezrrgcd' user='wezrrgcd' host='salt.db.elephantsql.com' password='gh4WaN_uVpfMTkAMF3AG-h2nXbbNr1FH' "
+# url = os.getenv("DB_URL")
 conn = dpapi.connect(url)
 cursor = conn.cursor()
 app = flask.Flask(__name__,template_folder="templates")
 
 
 @app.route('/', methods=['GET'])
-def login():
-    if request.method == 'GET':
-        res = []
-        cursor.execute("SELECT * FROM personalData")
-        data = cursor.fetchall()
-        if data:
-            return render_template('index.html')
+def home():
+    user = request.args.get("username")
+    return render_template("index.html", username=user)
 
 @app.route('/foods-list', methods=['GET'])
 def get_all_comment():
@@ -30,29 +26,30 @@ def get_all_comment():
                     ON comment.foodID= food.foodID;
     """)
     data = cursor.fetchall()
+    conn.commit()
     for i in data:
         res.append(dict(zip(comment_keys, i)))
     return jsonify(res)
 
 
 
-@app.route('/login-page', methods=['GET','POST'])
+@app.route('/sign-in', methods=['GET'])
 def get_members():
-    if request.method == 'GET':
-        return render_template("login-page.html")
-    elif request.method == 'POST':
+    userName = request.args.get("username")
+    passWord = request.args.get("password")
+    if userName and passWord:
         if request.form.get("forgotPassword"):
             return render_template("index.html")
-        userName = request.form.get("username")
-        passWord = request.form.get("password")
-        res = []
-        member_keys = ["memberID", "username", "userPassword", "e_mail", "recoveryQues", "recoveryAns"];
-        cursor.execute("SELECT * FROM members where username = userName and userPassword = passWord")
+        cursor.execute("SELECT * FROM members where username=%s and userPassword=%s",(userName,passWord))
         data = cursor.fetchall()
+        conn.commit()
         if data:
-            return render_template("index.html" , username = userName)
+            return redirect(url_for('home',username=userName))
         else:
-            return render_template("login-page.html", error="Please try again!")
+            errors="Please try again!"
+            return redirect(url_for('get_members',error=errors))
+    else :
+        return render_template("login-page.html")
 
 
 @app.route('/new-password', methods=['GET'])
@@ -68,24 +65,32 @@ def newPass():
         return jsonify("empty")
 
 
-@app.route('/sign-register', methods=['GET', 'POST'])
-def post_sign():
-    data = request.data
-    if data:
-        item = json.loads(data)
-        for i in item:
+@app.route('/sign-up', methods=['GET','POST'])
+def signUp():
+    if request.method == 'POST':
+        firstname = request.form.get("FirstName")
+        lastname = request.form.get("LastName")
+        email = request.form.get("Email")
+        username = request.form.get("Username")
+        password = request.form.get("Password")
+        gender = request.form.get("Gender")
+        birthdate = request.form.get("Birthdate")
+        location = request.form.get("Location")
+        rques = request.form.get("RecoveryQuestion")
+        ranswer = request.form.get("RecoveryAnswer")
 
-            cursor.execute("INSERT INTO members (username, userPassword, e_mail, recoveryQues, recoveryAns) VALUES (?,?, ?,?,?)", (i['UserName'], i['Password'], i['Email'], i['RecoveryQuestion'], i['RecoveryAnswer']))
-            cursor.execute("SELECT memberID FROM members WHERE username = ?", [i['UserName']])
-            sql = cursor.fetchone()
-            cursor.execute("INSERT INTO personalData (name, surname, birthdate, sex, location, memberID) "
-                                       "VALUES (?,?,?,?,?,?)", (i['FirstName'], i['LastName'], i['Birthdate'], i['Gender'], i['Location'], sql[0]))
-
+        if firstname and lastname and email and username and password and gender and birthdate and location and rques and ranswer:
+            cursor.execute("INSERT INTO members(username, userpassword, e_mail, recoveryques, recoveryans) VALUES (%s, %s, %s, %s, %s)",(username, password, email, rques, ranswer) )
             conn.commit()
-
-            return jsonify("ok")
-    else:
-        return "empty"
+            cursor.execute("SELECT CURRVAL('members_memberid_seq')")
+            sql = cursor.fetchone()
+            cursor.execute("INSERT INTO personaldata (name, surname, birthdate, sex, location, memberid) "
+                             "VALUES (%s,%s,%s,%s,%s,%s)", (firstname, lastname, birthdate, gender, location, sql[0]))
+            conn.commit()
+            return redirect(url_for('home',username=username))
+        
+    elif request.method == 'GET':
+        return render_template("sign-page.html")
 
 
 @app.route('/food-menu', methods=['GET','POST'])
