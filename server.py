@@ -15,21 +15,43 @@ app = flask.Flask(__name__,template_folder="templates")
 @app.route('/', methods=['GET'])
 def home():
     user = request.args.get("username")
-    return render_template("index.html", username=user)
 
-@app.route('/foods-list', methods=['GET'])
-def get_all_comment():
-    res = []
-    comment_keys = ["commentId", "userName", "score", "userComment", "commentDate", "commentLike", "foodID","foodName"];
-    cursor.execute("""SELECT comment.commentID, comment.userName, comment.score, comment.userComment, comment.commentDate, comment.commentLike, food.foodID, food.foodName FROM food
-                    INNER JOIN comment 
-                    ON comment.foodID= food.foodID;
-    """)
+    cursor.execute("""SELECT pass1.* FROM (SELECT comment.commentid, comment.username, comment.usercomment, comment.commentdate, comment.commentlike, f.foodid, f.foodname, f.foodphoto FROM comment 
+                          JOIN food f ON comment.foodid = f.foodid  ORDER BY commentlike DESC LIMIT 2) as pass1
+                          UNION  
+                          SELECT pass2.* FROM (SELECT comment.commentid, comment.username, comment.usercomment, comment.commentdate, comment.commentlike, d.dessertid, d.dessertname, d.dessertphoto FROM comment 
+                          JOIN dessert d ON comment.dessertid = d.dessertid ORDER BY commentlike DESC LIMIT 1) as pass2
+                          UNION 
+                          SELECT pass3.* FROM (SELECT comment.commentid, comment.username, comment.usercomment, comment.commentdate, comment.commentlike, b.beverageid, b.beveragename, b.beveragephoto FROM comment 
+                          JOIN beverage b ON comment.beverageid = b.beverageid ORDER BY commentlike DESC LIMIT 1) as pass3
+                        """)
     data = cursor.fetchall()
+    print(data)
+    if data:
+        return render_template("index.html", comments=data, username=user)
+    else:
+        return render_template("index.html")
+
+
+@app.route('/profile', methods=['GET'])
+def profile():
+    userID = request.args.get("id")
+
+    cursor.execute("""SELECT members.memberid, personaldata.name, personaldata.surname, personaldata.location, members.e_mail, members.username FROM members 
+                   INNER JOIN personaldata 
+                   ON personaldata.memberid = members.memberid and members.memberid = %s """, (userID))
+
+
+    data = cursor.fetchall()
+
+    print(data)
+
     conn.commit()
-    for i in data:
-        res.append(dict(zip(comment_keys, i)))
-    return jsonify(res)
+    if data:
+        return render_template("profile.html", datam=data)
+    else:
+        return render_template("profile.html")
+
 
 
 
@@ -37,6 +59,7 @@ def get_all_comment():
 def get_members():
     userName = request.args.get("username")
     passWord = request.args.get("password")
+
     if userName and passWord:
         if request.form.get("forgotPassword"):
             return render_template("index.html")
@@ -44,7 +67,7 @@ def get_members():
         data = cursor.fetchall()
         conn.commit()
         if data:
-            return redirect(url_for('home',username=userName))
+            return redirect(url_for('profile',username=userName,id=data[0]))
         else:
             errors="Please try again!"
             return redirect(url_for('get_members',error=errors))
@@ -54,15 +77,28 @@ def get_members():
 
 @app.route('/new-password', methods=['GET'])
 def newPass():
-    data = request.data
-    if data:
-        item = json.loads(data)
-        for i in item:
-            cursor.execute("SELECT * FROM members WHERE username =?", [i['UserName']])
-            old_data = cursor.fetchone()
-            return jsonify(old_data)
-    else:
-        return jsonify("empty")
+
+    userName = request.args.get("username")
+    e_mail = request.args.get("email")
+    answer = request.args.get("Answer")
+
+    if userName and e_mail:
+        cursor.execute("SELECT recoveryques, recoveryans FROM members where username=%s and e_mail=%s",(userName,e_mail))
+        data = cursor.fetchall()
+        conn.commit()
+        
+        if data:
+            return render_template('new-password.html', email=e_mail, username=userName,datam=data)
+            if answer:
+                if(data[0][1] == answer):
+                    return redirect(url_for('home',username=userName))
+
+        else:
+            return redirect(url_for('newPass'))
+
+    else :
+        return render_template("new-password.html")
+
 
 
 @app.route('/sign-up', methods=['GET','POST'])
@@ -93,53 +129,55 @@ def signUp():
         return render_template("sign-page.html")
 
 
-@app.route('/food-menu', methods=['GET','POST'])
-def foods():
-    res = []
-    food_keys = ["foodID", "foodName", "foodPhoto", "cuisine","qualificationID", "timing"];
 
-    cursor = conn.execute("""
-                SELECT food.foodID, food.foodName, food.foodPhoto, qualification.cuisine, qualification.qualificationID, qualification.timing FROM qualification
+
+@app.route('/food-menu', methods=['GET'])
+def foods():
+    cursor.execute("""
+                SELECT food.foodid, food.foodphoto, food.foodname, qualification.cuisine, qualification.timing, qualification.qualificationid  FROM qualification
                 INNER JOIN food
-                ON food.qualificationID = qualification.qualificationID""")
+                ON food.qualificationid = qualification.qualificationid""")
 
     data = cursor.fetchall()
+    print(data)
 
-    for i in data:
-        res.append(dict(zip(food_keys, i)))
-    return jsonify(res)
+    if data:
+        return render_template("food-menu.html", len = len(data), food=data)
+    else:
+        return render_template("food-menu.html")
+
 
 @app.route('/drink-menu', methods=['GET'])
 def drinks():
-    res = []
-    drink_keys = ["beverageID", "beverageName", "beveragePhoto", "cuisine", "qualificationID", "timing"];
 
-    cursor = conn.execute("""
-                SELECT beverage.beverageID, beverage.beverageName, beverage.beveragePhoto, qualification.cuisine, qualification.qualificationID, qualification.timing FROM qualification
+    cursor.execute("""
+                SELECT beverage.beverageid, beverage.beveragephoto, beverage.beveragename,  qualification.cuisine,  qualification.timing, qualification.qualificationid FROM qualification
                 INNER JOIN beverage
-                ON beverage.qualificationID = qualification.qualificationID""")
+                ON beverage.qualificationid = qualification.qualificationid""")
 
     data = cursor.fetchall()
+    print(data)
 
-    for i in data:
-        res.append(dict(zip(drink_keys, i)))
-    return jsonify(res)
+    if data:
+        return render_template("drink-menu.html", len=len(data), drink=data)
+    else:
+        return render_template("drink-menu.html")
 
 @app.route('/dessert-menu', methods=['GET'])
 def desserts():
-    res = []
-    dessert_keys = ["dessertID", "dessertName", "dessertPhoto", "cuisine", "qualificationID", "timing"];
 
-    cursor = conn.execute("""
-                SELECT dessert.dessertID, dessert.dessertName, dessert.dessertPhoto, qualification.cuisine, qualification.qualificationID, qualification.timing FROM qualification
+    cursor.execute("""
+                SELECT dessert.dessertid,  dessert.dessertphoto, dessert.dessertname, qualification.cuisine, qualification.timing, qualification.qualificationid FROM qualification
                 INNER JOIN dessert
-                ON dessert.qualificationID = qualification.qualificationID""")
+                ON dessert.qualificationid = qualification.qualificationid""")
 
     data = cursor.fetchall()
+    print(data)
 
-    for i in data:
-        res.append(dict(zip(dessert_keys, i)))
-    return jsonify(res)
+    if data:
+        return render_template("dessert-menu.html", len=len(data), dessert=data)
+    else:
+        return render_template("dessert-menu.html")
 
 
 @app.route('/recipe/food/<int:id>', methods=['GET'])

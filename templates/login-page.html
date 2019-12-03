@@ -34,7 +34,7 @@ body{
 	margin: 0;
 	padding: 0;
 	background: #fff;
-
+	background-image: url('./static/component-css/back.jpg');
 	color: #fff;
 	font-family: Arial;
 	font-size: 12px;
@@ -42,16 +42,18 @@ body{
 }
 
 .body{
-	position: absolute;
+	position: fixed;
 	top: -20px;
 	left: -20px;
 	right: -40px;
 	bottom: -40px;
 	width: auto;
 	height: auto;
-	background-image: url(login.jpg);
-	background-size: cover;
+	background-image: url('./static/component-css/back.jpg');
+	background-size: contain;
 	-webkit-filter: blur(5px);
+	background-position: center;
+
 	z-index: 0;
 	
 }
@@ -172,6 +174,22 @@ body{
 	margin-top: 50px;
   }
   
+
+  .login-button{
+		width: 250px;
+		height: 35px;
+		background: #b32400;
+		border: 1px solid #b32400;
+		cursor: pointer;
+		border-radius: 4px;
+		color: #eee3d1;
+		font-family: 'Exo', sans-serif;
+		font-size: 16px;
+		font-weight: 400;
+		padding: 6px;
+		margin-top: 10px;
+		}
+
 .success {
 	color: #eee3d1;
   }
@@ -208,7 +226,9 @@ body{
 }
 </style>
 </head>
-<body style="background-image: url('./static/component-css/login.jpg');">
+<body>
+	<div class="body">
+	</div>
 	<div class="header">
 		<div>BitterSweetSour</div>
 	</div>
@@ -217,7 +237,7 @@ body{
 			<form method="get">
 				<input type="text" name="username" placeholder="username"  required autofocus><br>
 				<input type="password" name="password" placeholder="password"  required><br>
-				<button>Sign In</button>
+				<button class="login-button">Sign In</button>
 			</form>
 		<div class="error">
 			<form method="get" action="new-password">

@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang='en'>
+  <meta charset="utf-8">
+  <base href="/sign-up">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+ 
+	<!-- Page Title -->
+	<title>BSS | Sign Up</title>
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="./static/assets/images/logo/favicon.png" type="image/x-icon">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<!-- CSS Files -->
+	<link rel="stylesheet" type="text/css" href="./static/assets/css/animate-3.7.0.css">
+	<link rel="stylesheet" type="text/css" href="./static/assets/css/font-awesome-4.7.0.min.css">
+	<link rel="stylesheet" type="text/css" href="./static/assets/css/bootstrap-4.1.3.min.css">
+	<link rel="stylesheet" type="text/css" href="./static/assets/css/owl-carousel.min.css">
+	<link rel="stylesheet" type="text/css" href="./static/assets/css/jquery.datetimepicker.min.css">
+	<link rel="stylesheet" type="text/css" href="./static/assets/css/style.css">
+
+	<script src="./static/assets/js/vendor/jquery-2.2.4.min.js"></script>
+	<script src="./static/assets/js/vendor/bootstrap-4.1.3.min.js"></script>
+	<script src="./static/assets/js/vendor/wow.min.js"></script>
+	<script src="./static/assets/js/vendor/owl-carousel.min.js"></script>
+	<script src="./static/assets/js/vendor/jquery.datetimepicker.full.min.js"></script>
+	<script src="./static/assets/js/vendor/jquery.nice-select.min.js"></script>
+	<head>
+		<style>
+		@import "bourbon";
+		@import "neat";
+
+		$text-color:#747373;
+		$header-height:60px;
+		html,
+		body {
+		height: 100%;
+		position: relative;
+		background-image: url('./static/component-css/back.jpg');
+		background-position: center;
+		}
+
+		header {
+		position: fixed;
+		width: 100%;
+		margin: 0;
+		padding: 0;
+		top: 0;
+		background:rgba(#d8af83,.8);
+		height: $header-height;
+		padding: 12px 0;
+		z-index: 999;
+		}
+
+		.site-title h1 {
+		margin: 5px 0 0;
+		padding: 0;
+		font-size: 24px;
+		color: #071b0e;
+		}
+
+
+
+		menu {
+		width: 260px;
+		position: fixed;
+		padding:0;
+		z-index: 10;
+		height: calc(100% - 100px);
+		overflow-y: auto;
+		background:rgba(#D6D6D4, .2);
+		box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.2);
+		
+		top: $header-height;
+		left: 50px;
+		margin: 0;
+		overflow-y: auto; 
+		ul {
+			@include span-columns(12);
+			clear: both;
+			float: unset;
+		}
+		> div { 
+			padding:10px;
+		}
+		}
+
+		#filter_text {
+		width: 100%;
+		margin: 0;
+		}
+
+		menu .admin-menu {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		
+		li { 
+			&:first-child{ 
+			border-top:1px solid darken(rgba(#d8af83,.6), 5%);
+			}
+		}
+		li a {
+			clear: both;
+			display: block;
+			padding: 10px;
+			margin: 0;
+			color: #fff;
+			font-size: 12px;
+			letter-spacing: 1px;
+			background: lighten(rgba(#d9b187,.4), .5%);
+			border-bottom: 1px solid darken(rgba(#d9b187,.6), 5%);
+			span {
+			padding: 0 10px 0 0;
+			}
+			&:hover,
+			&:active {
+			@include transition(all 0.2s ease-in-out);
+			text-decoration: none;
+			background: darken(#8be5b1,15%);
+			}
+		}
+		}
+
+		menu .user-profile {
+		padding: 10px;
+		text-align: center;
+		margin-bottom: 5px;
+		float: left;
+		}
+
+		menu .profile-pic {
+		@include span-columns(3);
+		img {
+			width: 100%;
+			height: 65px;
+			margin: 0 auto;
+			border-radius:70%;
+			border: 2px solid #d8af83;
+		}
+		}
+
+		menu .user-info {
+		@include span-columns(9);
+		}
+
+		menu .profile-menu {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		font-size: 16px;
+		
+		li {
+			padding: 0;
+			margin: 0; 
+			@include span-columns(3);
+			@include omega(4n);
+		}
+		a {
+			padding: 10px;
+			color:#8be5b1;
+		}
+		a:hover,
+		a:active {
+			color:#d8af83;
+		}
+		}
+
+		menu .username {
+		font-size: 20px;
+		text-align: left;
+		color:#071b0e;
+		letter-spacing: 1px;
+		padding-left: 20px;
+		}
+
+		menu .filter-form {
+		padding: 10px;
+		}
+
+
+		main {
+		position: relative;
+		width: calc(100% - (260px + 50px));
+		min-height: 100%;
+		height: auto !important;
+		height: 100%;
+		padding: 20px;
+		margin-left: (260px + 50px);
+		margin-top: $header-height;
+		float: left;
+		padding-bottom: $header-height;
+		background: #fbfefc;
+		}
+
+
+		section {
+		@include span-columns(12);
+
+		padding: 20px;
+		margin: 10px 0;
+		
+		}
+
+		//cards
+		.card-content {
+			background: #ffffff;
+			border: 4px;
+			box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+		}
+
+		.card-img {
+			position: relative;
+			overflow: hidden;
+			border-radius: 0;
+			z-index: 1;
+		}
+
+		.card-img img {
+			width: 100%;
+			height: auto;
+			display: block;
+		}
+
+		.card-img span {
+			position: absolute;
+			top: 15%;
+			left: 12%;
+			background: #2ecc71;
+			padding-left:20px;
+			padding:6px;
+			color: #fff;
+			font-size: 15px;
+			border-radius: 4px;
+			-webkit-border-radius: 4px;
+			-moz-border-radius: 4px;
+			-ms-border-radius: 4px;
+			-o-border-radius: 4px;
+			transform: translate(-50%,-50%);
+		}
+		.card-img span h4{
+				font-size: 13px;
+				margin:0;
+				padding:10px 5px;
+				line-height: 0;
+		}
+		.card-desc {
+			padding: 1.25rem;
+		}
+
+		.card-desc h3 {
+			color: #000000;
+			font-weight: 600;
+			font-size: 1.5em;
+			line-height: 1.3em;
+			margin-top: 0;
+			margin-bottom: 5px;
+			padding: 0;
+		}
+
+		.card-desc p {
+			color: #747373;
+			font-size: 14px;
+			font-weight: 400;
+			font-size: 1em;
+			line-height: 1.5;
+			margin: 0px;
+			margin-bottom: 20px;
+			padding: 0;
+			font-family: 'Raleway', sans-serif;
+		}
+		.btn-card{
+			background-color: #2ecc71;
+			color: #fff;
+			box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+			padding: .84rem 2.14rem;
+			font-size: .81rem;
+			-webkit-transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+			transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+			-o-transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+			transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+			transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
+			margin: 0;
+			border: 0;
+			-webkit-border-radius: .125rem;
+			border-radius: .125rem;
+			cursor: pointer;
+			text-transform: uppercase;
+			white-space: normal;
+			word-wrap: break-word;
+			color: #fff;
+		}
+		.btn-card:hover {
+			background: #1abc9c;
+		}
+		a.btn-card {
+			text-decoration: none;
+			color: #fff;
+		}
+		.admin-info
+		{
+			font-size: 14px;
+    		font-family: sans-serif;
+			width: 100%;
+			margin-bottom: -0.5rem !important;
+		}
+		.dynamicMenu{
+			background-color: aliceblue;
+		}
+
+
+		</style>
+	</head>
+	<body>
+		<header class="fixed-header" role="banner">
+			<div class="container-fluid">
+		  
+			  <!-- Site Navigation -->
+			  <div class="top-components col-xs-3 pull-right">
+			  </div>
+			</div>
+		  </header>
+		  
+		  <menu id="user" class="dynamicMenu">
+		  
+			<div class="user-profile">
+			  <div class="user-info">
+				<div class="username">
+					<p>
+						{% if datam %}
+						<form method="get">	
+							<strong><label>{{ datam[0][5] }}</label></strong> 
+
+							<ul>
+								<label class="admin-info">{{ datam[0][1] }} {{ datam[0][2] }}</label>
+								<label class="admin-info">{{ datam[0][3] }} </label>
+								<label class="admin-info">{{ datam[0][4] }} </label>
+							</ul>
+						</form>
+						{% endif %}
+					</p>
+
+				</div>
+				<ul class="profile-menu">
+				  <li><a href="/directory"><span class="glyphicon glyphicon-list-alt" title="Directory Phonebook"></span></a></li>
+				  <li><a href="/help?topic=index"><span class="glyphicon glyphicon-question-sign" title="Help"></span></a></li>
+				  <li><a href="#"><span class="glyphicon glyphicon-cog" title="Settings"></span></a></li>
+				  <li><a href="/login"><span class="glyphicon glyphicon-log-out" title="Log Out / End Session"></span></a></li>
+				</ul>
+			  </div>
+			</div>
+		  
+
+		  </menu>
+		  
+		  <main style="padding-left: 350px;">
+			<section>
+			 <br><br>
+			 <h2>My Recipes</h2>
+			  <br>
+				<div class="row">
+					<div class="col-md-4">
+					<div class="card-content">
+						<div class="card-img">
+						<img src="https://placeimg.com/640/480/nature?t=1558481156602" alt="">
+						<span><h4>heading</h4></span>
+						</div>
+						<div class="card-desc">
+						<h3>Heading</h3>
+						<p>The words nature and natural are used for all the things that are normally not made by humans. Things like weather, organisms, landforms, celestial bodies and much more are part of nature. ...</p>
+						<a href="#" class="btn-card">Read more</a>
+						</div>
+					</div>
+					</div>
+				</div>
+			</section>
+		  </main>
+	</body>
+</html>
+
+
+
+
+
