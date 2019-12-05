@@ -5,8 +5,7 @@ from flask import jsonify, request, render_template,redirect, url_for, send_from
 import os
 import psycopg2 as dpapi
 
-url = "dbname='wezrrgcd' user='wezrrgcd' host='salt.db.elephantsql.com' password='gh4WaN_uVpfMTkAMF3AG-h2nXbbNr1FH'"
-#url = os.getenv("DB_URL")
+url = os.getenv("DB_URL")
 conn = dpapi.connect(url)
 cursor = conn.cursor()
 app = flask.Flask(__name__,template_folder="templates")
@@ -48,8 +47,6 @@ def profile():
 
     data = cursor.fetchall()
 
-    print(data)
-
     conn.commit()
     if data:
         return render_template("profile.html", datam=data)
@@ -70,6 +67,7 @@ def get_members():
         cursor.execute("SELECT * FROM members where username=%s and userPassword=%s",(userName,passWord))
         data = cursor.fetchall()
         conn.commit()
+
         if data:
             return redirect(url_for('profile',username=userName,id=data[0]))
         else:
@@ -88,9 +86,10 @@ def newPass():
 
     if userName and e_mail:
         cursor.execute("SELECT recoveryques, recoveryans FROM members where username=%s and e_mail=%s",(userName,e_mail))
+
         data = cursor.fetchall()
         conn.commit()
-        
+
         if data:
             return render_template('new-password.html', email=e_mail, username=userName,datam=data)
             if answer:
@@ -143,7 +142,6 @@ def foods():
                 ON food.qualificationid = qualification.qualificationid""")
 
     data = cursor.fetchall()
-    print(data)
 
     if data:
         return render_template("food-menu.html", len = len(data), food=data)
@@ -160,7 +158,6 @@ def drinks():
                 ON beverage.qualificationid = qualification.qualificationid""")
 
     data = cursor.fetchall()
-    print(data)
 
     if data:
         return render_template("drink-menu.html", len=len(data), drink=data)
@@ -176,7 +173,6 @@ def desserts():
                 ON dessert.qualificationid = qualification.qualificationid""")
 
     data = cursor.fetchall()
-    print(data)
 
     if data:
         return render_template("dessert-menu.html", len=len(data), dessert=data)
@@ -184,78 +180,61 @@ def desserts():
         return render_template("dessert-menu.html")
 
 
-@app.route('/recipe/food/<int:id>', methods=['GET'])
+@app.route('/recipe/food/<id>', methods=['GET'])
 def foodRecipe(id):
-    total = []
-    res = []
-    recipe = ["ID", "Name", "Photo", "Recipe", "ingreName", "unit", "amount", "cuisine", "qualificationID", "timing"]
 
-    cursor = conn.execute("""
-                SELECT food.foodID, food.foodName, food.foodPhoto, food.foodRecipe, ingredient.ingreName, ingredient.unit, ingredient.amount, qualification.cuisine, qualification.qualificationID, qualification.timing FROM food
-                INNER JOIN  ingredient
-                ON ingredient.foodID = food.foodID AND food.foodID = ?
+    print(id)
+    cursor.execute("""
+                SELECT food.foodid, food.foodname, food.foodphoto, food.foodrecipe, ingredient.ingrename, ingredient.unit, ingredient.amount, qualification.cuisine, qualification.qualificationid, qualification.timing, food.fooddate FROM food
                 INNER JOIN qualification
-                ON food.qualificationID = qualification.qualificationID""", [id])
+                ON food.qualificationid = qualification.qualificationid
+                LEFT JOIN  ingredient
+                ON ingredient.foodid = food.foodid AND food.foodid = %s""", (id))
 
-    data = cursor.fetchall()
+    data = cursor.fetchone()
+    print(data)
 
-    for i in data:
-        res.append(dict(zip(recipe, i)))
+    if data:
+        return render_template("recipe.html", datam=data)
+    else:
+        return render_template("recipe.html")
 
-    res2 = []
-    commentlist = ["ID", "userName", "comment", "date", "like", "dislike"]
 
-    commentData = conn.execute("""SELECT comment.commentID, comment.userName,comment.userComment, comment.commentDate, comment.commentLike, comment.commentDislike FROM comment
-                WHERE comment.foodID = ?""", [id])
-
-    data2 = commentData.fetchall()
-
-    for k in data2:
-        res2.append(dict(zip(commentlist, k)))
-
-    total.append(res)
-    total.append(res2)
-
-    return jsonify(total)
-
-@app.route('/recipe/drink/<int:id>', methods=['GET'])
+@app.route('/recipe/drink/<id>', methods=['GET'])
 def drinkRecipe(id):
 
-    res = []
-    recipe = ["ID", "Name", "Photo", "Recipe", "ingreName", "unit", "amount", "cuisine", "qualificationID", "timing"]
-
-    cursor = conn.execute("""
-                SELECT beverage.beverageID, beverage.beverageName, beverage.beveragePhoto, beverage.beverageRecipe, ingredient.ingreName, ingredient.unit,  ingredient.amount, qualification.cuisine, qualification.qualificationID, qualification.timing FROM beverage
-                INNER JOIN  ingredient
-                ON ingredient.beverageID = beverage.beverageID AND beverage.beverageID = ?
+    cursor.execute("""
+                SELECT beverage.beverageid, beverage.beveragename, beverage.beveragephoto, beverage.beveragerecipe, ingredient.ingrename, ingredient.unit,  ingredient.amount, qualification.cuisine, qualification.qualificationid, qualification.timing,  beverage.beveragedate FROM beverage
                 INNER JOIN qualification
-                ON beverage.qualificationID = qualification.qualificationID""", [id])
+                ON beverage.qualificationid = qualification.qualificationid
+                LEFT JOIN  ingredient
+                ON ingredient.beverageid = beverage.beverageid AND beverage.beverageid = %s """, (id))
 
-    data = cursor.fetchall()
-    for i in data:
-        res.append(dict(zip(recipe, i)))
+    data = cursor.fetchone()
 
-    return jsonify(res)
+    if data:
+        return render_template("recipe.html", datam=data)
+    else:
+        return render_template("recipe.html")
 
 
-@app.route('/recipe/dessert/<int:id>', methods=['GET'])
+@app.route('/recipe/dessert/<id>', methods=['GET'])
 def dessertRecipe(id):
 
-    res = []
-    recipe = ["ID", "Name", "Photo", "Recipe", "ingreName", "unit", "amount", "cuisine", "qualificationID", "timing"];
-
-    cursor = conn.execute("""
-                SELECT dessert.dessertID, dessert.dessertName, dessert.dessertPhoto, dessert.dessertRecipe, ingredient.ingreName, ingredient.unit,  ingredient.amount, qualification.cuisine, qualification.qualificationID, qualification.timing FROM dessert
-                INNER JOIN  ingredient
-                ON ingredient.dessertID = dessert.dessertID AND dessert.dessertID = ?
+    cursor.execute("""
+                SELECT dessert.dessertid, dessert.dessertname, dessert.dessertphoto, dessert.dessertrecipe, ingredient.ingrename, ingredient.unit,  ingredient.amount, qualification.cuisine, qualification.qualificationid, qualification.timing, dessert.dessertdate FROM dessert
                 INNER JOIN qualification
-                ON dessert.qualificationID = qualification.qualificationID""", [id])
+                ON dessert.qualificationid = qualification.qualificationid
+                LEFT JOIN  ingredient
+                ON ingredient.dessertid = dessert.dessertid AND dessert.dessertid = %s""", (id))
 
-    data = cursor.fetchall()
-    for i in data:
-        res.append(dict(zip(recipe, i)))
+    data = cursor.fetchone()
 
-    return jsonify(res)
+    if data:
+        return render_template("recipe.html", datam=data)
+    else:
+        return render_template("recipe.html")
+
 
 if __name__ == '_main_':
     app.run(port=5000, debug=True)

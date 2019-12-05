@@ -1,0 +1,717 @@
+<!doctype html>
+<html lang='en'>
+  <meta charset="utf-8">
+  <base href="/recipe/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+ 
+	<!-- Page Title -->
+	<title>BSS | Recipe</title>
+	<!-- Favicon -->
+	<link rel="shortcut icon" href="./static/assets/images/logo/favicon.png" type="image/x-icon">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+	<!-- CSS Files -->
+	<link rel="stylesheet" type="text/css" href="../static/assets/css/animate-3.7.0.css">
+	<link rel="stylesheet" type="text/css" href="../static/assets/css/font-awesome-4.7.0.min.css">
+	<link rel="stylesheet" type="text/css" href="../static/assets/css/bootstrap-4.1.3.min.css">
+	<link rel="stylesheet" type="text/css" href="../static/assets/css/owl-carousel.min.css">
+	<link rel="stylesheet" type="text/css" href="../static/assets/css/jquery.datetimepicker.min.css">
+	<link rel="stylesheet" type="text/css" href="../static/assets/css/style.css">
+
+	<script src="../static/assets/js/vendor/jquery-2.2.4.min.js"></script>
+	<script src="../static/assets/js/vendor/bootstrap-4.1.3.min.js"></script>
+	<script src="../static/assets/js/vendor/wow.min.js"></script>
+	<script src="../static/assets/js/vendor/owl-carousel.min.js"></script>
+	<script src="../static/assets/js/vendor/jquery.datetimepicker.full.min.js"></script>
+	<script src="../static/assets/js/vendor/jquery.nice-select.min.js"></script>
+	<head>
+		<style>
+		
+				object {
+			display: none;
+		}
+		html, body {
+			height: 100%;
+			width: 100%;
+			margin: 0;
+			padding: 0;
+		}
+		body {
+			background-color: rgb(255, 255, 255);
+			color: rgb(59, 67, 68);
+			font-family: 'Montserrat', sans-serif;
+			background-image: url(http://assets.mugfoundation.com/images/textures/noisy/noisy1px.png);
+		}
+
+
+		
+		h1, h2, h3{
+			margin: 0;
+			padding: 0;
+		}
+		ul, p{
+			margin: 0;
+		}
+		h1,h2 {
+			color: rgb(241, 47, 93);
+		}
+		h1 {
+			font-size: 137.5%;
+		}
+		h2 {
+			font-size: 125%;
+		}
+		h3 {
+			font-size: 100%;
+		}
+		a:link, a:visited{
+			color: rgba(261, 47, 93, 0.8);
+		}
+		a:hover, a:active{
+			color: rgb(241, 47, 93);
+		}
+		.nav{
+			list-style-type: none;
+			padding: 0;
+			border-top: 1.5px solid rgb(59, 67, 68);
+		}
+		.nav a:link, .nav a:visited{
+			text-decoration: none;
+			display: block;
+			border-top: 1px solid rgb(232, 243, 248);
+			padding: 0.5em 0 0.5em 0;
+			color: rgb(66, 148, 182);
+		}
+		.nav a:hover, .nav a:active{
+			background-color: rgba(232, 243, 248, 0.3);
+		}
+		
+		.wrapper{
+			width: 100%;
+			margin: 0 auto 0 auto;
+		}
+		
+		.main{
+			position: relative;
+		}
+		.right{
+			width: 25%;
+			position: absolute;
+			right: 0;
+			top: 0;
+			border-left: 1px solid rgb(59, 67, 68);
+			padding-left: 1%;
+		}
+		.left{
+			position: absolute;
+			left: 0;
+			top: 0;
+			width: 20%;
+			border-right: 1.5px solid rgb(59, 67, 68);
+			margin-right: 1em;
+			padding-right: 1%;
+		}
+			
+		
+		.receipe-headline .receipe-duration {
+			border-left: 3px solid #40ba37;
+			padding: 15px;
+			font-family: "Open Sans", sans-serif;
+			font-size: 14px;
+		}
+
+		.receipe-headline h2 {
+			font-size: 36px;
+			color: #474747;
+			margin-bottom: 30px;
+		}
+		h1, h2, h3, h4, h5, h6 {
+			color: #000000;
+			line-height: 1.3;
+			font-weight: 600;
+		}
+
+		.receipe-ratings i {
+		font-size: 18px;
+		color: #fbb710;
+		padding: 0 3px;
+		}
+		.fa {
+		display: inline-block;
+		font: italic normal normal 17px/1 FontAwesome;
+		-webkit-font-smoothing: antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		color: #9b9b9b;
+		margin-top: 20px;
+		}
+
+		.ingredients .custom-control-label {
+		margin-bottom: 0;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		padding-left: 40px;
+		margin-right: -70px;
+		margin-left: -25px;
+		font-size: 14px;
+		color: #2f2f2f;
+		}
+
+		.ingredients .custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
+		background-color: #40ba37;
+		}
+		.custom-checkbox .custom-control-input:checked~.custom-control-label::before {
+		background-color: #007bff;
+		}
+		.ingredients .custom-checkbox .custom-control-label::before {
+		border-radius: 0;
+		}
+		.custom-control-input:checked~.custom-control-label::before {
+		color: #fff;
+		background-color: #007bff;
+		}
+		.ingredients .custom-control-label::before {
+		width: 30px;
+		height: 30px;
+		background-color: #f3f5f8;
+		}
+		.custom-checkbox .custom-control-label::before {
+		border-radius: .25rem;
+		}
+		.custom-control-label::before {
+		position: absolute;
+		top: .25rem;
+		left: 0;
+		display: block;
+		width: 1rem;
+		height: 1rem;
+		pointer-events: none;
+		content: "";
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		background-color: #dee2e6;
+		}
+		*, ::after, ::before {
+		box-sizing: border-box;
+		}
+
+		.ingredients .custom-control-label::after {
+		top: 10px;
+		left: 5px;
+		width: 20px;
+		height: 20px;
+		}
+		.custom-control-label::after {
+		position: absolute;
+		top: .25rem;
+		left: 0;
+		display: block;
+		width: 1rem;
+		height: 1rem;
+		content: "";
+		background-repeat: no-repeat;
+		background-position: center center;
+		background-size: 50% 50%;
+		}
+		*, ::after, ::before {
+		box-sizing: border-box;
+		}
+
+		.single-preparation-step h4 {
+		color: #474747;
+		-webkit-box-flex: 0;
+		-ms-flex: 0 0 60px;
+		flex: 0 0 60px;
+		max-width: 60px;
+		width: 60px;
+		margin-bottom: 0;
+		}
+
+		p {
+		color: #9b9b9b;
+		font-size: 14px;
+		line-height: 2;
+		font-weight: 400;
+		font-family: "Open Sans", sans-serif;
+		margin-bottom: 1rem;
+		}
+
+		.ingredients h4 {
+		color: #474747;
+		margin-bottom: 30px;
+		font-family: inherit;
+		font-style: normal;
+		font-weight: 600;
+		}
+		.welcome-area .welcome-img {
+		padding-left: 25%;
+		}
+
+
+		.rate {
+		float: left;
+		height: 46px;
+		padding: 0 10px;
+		}
+		.rate:not(:checked) > input {
+		position:absolute;
+		top:-9999px;
+		}
+		.rate:not(:checked) > label {
+		float:right;
+		width:1em;
+		overflow:hidden;
+		white-space:nowrap;
+		cursor:pointer;
+		font-size:30px;
+		color:#ccc;
+		}
+		.rate:not(:checked) > label:before {
+		content: '★ ';
+		}
+		.rate > input:checked ~ label {
+		color: #ffc700;    
+		}
+		.rate:not(:checked) > label:hover,
+		.rate:not(:checked) > label:hover ~ label {
+		color: #deb217;  
+		}
+		.rate > input:checked + label:hover,
+		.rate > input:checked + label:hover ~ label,
+		.rate > input:checked ~ label:hover,
+		.rate > input:checked ~ label:hover ~ label,
+		.rate > label:hover ~ input:checked ~ label {
+		color: #c59b08;
+		}
+
+		.comment {
+			-ms-flex: 0 0 100%;
+			flex: 0 0 100%;
+			position: relative;
+			width: 500px;
+			height: 100px;
+			min-height: 1px;
+			padding-right: 15px;
+			padding-left: 15px;
+		}
+
+
+
+
+		.comment-container {
+		width: 60%;
+		margin: 2rem auto;
+		}
+
+		a {
+		color: #c40030;
+		background-color: transparent;
+		-webkit-text-decoration-skip: objects;
+		}
+
+		.v-btn {
+		align-items: center;
+		border-radius: 2px;
+		display: inline-flex;
+		height: 36px;
+		flex: 0 0 auto;
+		font-size: 14px;
+		font-weight: 700;
+		justify-content: center;
+		margin: 6px 8px;
+		min-width: 88px;
+		outline: 0;
+		text-transform: uppercase;
+		text-decoration: none;
+		transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1), color 1ms;
+		position: relative;
+		vertical-align: middle;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		padding: 0 16px;
+		}
+
+		.v-btn:before {
+		border-radius: inherit;
+		color: inherit;
+		content: "";
+		position: absolute;
+		left: 0;
+		top: 0;
+		height: 100%;
+		opacity: 0.12;
+		transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+		width: 100%;
+		}
+
+		.v-btn:focus,
+		.v-btn:hover {
+		position: relative;
+		}
+
+		.v-btn:focus:before,
+		.v-btn:hover:before {
+		background-color: currentColor;
+		}
+
+		.v-btn__content {
+		align-items: center;
+		border-radius: inherit;
+		color: inherit;
+		display: flex;
+		flex: 1 0 auto;
+		justify-content: center;
+		margin: 0 auto;
+		position: relative;
+		transition: 0.3s cubic-bezier(0.25, 0.8, 0.5, 1);
+		white-space: nowrap;
+		width: inherit;
+		}
+
+		.v-btn:not(.v-btn--depressed):not(.v-btn--flat) {
+		will-change: box-shadow;
+		box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+			0 1px 5px 0 rgba(0, 0, 0, 0.12);
+		}
+
+		.v-btn:not(.v-btn--depressed):not(.v-btn--flat):active {
+		box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+			0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+		}
+
+
+		.v-card {
+		text-decoration: none;
+		}
+
+		.v-card > :first-child:not(.v-btn):not(.v-chip) {
+		border-top-left-radius: inherit;
+		border-top-right-radius: inherit;
+		}
+
+		.v-card > :last-child:not(.v-btn):not(.v-chip) {
+		border-bottom-left-radius: inherit;
+		border-bottom-right-radius: inherit;
+		}
+
+		.v-sheet {
+		display: block;
+		border-radius: 2px;
+		position: relative;
+		}
+
+		.v-dialog__container {
+		display: inline-block;
+		vertical-align: middle;
+		}
+
+		.elevation-2 {
+		box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+			0 1px 5px 0 rgba(0, 0, 0, 0.12) !important;
+		}
+
+
+		.headline {
+		font-weight: 400;
+		letter-spacing: normal !important;
+		font-size: 24px !important;
+		line-height: 32px !important;
+		}
+
+		.title {
+		font-size: 20px !important;
+		font-weight: 700;
+		line-height: 1 !important;
+		letter-spacing: 0.02em !important;
+		}
+
+		.caption {
+		font-weight: 400;
+		font-size: 12px !important;
+		}
+
+		.theme--light.v-btn {
+		color: rgba(0, 0, 0, 0.87);
+		}
+
+		.theme--light.v-btn:not(.v-btn--icon):not(.v-btn--flat) {
+		background-color: #f5f5f5;
+		}
+
+		.theme--light .v-card {
+		box-shadow: rgba(0, 0, 0, 0.11) 0 15px 30px 0px,
+			rgba(0, 0, 0, 0.08) 0 5px 15px 0 !important;
+		}
+
+		.theme--light.application .v-card {
+		box-shadow: 0 15px 30px 0 rgba(0, 0, 0, 0.11),
+			0 5px 15px 0 rgba(0, 0, 0, 0.08) !important;
+		color: #102c3c !important;
+		}
+
+		.theme--light.v-card,
+		.theme--light.v-sheet {
+		background-color: #fff;
+		border-color: #fff;
+		color: rgba(0, 0, 0, 0.87);
+		}
+
+		a,
+		a:hover {
+		text-decoration: none !important;
+		}
+
+		.wrapper {
+		overflow: auto;
+		}
+
+		.answers {
+		padding-left: 64px;
+		}
+
+		.comment {
+		overflow-y: auto;
+		margin-left: 32px;
+		margin-right: 16px;
+		}
+
+		.comment p {
+		font-size: 14px;
+		margin-bottom: 7px;
+		}
+
+		.displayName {
+		margin-right: 170px;
+		}
+		.displayName2 {
+		margin-right: 50px;
+		}
+		.actions {
+		display: flex;
+		flex: 1;
+		flex-direction: row;
+		justify-content: flex-end;
+		}
+
+		.google-span[data-v-35838f51] {
+		font-size: 14px;
+		color: rgba(0, 0, 0, 0.54);
+		}
+
+		.google-button[data-v-35838f51] {
+		background-color: #fff;
+		height: 40px;
+		margin: 0;
+		}
+
+		.headline {
+		margin-left: 32px;
+		}
+
+		.sign-in-wrapper {
+		margin-top: 16px;
+		margin-left: 32px;
+		}
+
+
+		.error-message {
+		font-style: oblique;
+		color: #c40030;
+		}
+
+		::-moz-selection,
+		::selection {
+		background-color: #b3d4fc;
+		color: #000;
+		text-shadow: none;
+		}
+
+		.card,
+		.card {
+		padding: 32px 16px;
+		margin-bottom: 32px;
+		display: flex;
+		flex-direction: column;
+		}
+
+		.application a,
+		[type="button"],
+		button {
+		cursor: pointer;
+		}
+
+		@media screen and (max-width: 640px) {
+		.comment-container {
+			width: 90%;
+		}
+		.comments {
+			padding: 32px;
+		}
+		}
+		.header-area {
+			width: 100%;
+			background: #ece3e3 !important;
+			}
+
+			.header{
+			position: absolute;
+			top: calc(50% - 35px);
+			left: calc(42% - 255px);
+			z-index: 2;
+			}
+
+			.header div{
+			float: left;
+			color: #fff;
+			font-family: 'Exo', sans-serif;
+			font-size: 35px;
+			font-weight: 200;
+			}
+
+
+			::-webkit-input-placeholder{
+			color: rgba(255,255,255,0.6);
+			}
+
+			::-moz-input-placeholder{
+			color: rgba(255,255,255,0.6);
+			}
+
+			.testimonial-area .testimonial-slider.owl-carousel .single-slide {
+			background: #fff;
+			background-repeat: no-repeat;
+			background-position: top right;
+			padding: 30px;
+			-webkit-border-radius: 3px;
+			-moz-border-radius: 3px;
+			-ms-border-radius: 3px;
+			-o-border-radius: 3px;
+			border-radius: 3px;
+			height: 190px !important;
+			}
+			h6 {
+			color: #fff;
+			font-size: 16px !important;
+			font-family: "Roboto",sans-serif;
+			font-weight: 300;
+			text-transform: uppercase;
+			margin-top: -150px;
+			}
+			.section-padding4 {
+			padding: 100px 0 200px;
+			}
+			.row {
+			display: -ms-flexbox;
+			display: flex;
+			-ms-flex-wrap: wrap;
+			flex-wrap: wrap;
+			margin-right: -15px;
+			margin-left: -15px;
+			}
+
+
+		</style>
+	</head>
+	<body>
+			<header class="header-area">
+					<div class="container">
+						<div class="row">
+							<div class="col-lg-2">
+								<div class="logo-area">
+								</div>
+							</div>
+							<div class="col-lg-10">
+								<div class="custom-navbar">
+									<span></span>
+									<span></span>
+									<span></span>
+								</div>  
+								<div class="main-menu">
+									<ul>
+										<li class="active"><a href="index.html">home</a></li>
+										<li><a href="about.html">recipes</a>
+										  <ul class="sub-menu">
+											<li><a href="/food-menu">food</a></li>
+											<li><a href="/drink-menu">drink</a></li>
+											<li><a href="/dessert-menu">dessert</a></li>
+										</ul>
+										</li>
+										<li><a href="/sign-up">sign up</a></li>
+										<li><a href="/sign-in">sign in</a></li>
+										<li> <i class="fa fa-search" aria-hidden="true"></i><li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</header>
+	{% if datam %}
+    <div class="receipe-content-area">
+		
+            <section class="welcome-area section-padding2">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-6 align-self-center">
+                                <div class="welcome-img">
+                                    <img src="../static/assets/images/{{datam[2]}}" >
+                                </div>
+                            </div>
+                            <div class="col-md-6 align-self-center">
+                                <div class="welcome-text mt-5 mt-md-0">
+                                    <h3><span class="style-change">{{datam[1]}}</span> <br>to food fun</h3>
+                                    <div class="row">
+                                            <div class="col-12 col-md-8">
+                                                <div class="receipe-headline my-5">
+                                                    <div class="receipe-duration">
+                                                        <i class="fa fa-clock-o" aria-hidden="true"> Cook: {{datam[9]}}</i> <br>
+                                                        <i class="fa fa-globe" aria-hidden="true"> Cuisine: {{datam[7]}}</i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                            
+                                            <div class="col-12 col-md-4">
+                                                <div class="receipe-ratings text-right my-5">
+                                                    <div class="ratings">
+														<span>{{datam[10]}}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+        <div class="container">
+             <div class="row" style="margin-top: 50px;">
+                <div class="col-12 col-lg-8" >
+                    <!-- Single Preparation Step -->
+                    <h4> <img src="https://img.icons8.com/bubbles/50/000000/food.png"> Directions</h4>
+                    <div class="single-preparation-step d-flex" >
+                        <p> {{datam[3]}} </p>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-4">
+                    <div>
+                        <h4 >Ingredients</h4>
+                        <span>
+                            <div class="custom-control custom-checkbox">
+                                <label> </label>
+                            </div>
+                        </span>
+                    </div>
+                </div>
+        </div>
+            
+        </div>
+    </div>
+
+	{% endif %}
+
+	</body>
+</html>
+
