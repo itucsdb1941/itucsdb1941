@@ -5,8 +5,8 @@ from flask import jsonify, request, render_template,redirect, url_for, send_from
 import os
 import psycopg2 as dpapi
 
-
-url = os.getenv("DB_URL")
+url = "dbname='wezrrgcd' user='wezrrgcd' host='salt.db.elephantsql.com' password='gh4WaN_uVpfMTkAMF3AG-h2nXbbNr1FH'"
+#url = os.getenv("DB_URL")
 conn = dpapi.connect(url)
 cursor = conn.cursor()
 app = flask.Flask(__name__,template_folder="templates")
@@ -25,10 +25,14 @@ def home():
                           SELECT pass3.* FROM (SELECT comment.commentid, comment.username, comment.usercomment, comment.commentdate, comment.commentlike, b.beverageid, b.beveragename, b.beveragephoto FROM comment 
                           JOIN beverage b ON comment.beverageid = b.beverageid ORDER BY commentlike DESC LIMIT 1) as pass3
                         """)
+
     data = cursor.fetchall()
-    print(data)
-    if data:
-        return render_template("index.html", comments=data, username=user)
+
+   # cursor.execute("SELECT food.foodid, food.foodname, food.foodrecipe, food.foodphoto, food.foodtype, food.foodscore FROM food ORDER BY foodscore ASC LIMIT 1")
+   # data2 = cursor.fetchall()
+   # print(data2);
+    if data :
+        return render_template("index.html", comments =data, username=user)
     else:
         return render_template("index.html")
 
