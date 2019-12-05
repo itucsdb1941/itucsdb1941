@@ -7,7 +7,7 @@
 	<!-- Page Title -->
 	<title>BSS | Home Page</title>
 	<!-- Favicon -->
-	<link rel="shortcut icon" href="./static/assets/images/logo/favicon.png" type="image/x-icon">
+	<link rel="shortcut icon" href="./static/fav.png" type="image/x-icon">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 	<!-- CSS Files -->
@@ -44,8 +44,19 @@
 			background: #ece3e3 !important;
 			}
 			.header-area {
-			width: 100%;
-			background: #ece3e3 !important;
+			
+				width: 80%;
+				background: #d3d8ff73;
+				background-image: initial;
+				background-position-x: initial;
+				background-position-y: initial;
+				background-size: initial;
+				background-repeat-x: initial;
+				background-repeat-y: initial;
+				background-attachment: initial;
+				background-origin: initial;
+				background-clip: initial;
+				background-color: rgba(211, 216, 255, 0.45);
 			}
 
 			.body{
@@ -133,19 +144,58 @@
 			margin-right: -15px;
 			margin-left: -15px;
 			}
+			.logo{
+				z-index: 10000;
+				width: 190px;
+				height: 150px ;
+				position: absolute;
+				left: 17%;
+				top: -2.5%;
+			}
+			.main-menu ul li a {
+				color: #ffffff !important;
+				font-family: "Roboto",sans-serif;
+				text-transform: uppercase;
+				font-size: 14px;
+				font-weight: 600;
+				display: inline-block;
+				padding: 15px;
+				}
+			.main-menu ul li ul.sub-menu {
+				padding: 10px;
+				filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+				opacity: 0;
+				visibility: hidden;
+				position: absolute;
+			    margin-top: 37px;
+				left: 11px;
+				width: 130px;
+				background: #d3d8ff73;
+				background-image: initial;
+				background-position-x: initial;
+				background-position-y: initial;
+				background-size: initial;
+				background-repeat-x: initial;
+				background-repeat-y: initial;
+				background-attachment: initial;
+				background-origin: initial;
+				background-clip: initial;
+				background-color: rgba(211, 216, 255, 0.45);
+				z-index: 2;
+				-webkit-transition: .5s;
+				-moz-transition: .5s;
+				-o-transition: .5s;
+				transition: .5s;
+			}
 
 		</style>
 	</head>
 	<body>
-
+			<img src="./static/myLogom.png" class="logo" alt="bitter sweet sour" />
 			<header class="header-area">
 					<div class="container">
 						<div class="row">
-							<div class="col-lg-2">
-								<div class="logo-area">
-								</div>
-							</div>
-							<div class="col-lg-10">
+							<div class="col-md-12 col-xs-12 col-sm-12">
 								<div class="custom-navbar">
 									<span></span>
 									<span></span>
