@@ -5,7 +5,6 @@ from flask import jsonify, request, render_template,redirect, url_for, send_from
 import os
 import psycopg2 as dpapi
 
-
 url = os.getenv("DB_URL")
 conn = dpapi.connect(url)
 cursor = conn.cursor()
@@ -44,6 +43,7 @@ def profile():
 
 
     data = cursor.fetchall()
+    print(data)
 
     conn.commit()
     if data:
@@ -181,7 +181,6 @@ def desserts():
 @app.route('/recipe/food/<id>', methods=['GET'])
 def foodRecipe(id):
 
-    print(id)
     cursor.execute("""
                 SELECT food.foodid, food.foodname, food.foodphoto, food.foodrecipe, ingredient.ingrename, ingredient.unit, ingredient.amount, qualification.cuisine, qualification.qualificationid, qualification.timing, food.fooddate FROM food
                 INNER JOIN qualification
