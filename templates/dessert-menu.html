@@ -324,8 +324,9 @@
 							</div>
 							<div class="food-content">
 								<div class="d-flex justify-content-between">
-									<h5 routerLink ="/recipe/dessert/{{dessert[i][0]}}" >{{dessert[i][2]}}</h5>  
-									
+									<form method="get">
+										<a href="/recipe/dessert/{{dessert[i][0]}}">{{dessert[i][2]}}</a>  
+									</form>
 									<i class="fa fa-clock-o" aria-hidden="true" style="font-size: 20px;"> {{dessert[i][3]}}</i>
 								</div>
 								<i class="fa fa-globe" aria-hidden="true">{{dessert[i][4]}}</i>
