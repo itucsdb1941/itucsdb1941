@@ -10,6 +10,7 @@ conn = dpapi.connect(url)
 cursor = conn.cursor()
 app = flask.Flask(__name__,template_folder="templates")
 
+ingreList = [];
 
 @app.route('/', methods=['GET'])
 def home():
@@ -234,6 +235,60 @@ def dessertRecipe(id):
         return render_template("recipe.html", datam=data)
     else:
         return render_template("recipe.html")
+
+@app.route('/add-food', methods=['GET','POST'])
+def post_food():
+    if request.method == 'POST':
+        membername = request.form.get("membername")
+        foodname = request.form.get('foodname')
+        foodtime = request.form.get('foodtime')
+        foodcalorie = request.form.get('foodcalorie')
+        foodcountry = request.form.get('foodcountry')
+        foodtype = request.form.get('foodtype')
+        fooddate = request.form.get('fooddate')
+        foodserve = request.form.get('foodserve')
+        foodrecipe = request.form.get('foodrecipe')
+        foodcategory = request.form.get('foodcategory')
+
+        if foodname and foodtime and foodcalorie and fooddate and foodserve and foodrecipe:
+            cursor.execute("INSERT INTO qualification(cuisine, timing, category, calori, serve) VALUES(%s,%s,%s,%s,%s) RETURNING qualificationid",
+                              (foodcountry, foodtime, foodcategory, foodcalorie, foodserve))
+            qualificationId = cursor.fetchone()[0]
+            conn.commit()
+
+            cursor.execute("INSERT INTO food(foodname, foodrecipe, foodphoto, foodtype, qualificationid, memberid, fooddate) VALUES (%s,%s,%s,%s,%s,%s,%s) RETURNING foodid" ,
+                        (foodname, foodrecipe, "", foodtype, qualificationId, 1, fooddate))
+            foodID = cursor.fetchone()[0]
+            print("food" , foodID)
+            conn.commit()
+
+        i = 0
+        while request.form.get("ingrename" + str(i)) :
+            ingreFlavor = ""
+            ingreallergenic = False
+            ingrename = request.form.get("ingrename" + str(i))
+            ingreamount = request.form.get("ingreamount" + str(i))
+            ingreunit = request.form.get("ingreunit" + str(i))
+            if request.form.get("ingreallegernic" + str(i)):
+                ingreallergenic = True
+            if request.form.get("flavorHot" + str(i)):
+                ingreFlavor = ingreFlavor + "Hot"
+            if request.form.get("flavorSweet" + str(i)):
+                ingreFlavor = ingreFlavor + ",Sweet"
+            if request.form.get("flavorSour" + str(i)):
+                ingreFlavor = ingreFlavor + ",Sour"
+
+            cursor.execute("INSERT INTO ingredient(ingrename, unit, amount, allergenic, flavor, foodid) VALUES (%s,%s,%s,%s,%s,%s)",
+                (ingrename, ingreunit, ingreamount, ingreallergenic, ingreFlavor, foodID))
+
+            i = i + 1
+            conn.commit()
+
+
+        return render_template("add-food.html" , result="ok")
+    else:
+        return render_template("add-food.html" )
+
 
 
 if __name__ == '_main_':
