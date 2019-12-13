@@ -1,68 +1,100 @@
 import sqlite3, psycopg2
 import flask
 import json
+from flask import jsonify, request, render_template,redirect, url_for, send_from_directory, session
 from flask import jsonify, request, render_template,redirect, url_for, send_from_directory
+from werkzeug.utils import secure_filename
+
 import os
 import psycopg2 as dpapi
 
 url = "dbname='wezrrgcd' user='wezrrgcd' host='salt.db.elephantsql.com' password='gh4WaN_uVpfMTkAMF3AG-h2nXbbNr1FH' "
 
+
 #url = os.getenv("DB_URL")
 conn = dpapi.connect(url)
 cursor = conn.cursor()
 app = flask.Flask(__name__,template_folder="templates")
+app.secret_key = "sdsgchg"
 
 ingreList = [];
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+UPLOAD_FOLDER = 'static/assets/images/'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+
+def allowed_file(filename):
+    print("filename",filename)
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route('/', methods=['GET'])
 def home():
     user = request.args.get("username")
 
-    cursor.execute("""SELECT pass1.* FROM (SELECT comment.commentid, comment.title, comment.usercomment, comment.commentdate, comment.commentlike, f.foodid, f.foodname, f.foodphoto FROM comment 
-                          JOIN food f ON comment.foodid = f.foodid  ORDER BY commentlike DESC LIMIT 2) as pass1
-                          UNION  
-                          SELECT pass2.* FROM (SELECT comment.commentid, comment.title, comment.usercomment, comment.commentdate, comment.commentlike, d.dessertid, d.dessertname, d.dessertphoto FROM comment 
-                          JOIN dessert d ON comment.dessertid = d.dessertid ORDER BY commentlike DESC LIMIT 1) as pass2
-                          UNION 
-                          SELECT pass3.* FROM (SELECT comment.commentid, comment.title, comment.usercomment, comment.commentdate, comment.commentlike, b.beverageid, b.beveragename, b.beveragephoto FROM comment 
-                          JOIN beverage b ON comment.beverageid = b.beverageid ORDER BY commentlike DESC LIMIT 1) as pass3
+    cursor.execute("""SELECT comment.commentid, comment.title, comment.usercomment, comment.commentdate, comment.commentlike, f.foodid, f.foodname, f.foodphoto, m.username FROM comment 
+                          JOIN food f ON comment.foodid = f.foodid JOIN members m on comment.memberid = m.memberid  ORDER BY comment.commentlike DESC NULLS LAST LIMIT 2     
                         """)
-
     data = cursor.fetchall()
+
+    cursor.execute("""SELECT comment.commentid, comment.title, comment.usercomment, comment.commentdate, comment.commentlike, d.dessertid, d.dessertname, d.dessertphoto, m.username FROM comment 
+                          JOIN dessert d ON comment.dessertid = d.dessertid JOIN members m on comment.memberid = m.memberid ORDER BY comment.commentlike DESC NULLS LAST """)
+    data2 = cursor.fetchone()
+
+    cursor.execute("""SELECT comment.commentid, comment.title, comment.usercomment, comment.commentdate, comment.commentlike, b.beverageid, b.beveragename, b.beveragephoto, m.username FROM comment 
+                              JOIN beverage b ON comment.beverageid = b.beverageid JOIN members m on comment.memberid = m.memberid ORDER BY comment.commentlike DESC NULLS LAST """)
+    data3 = cursor.fetchone()
+
+    cursor.execute("""SELECT  food.foodid, food.foodname, food.foodrecipe, food.foodphoto, food.fooddate FROM food 
+                            ORDER BY food.fooddate ASC NULLS LAST """)
+    data4 = cursor.fetchone()
+
+    cursor.execute("""SELECT  dessert.dessertid, dessert.dessertname, dessert.dessertrecipe, dessert.dessertphoto, dessert.dessertdate FROM dessert 
+                                ORDER BY dessert.dessertdate ASC NULLS LAST """)
+    data5 = cursor.fetchone()
+
+    cursor.execute("""SELECT  beverage.beverageid, beverage.beveragename, beverage.beveragerecipe, beverage.beveragephoto, beverage.beveragedate FROM beverage 
+                                ORDER BY beverage.beveragedate ASC NULLS LAST """)
+    data6 = cursor.fetchone()
 
    # cursor.execute("SELECT food.foodid, food.foodname, food.foodrecipe, food.foodphoto, food.foodtype, food.foodscore FROM food ORDER BY foodscore ASC LIMIT 1")
    # data2 = cursor.fetchall()
-   # print(data2);
-    if data :
-        return render_template("index.html", comments =data, username=user)
+
+    username = ""
+    if 'username' in session:
+        username = session['username']
+
+    if data and data2 and data3 and data4 and data5 and data6:
+        return render_template("index.html", comment1 =data[0], comment2=data2, comment3=data3, comment4 =data[1], beverage=data6, food= data4, dessert= data5, username=username)
     else:
         return render_template("index.html")
 
-
 @app.route('/profile', methods=['GET'])
 def profile():
-    userID = request.args.get("id")
 
-    cursor.execute("""SELECT members.memberid, personaldata.name, personaldata.surname, personaldata.location, members.e_mail, members.username FROM members 
-                   INNER JOIN personaldata 
-                   ON personaldata.memberid = members.memberid and members.memberid = %s """, (userID))
+
+    if "id" in session:
+        print(session["id"])
+        cursor.execute("""SELECT members.memberid, personaldata.name, personaldata.surname, personaldata.location, members.e_mail, members.username FROM members 
+                       INNER JOIN personaldata 
+                       ON personaldata.memberid = members.memberid and members.memberid = %s """, str(session["id"]))
     data = cursor.fetchall()
+
 
     cursor.execute(""" SELECT food.foodid, food.foodphoto, food.foodname, qualification.cuisine, qualification.timing, qualification.qualificationid, food.foodrecipe FROM qualification
                 INNER JOIN food
-                ON food.qualificationid = qualification.qualificationid and food.memberid = %s""", (userID))
+                ON food.qualificationid = qualification.qualificationid and food.memberid = %s""", str(session["id"]))
 
     foods = cursor.fetchall()
 
     cursor.execute(""" SELECT dessert.dessertid, dessert.dessertphoto, dessert.dessertname, qualification.cuisine, qualification.timing, qualification.qualificationid, dessert.dessertrecipe FROM qualification
                     INNER JOIN dessert
-                    ON dessert.qualificationid = qualification.qualificationid and dessert.memberid = %s""", (userID))
+                    ON dessert.qualificationid = qualification.qualificationid and dessert.memberid = %s""", str(session["id"]))
 
     desserts = cursor.fetchall()
 
     cursor.execute(""" SELECT beverage.beverageid, beverage.beveragephoto, beverage.beveragename, qualification.cuisine, qualification.timing, qualification.qualificationid, beverage.beveragerecipe FROM qualification
                     INNER JOIN beverage
-                    ON beverage.qualificationid = qualification.qualificationid and beverage.memberid = %s""", (userID))
+                    ON beverage.qualificationid = qualification.qualificationid and beverage.memberid = %s""", str(session["id"]))
 
     drinks = cursor.fetchall()
 
@@ -74,10 +106,10 @@ def profile():
         return render_template("profile.html")
 
 
-
-
 @app.route('/sign-in', methods=['GET'])
 def get_members():
+    if 'id' in session:
+        return redirect(url_for('profile'))
     userName = request.args.get("username")
     passWord = request.args.get("password")
 
@@ -85,11 +117,13 @@ def get_members():
         if request.form.get("forgotPassword"):
             return render_template("index.html")
         cursor.execute("SELECT * FROM members where username=%s and userPassword=%s",(userName,passWord))
-        data = cursor.fetchall()
+        data = cursor.fetchone()
         conn.commit()
 
         if data:
-            return redirect(url_for('profile',username=userName,id=data[0]))
+            session["username"]= userName
+            session["id"] = data[0]
+            return redirect(url_for('profile'))
         else:
             errors="Please try again!"
             return redirect(url_for('get_members',error=errors))
@@ -99,7 +133,8 @@ def get_members():
 
 @app.route('/new-password', methods=['GET'])
 def newPass():
-
+    if 'id' in session:
+        return redirect(url_for('home'))
     userName = request.args.get("username")
     e_mail = request.args.get("email")
     answer = request.args.get("Answer")
@@ -126,6 +161,9 @@ def newPass():
 
 @app.route('/sign-up', methods=['GET','POST'])
 def signUp():
+    if 'id' in session:
+        return redirect(url_for('home'))
+
     if request.method == 'POST':
         firstname = request.form.get("FirstName")
         lastname = request.form.get("LastName")
@@ -162,9 +200,11 @@ def foods():
                 ON food.qualificationid = qualification.qualificationid""")
 
     data = cursor.fetchall()
-
+    username = ""
+    if 'username' in session:
+        username = session['username']
     if data:
-        return render_template("food-menu.html", len = len(data), food=data)
+        return render_template("food-menu.html", len = len(data), food=data, username=username)
     else:
         return render_template("food-menu.html")
 
@@ -178,9 +218,11 @@ def drinks():
                 ON beverage.qualificationid = qualification.qualificationid""")
 
     data = cursor.fetchall()
-
+    username = ""
+    if 'username' in session:
+        username = session['username']
     if data:
-        return render_template("drink-menu.html", len=len(data), drink=data)
+        return render_template("drink-menu.html", len=len(data), drink=data, username=username)
     else:
         return render_template("drink-menu.html")
 
@@ -193,9 +235,11 @@ def desserts():
                 ON dessert.qualificationid = qualification.qualificationid""")
 
     data = cursor.fetchall()
-
+    username = ""
+    if 'username' in session:
+        username = session['username']
     if data:
-        return render_template("dessert-menu.html", len=len(data), dessert=data)
+        return render_template("dessert-menu.html", len=len(data), dessert=data, username=username)
     else:
         return render_template("dessert-menu.html")
 
@@ -228,8 +272,11 @@ def foodRecipe(id):
         cursor.execute("SELECT ingredient.ingrename, ingredient.unit, ingredient.amount FROM ingredient INNER JOIN food ON ingredient.foodid = food.foodid AND food.foodid = %s """,(id))
         data3 = cursor.fetchall()
 
+        username = ""
+        if 'username' in session:
+            username = session['username']
         if data:
-                return render_template("recipe.html",  len=len(data2), len2=len(data3), datam=data , comment=data2, ingre=data3)
+                return render_template("recipe.html",  len=len(data2), len2=len(data3), datam=data , comment=data2, ingre=data3, username=username)
 
 
     return render_template("recipe.html")
@@ -269,11 +316,17 @@ def drinkRecipe(id):
             (id))
         data3 = cursor.fetchall()
 
+        username = ""
+        if 'username' in session:
+            username = session['username']
+
         if data:
             return render_template("recipe.html", len=len(data2), len2=len(data3), datam=data, comment=data2,
-                                   ingre=data3)
+                                   ingre=data3, username=username)
 
     return render_template("recipe.html")
+
+
 
 
 @app.route('/recipe/dessert/<id>', methods=['GET', 'POST'])
@@ -311,11 +364,14 @@ def dessertRecipe(id):
             (id))
         data3 = cursor.fetchall()
 
+        if 'username' in session:
+            username = session['username']
         if data:
             return render_template("recipe.html", len=len(data2), len2=len(data3), datam=data, comment=data2,
-                                   ingre=data3)
+                                   ingre=data3, username=username)
 
     return render_template("recipe.html")
+
 
 @app.route('/add-food', methods=['GET','POST'])
 def post_food():
@@ -331,6 +387,7 @@ def post_food():
         foodserve = request.form.get('foodserve')
         foodrecipe = request.form.get('foodrecipe')
         foodcategory = request.form.get('foodcategory')
+        foodphoto = request.form.get('foodphoto')
 
         if foodname and foodtime and foodcalorie and fooddate and foodserve and foodrecipe:
             cursor.execute("INSERT INTO qualification(cuisine, timing, category, calori, serve) VALUES(%s,%s,%s,%s,%s) RETURNING qualificationid",
@@ -339,7 +396,7 @@ def post_food():
             conn.commit()
 
             cursor.execute("INSERT INTO food(foodname, foodrecipe, foodphoto, foodtype, qualificationid, memberid, fooddate) VALUES (%s,%s,%s,%s,%s,%s,%s) RETURNING foodid" ,
-                        (foodname, foodrecipe, "", foodtype, qualificationId, 1, fooddate))
+                        (foodname, foodrecipe, foodphoto, foodtype, qualificationId, 1, fooddate))
             foodID = cursor.fetchone()[0]
             print("food" , foodID)
             conn.commit()
@@ -372,6 +429,31 @@ def post_food():
         return render_template("add-food.html" )
 
 
+
+@app.route('/file-upload', methods=['POST'])
+def upload_file():
+    print(request.files)
+    content_length = request.content_length
+    print(f"Content_length : {content_length}")
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            print('No file part')
+            return jsonify ({ " text" : " No File"})
+
+        file = request.files['file']
+        print(file.filename)
+        # if user does not select file, browser also
+        # submit an empty part without filename
+        if file.filename == '':
+            print('No selected file')
+            return jsonify ({ " text" : " File hasn't selected"})
+        print(allowed_file(file.filename))
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            return jsonify ({ " text" : " File Uploaded Successfully"})
+        return ""
 
 if __name__ == '_main_':
     app.run(port=5000, debug=True)
