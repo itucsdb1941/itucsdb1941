@@ -46,16 +46,30 @@ def profile():
     cursor.execute("""SELECT members.memberid, personaldata.name, personaldata.surname, personaldata.location, members.e_mail, members.username FROM members 
                    INNER JOIN personaldata 
                    ON personaldata.memberid = members.memberid and members.memberid = %s """, (userID))
-
-
     data = cursor.fetchall()
-    #print(data)
 
+    cursor.execute(""" SELECT food.foodid, food.foodphoto, food.foodname, qualification.cuisine, qualification.timing, qualification.qualificationid, food.foodrecipe FROM qualification
+                INNER JOIN food
+                ON food.qualificationid = qualification.qualificationid and food.memberid = %s""", (userID))
+
+    foods = cursor.fetchall()
+
+    cursor.execute(""" SELECT dessert.dessertid, dessert.dessertphoto, dessert.dessertname, qualification.cuisine, qualification.timing, qualification.qualificationid, dessert.dessertrecipe FROM qualification
+                    INNER JOIN dessert
+                    ON dessert.qualificationid = qualification.qualificationid and dessert.memberid = %s""", (userID))
+
+    desserts = cursor.fetchall()
+
+    cursor.execute(""" SELECT beverage.beverageid, beverage.beveragephoto, beverage.beveragename, qualification.cuisine, qualification.timing, qualification.qualificationid, beverage.beveragerecipe FROM qualification
+                    INNER JOIN beverage
+                    ON beverage.qualificationid = qualification.qualificationid and beverage.memberid = %s""", (userID))
+
+    drinks = cursor.fetchall()
 
 
     conn.commit()
-    if data:
-        return render_template("profile.html", datam=data)
+    if data or foods or drinks or desserts:
+        return render_template("profile.html", datam=data, foodlen=len(foods), drinklen =len(drinks), dessertlen=len(desserts), food=foods, dessert=desserts, drink=drinks)
     else:
         return render_template("profile.html")
 
@@ -212,7 +226,7 @@ def foodRecipe(id):
         data2 = cursor.fetchall()
 
         cursor.execute("SELECT ingredient.ingrename, ingredient.unit, ingredient.amount FROM ingredient INNER JOIN food ON ingredient.foodid = food.foodid AND food.foodid = %s """,(id))
-        data3 = cursor.fetchall();
+        data3 = cursor.fetchall()
 
         if data:
                 return render_template("recipe.html",  len=len(data2), len2=len(data3), datam=data , comment=data2, ingre=data3)
@@ -221,43 +235,91 @@ def foodRecipe(id):
     return render_template("recipe.html")
 
 
-@app.route('/recipe/drink/<id>', methods=['GET'])
+@app.route('/recipe/drink/<id>', methods=['GET', 'POST'])
 def drinkRecipe(id):
 
-    cursor.execute("""
-                SELECT beverage.beverageid, beverage.beveragename, beverage.beveragephoto, beverage.beveragerecipe, ingredient.ingrename, ingredient.unit,  ingredient.amount, qualification.cuisine, qualification.qualificationid, qualification.timing,  beverage.beveragedate FROM beverage
-                INNER JOIN qualification
-                ON beverage.qualificationid = qualification.qualificationid
-                LEFT JOIN  ingredient
-                ON ingredient.beverageid = beverage.beverageid AND beverage.beverageid = %s """, (id))
-
-    data = cursor.fetchone()
-
-    if data:
-        return render_template("recipe.html", datam=data)
+    if request.method == 'POST':
+        mytitle = request.form.get("title")
+        mycomment = request.form.get("comment")
+        print(mytitle)
+        print(mycomment)
+        if mycomment and mytitle:
+            cursor.execute("INSERT INTO comment(usercomment, title, beverageid) VALUES (%s, %s, %s)",
+                           (mycomment, mytitle, id))
+            conn.commit()
+            return redirect(url_for('drinkRecipe'))
     else:
-        return render_template("recipe.html")
+        cursor.execute("""
+                            SELECT beverage.beverageid, beverage.beveragename, beverage.beveragephoto, beverage.beveragerecipe, ingredient.ingrename, ingredient.unit, ingredient.amount, qualification.cuisine, qualification.qualificationid, qualification.timing, beverage.beveragedate FROM beverage
+                            INNER JOIN qualification
+                            ON beverage.qualificationid = qualification.qualificationid
+                            INNER JOIN  ingredient
+                            ON ingredient.beverageid = beverage.beverageid AND beverage.beverageid = %s""", (id))
+        data = cursor.fetchone()
+        print(data)
+        drinkid = data[0]
+
+        cursor.execute(
+            "SELECT comment.usercomment, comment.commentdate, members.username, comment.title FROM comment INNER JOIN members ON comment.memberid = members.memberid where comment.beverageid = %s ",
+            (drinkid,))
+        data2 = cursor.fetchall()
+
+        cursor.execute(
+            "SELECT ingredient.ingrename, ingredient.unit, ingredient.amount FROM ingredient INNER JOIN beverage ON ingredient.foodid = beverage.beverageid AND beverage.beverageid = %s """,
+            (id))
+        data3 = cursor.fetchall()
+
+        if data:
+            return render_template("recipe.html", len=len(data2), len2=len(data3), datam=data, comment=data2,
+                                   ingre=data3)
+
+    return render_template("recipe.html")
 
 
-@app.route('/recipe/dessert/<id>', methods=['GET'])
+@app.route('/recipe/dessert/<id>', methods=['GET', 'POST'])
 def dessertRecipe(id):
 
-    cursor.execute("""
-                SELECT dessert.dessertid, dessert.dessertname, dessert.dessertphoto, dessert.dessertrecipe, ingredient.ingrename, ingredient.unit,  ingredient.amount, qualification.cuisine, qualification.qualificationid, qualification.timing, dessert.dessertdate FROM dessert
-                INNER JOIN qualification
-                ON dessert.qualificationid = qualification.qualificationid
-                LEFT JOIN  ingredient
-                ON ingredient.dessertid = dessert.dessertid AND dessert.dessertid = %s""", (id))
-
-    data = cursor.fetchone()
-
-    if data:
-        return render_template("recipe.html", datam=data)
+    if request.method == 'POST':
+        mytitle = request.form.get("title")
+        mycomment = request.form.get("comment")
+        print(mytitle)
+        print(mycomment)
+        if mycomment and mytitle:
+            cursor.execute("INSERT INTO comment(usercomment, title, dessertid, memberid) VALUES (%s, %s, %s,1)",
+                           (mycomment, mytitle, id))
+            conn.commit()
+            return redirect(url_for('dessertRecipe', id=id))
     else:
-        return render_template("recipe.html")
+        cursor.execute("""
+                            SELECT dessert.dessertid, dessert.dessertname, dessert.dessertphoto, dessert.dessertrecipe, ingredient.ingrename, ingredient.unit, ingredient.amount, qualification.cuisine, qualification.qualificationid, qualification.timing, dessert.dessertdate FROM dessert
+                            INNER JOIN qualification
+                            ON dessert.qualificationid = qualification.qualificationid
+                            INNER JOIN  ingredient
+                            ON dessert.dessertid = dessert.dessertid AND dessert.dessertid = %s""", (id))
+        data = cursor.fetchone()
+        print(data)
+        dessertid = data[0]
+
+        cursor.execute(
+            "SELECT comment.usercomment, comment.commentdate, members.username, comment.title FROM comment INNER JOIN members ON comment.memberid = members.memberid where comment.dessertid = %s ",
+            (dessertid,))
+        data2 = cursor.fetchall()
+        print(data2)
+
+        cursor.execute(
+            "SELECT ingredient.ingrename, ingredient.unit, ingredient.amount FROM ingredient INNER JOIN dessert ON ingredient.dessertid = dessert.dessertid AND dessert.dessertid = %s """,
+            (id))
+        data3 = cursor.fetchall()
+
+        if data:
+            return render_template("recipe.html", len=len(data2), len2=len(data3), datam=data, comment=data2,
+                                   ingre=data3)
+
+    return render_template("recipe.html")
 
 @app.route('/add-food', methods=['GET','POST'])
 def post_food():
+
     if request.method == 'POST':
         membername = request.form.get("membername")
         foodname = request.form.get('foodname')
