@@ -31,12 +31,17 @@
 
 		$text-color:#747373;
 		$header-height:60px;
-		html,
+		html, body {
+			height: 100%;
+			width: 100%;
+			margin: 0;
+			padding: 0;
+		}
 		body {
-		height: 100%;
-		position: relative;
-		background-image: url('./static/component-css/back.jpg');
-		background-position: center;
+			background-color: rgb(255, 255, 255);
+			color: rgb(59, 67, 68);
+			font-family: 'Montserrat', sans-serif;
+			background-image: url(http://assets.mugfoundation.com/images/textures/noisy/noisy1px.png);
 		}
 
 		header {
@@ -168,7 +173,7 @@
 		menu .username {
 		font-size: 20px;
 		text-align: left;
-		color:#071b0e;
+		color:#ffffff;
 		letter-spacing: 1px;
 		padding-left: 20px;
 		}
@@ -203,7 +208,7 @@
 
 		//cards
 		.card-content {
-			background: #ffffff;
+			/*background: #ffffff;*/
 			border: 4px;
 			box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
 		}
@@ -304,7 +309,7 @@
 			margin-bottom: -0.5rem !important;
 		}
 		.dynamicMenu{
-			background-color: aliceblue;
+			background-color: #305779;
 		}
 		.logo{
 				z-index: 10000;
@@ -372,6 +377,26 @@
 				-o-transition: .5s;
 				transition: .5s;
 			}
+			.btn{
+				width: 200px;
+				height: 35px;
+				border: none;
+				background-color: inherit;
+				font-size: 16px;
+				cursor: pointer;
+				display: inline-block;
+				padding: 6px;
+				
+			}
+			.success {
+				color: #ffffff;
+			}
+			
+			.success:hover {
+				background-color: rgb(233, 236, 253);
+				color:#305779;
+			}
+
 
 
 		</style>
@@ -433,7 +458,9 @@
 						</form>
 						{% endif %}
 					</p>
-
+					<form method="get" action="add-food">		
+						<button class="btn success" style = "margin-top: 400px;"> Add New Recipe</button>
+					</form>
 				</div>
 				<ul class="profile-menu">
 				  <li><a href="/directory"><span class="glyphicon glyphicon-list-alt" title="Directory Phonebook"></span></a></li>
