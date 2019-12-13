@@ -61,6 +61,8 @@ def profile():
     data = cursor.fetchall()
     #print(data)
 
+
+
     conn.commit()
     if data:
         return render_template("profile.html", datam=data)
