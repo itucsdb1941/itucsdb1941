@@ -702,9 +702,13 @@
 										<li><a href="/dessert-menu">dessert</a></li>
 									</ul>
 									</li>
-									<li><a href="/sign-up">sign up</a></li>
-									<li><a href="/sign-in">sign in</a></li>
-									<li> <i class="fa fa-search" aria-hidden="true"></i><li>
+									{% if username %}
+										{{username}}
+									{% else %}
+										<li><a href="/sign-up">sign up</a></li>
+										<li><a href="/sign-in">sign in</a></li>
+										<li> <i class="fa fa-search" aria-hidden="true"></i><li>
+									{% endif %}	
 								</ul>
 							</div>
 						</div>

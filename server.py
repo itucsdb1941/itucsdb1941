@@ -1,7 +1,7 @@
 import sqlite3, psycopg2
 import flask
 import json
-from flask import jsonify, request, render_template,redirect, url_for, send_from_directory
+from flask import jsonify, request, render_template,redirect, url_for, send_from_directory, session
 import os
 import psycopg2 as dpapi
 
@@ -11,6 +11,7 @@ url = "dbname='wezrrgcd' user='wezrrgcd' host='salt.db.elephantsql.com' password
 conn = dpapi.connect(url)
 cursor = conn.cursor()
 app = flask.Flask(__name__,template_folder="templates")
+app.secret_key = "sdsgchg"
 
 ingreList = [];
 
@@ -18,52 +19,66 @@ ingreList = [];
 def home():
     user = request.args.get("username")
 
-    cursor.execute("""SELECT pass1.* FROM (SELECT comment.commentid, comment.title, comment.usercomment, comment.commentdate, comment.commentlike, f.foodid, f.foodname, f.foodphoto FROM comment 
-                          JOIN food f ON comment.foodid = f.foodid  ORDER BY commentlike DESC LIMIT 2) as pass1
-                          UNION  
-                          SELECT pass2.* FROM (SELECT comment.commentid, comment.title, comment.usercomment, comment.commentdate, comment.commentlike, d.dessertid, d.dessertname, d.dessertphoto FROM comment 
-                          JOIN dessert d ON comment.dessertid = d.dessertid ORDER BY commentlike DESC LIMIT 1) as pass2
-                          UNION 
-                          SELECT pass3.* FROM (SELECT comment.commentid, comment.title, comment.usercomment, comment.commentdate, comment.commentlike, b.beverageid, b.beveragename, b.beveragephoto FROM comment 
-                          JOIN beverage b ON comment.beverageid = b.beverageid ORDER BY commentlike DESC LIMIT 1) as pass3
+    cursor.execute("""SELECT comment.commentid, comment.title, comment.usercomment, comment.commentdate, comment.commentlike, f.foodid, f.foodname, f.foodphoto, m.username FROM comment 
+                          JOIN food f ON comment.foodid = f.foodid JOIN members m on comment.memberid = m.memberid  ORDER BY comment.commentlike DESC NULLS LAST LIMIT 2     
                         """)
-
     data = cursor.fetchall()
+
+    cursor.execute("""SELECT comment.commentid, comment.title, comment.usercomment, comment.commentdate, comment.commentlike, d.dessertid, d.dessertname, d.dessertphoto, m.username FROM comment 
+                          JOIN dessert d ON comment.dessertid = d.dessertid JOIN members m on comment.memberid = m.memberid ORDER BY comment.commentlike DESC NULLS LAST """)
+    data2 = cursor.fetchone()
+
+    cursor.execute("""SELECT comment.commentid, comment.title, comment.usercomment, comment.commentdate, comment.commentlike, b.beverageid, b.beveragename, b.beveragephoto, m.username FROM comment 
+                              JOIN beverage b ON comment.beverageid = b.beverageid JOIN members m on comment.memberid = m.memberid ORDER BY comment.commentlike DESC NULLS LAST """)
+    data3 = cursor.fetchone()
+
+    cursor.execute("""SELECT  food.foodid, food.foodname, food.foodrecipe, food.foodphoto, food.fooddate FROM food 
+                            ORDER BY food.fooddate ASC NULLS LAST """)
+    data4 = cursor.fetchone()
+
+    cursor.execute("""SELECT  dessert.dessertid, dessert.dessertname, dessert.dessertrecipe, dessert.dessertphoto, dessert.dessertdate FROM dessert 
+                                ORDER BY dessert.dessertdate ASC NULLS LAST """)
+    data5 = cursor.fetchone()
+
+    cursor.execute("""SELECT  beverage.beverageid, beverage.beveragename, beverage.beveragerecipe, beverage.beveragephoto, beverage.beveragedate FROM beverage 
+                                ORDER BY beverage.beveragedate ASC NULLS LAST """)
+    data6 = cursor.fetchone()
 
    # cursor.execute("SELECT food.foodid, food.foodname, food.foodrecipe, food.foodphoto, food.foodtype, food.foodscore FROM food ORDER BY foodscore ASC LIMIT 1")
    # data2 = cursor.fetchall()
-   # print(data2);
-    if data :
-        return render_template("index.html", comments =data, username=user)
+
+    username = ""
+    if 'username' in session:
+        username = session['username']
+
+    if data and data2 and data3 and data4 and data5 and data6:
+        return render_template("index.html", comment1 =data[0], comment2=data2, comment3=data3, comment4 =data[1], beverage=data6, food= data4, dessert= data5, username=username)
     else:
         return render_template("index.html")
 
-
 @app.route('/profile', methods=['GET'])
 def profile():
-    userID = request.args.get("id")
 
-    cursor.execute("""SELECT members.memberid, personaldata.name, personaldata.surname, personaldata.location, members.e_mail, members.username FROM members 
-                   INNER JOIN personaldata 
-                   ON personaldata.memberid = members.memberid and members.memberid = %s """, (userID))
-
-
-    data = cursor.fetchall()
-    #print(data)
+    if "id" in session:
+        print(session["id"])
+        cursor.execute("""SELECT members.memberid, personaldata.name, personaldata.surname, personaldata.location, members.e_mail, members.username FROM members 
+                       INNER JOIN personaldata 
+                       ON personaldata.memberid = members.memberid and members.memberid = %s """, str(session["id"]))
 
 
-
-    conn.commit()
-    if data:
-        return render_template("profile.html", datam=data)
-    else:
-        return render_template("profile.html")
-
+        data = cursor.fetchall()
+        #print(data)
+        conn.commit()
+        if data:
+            return render_template("profile.html", datam=data)
+    return redirect(url_for('home'))
 
 
 
 @app.route('/sign-in', methods=['GET'])
 def get_members():
+    if 'id' in session:
+        return redirect(url_for('profile'))
     userName = request.args.get("username")
     passWord = request.args.get("password")
 
@@ -71,11 +86,13 @@ def get_members():
         if request.form.get("forgotPassword"):
             return render_template("index.html")
         cursor.execute("SELECT * FROM members where username=%s and userPassword=%s",(userName,passWord))
-        data = cursor.fetchall()
+        data = cursor.fetchone()
         conn.commit()
 
         if data:
-            return redirect(url_for('profile',username=userName,id=data[0]))
+            session["username"]= userName
+            session["id"] = data[0]
+            return redirect(url_for('profile'))
         else:
             errors="Please try again!"
             return redirect(url_for('get_members',error=errors))
@@ -85,7 +102,8 @@ def get_members():
 
 @app.route('/new-password', methods=['GET'])
 def newPass():
-
+    if 'id' in session:
+        return redirect(url_for('home'))
     userName = request.args.get("username")
     e_mail = request.args.get("email")
     answer = request.args.get("Answer")
@@ -112,6 +130,9 @@ def newPass():
 
 @app.route('/sign-up', methods=['GET','POST'])
 def signUp():
+    if 'id' in session:
+        return redirect(url_for('home'))
+
     if request.method == 'POST':
         firstname = request.form.get("FirstName")
         lastname = request.form.get("LastName")
@@ -148,9 +169,11 @@ def foods():
                 ON food.qualificationid = qualification.qualificationid""")
 
     data = cursor.fetchall()
-
+    username = ""
+    if 'username' in session:
+        username = session['username']
     if data:
-        return render_template("food-menu.html", len = len(data), food=data)
+        return render_template("food-menu.html", len = len(data), food=data, username=username)
     else:
         return render_template("food-menu.html")
 
@@ -164,9 +187,11 @@ def drinks():
                 ON beverage.qualificationid = qualification.qualificationid""")
 
     data = cursor.fetchall()
-
+    username = ""
+    if 'username' in session:
+        username = session['username']
     if data:
-        return render_template("drink-menu.html", len=len(data), drink=data)
+        return render_template("drink-menu.html", len=len(data), drink=data, username=username)
     else:
         return render_template("drink-menu.html")
 
@@ -179,9 +204,11 @@ def desserts():
                 ON dessert.qualificationid = qualification.qualificationid""")
 
     data = cursor.fetchall()
-
+    username = ""
+    if 'username' in session:
+        username = session['username']
     if data:
-        return render_template("dessert-menu.html", len=len(data), dessert=data)
+        return render_template("dessert-menu.html", len=len(data), dessert=data, username=username)
     else:
         return render_template("dessert-menu.html")
 
@@ -212,10 +239,13 @@ def foodRecipe(id):
         data2 = cursor.fetchall()
 
         cursor.execute("SELECT ingredient.ingrename, ingredient.unit, ingredient.amount FROM ingredient INNER JOIN food ON ingredient.foodid = food.foodid AND food.foodid = %s """,(id))
-        data3 = cursor.fetchall();
+        data3 = cursor.fetchall()
 
+        username = ""
+        if 'username' in session:
+            username = session['username']
         if data:
-                return render_template("recipe.html",  len=len(data2), len2=len(data3), datam=data , comment=data2, ingre=data3)
+                return render_template("recipe.html",  len=len(data2), len2=len(data3), datam=data , comment=data2, ingre=data3, username=username)
 
 
     return render_template("recipe.html")
@@ -232,9 +262,11 @@ def drinkRecipe(id):
                 ON ingredient.beverageid = beverage.beverageid AND beverage.beverageid = %s """, (id))
 
     data = cursor.fetchone()
-
+    username = ""
+    if 'username' in session:
+        username = session['username']
     if data:
-        return render_template("recipe.html", datam=data)
+        return render_template("recipe.html", datam=data, username=username)
     else:
         return render_template("recipe.html")
 
@@ -250,9 +282,10 @@ def dessertRecipe(id):
                 ON ingredient.dessertid = dessert.dessertid AND dessert.dessertid = %s""", (id))
 
     data = cursor.fetchone()
-
+    if 'username' in session:
+        username = session['username']
     if data:
-        return render_template("recipe.html", datam=data)
+        return render_template("recipe.html", datam=data, username=username)
     else:
         return render_template("recipe.html")
 
