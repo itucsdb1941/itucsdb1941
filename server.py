@@ -8,10 +8,10 @@ from werkzeug.utils import secure_filename
 import os
 import psycopg2 as dpapi
 
-url = "dbname='wezrrgcd' user='wezrrgcd' host='salt.db.elephantsql.com' password='gh4WaN_uVpfMTkAMF3AG-h2nXbbNr1FH' "
 
 
-#url = os.getenv("DB_URL")
+
+url = os.getenv("DB_URL")
 conn = dpapi.connect(url)
 cursor = conn.cursor()
 app = flask.Flask(__name__,template_folder="templates")
@@ -434,7 +434,7 @@ def post_food():
 def upload_file():
     print(request.files)
     content_length = request.content_length
-    print(f"Content_length : {content_length}")
+    print("Content_length : {content_length}")
     if request.method == 'POST':
         # check if the post request has the file part
         if 'file' not in request.files:
