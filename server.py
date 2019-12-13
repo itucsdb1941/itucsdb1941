@@ -2,10 +2,12 @@ import sqlite3, psycopg2
 import flask
 import json
 from flask import jsonify, request, render_template,redirect, url_for, send_from_directory
+from werkzeug.utils import secure_filename
 import os
 import psycopg2 as dpapi
 
 url = "dbname='wezrrgcd' user='wezrrgcd' host='salt.db.elephantsql.com' password='gh4WaN_uVpfMTkAMF3AG-h2nXbbNr1FH' "
+
 
 #url = os.getenv("DB_URL")
 conn = dpapi.connect(url)
@@ -13,6 +15,14 @@ cursor = conn.cursor()
 app = flask.Flask(__name__,template_folder="templates")
 
 ingreList = [];
+ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+UPLOAD_FOLDER = 'static/assets/images/'
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+
+def allowed_file(filename):
+    print("filename",filename)
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @app.route('/', methods=['GET'])
 def home():
@@ -256,6 +266,7 @@ def dessertRecipe(id):
 
 @app.route('/add-food', methods=['GET','POST'])
 def post_food():
+
     if request.method == 'POST':
         membername = request.form.get("membername")
         foodname = request.form.get('foodname')
@@ -267,6 +278,7 @@ def post_food():
         foodserve = request.form.get('foodserve')
         foodrecipe = request.form.get('foodrecipe')
         foodcategory = request.form.get('foodcategory')
+        foodphoto = request.form.get('foodphoto')
 
         if foodname and foodtime and foodcalorie and fooddate and foodserve and foodrecipe:
             cursor.execute("INSERT INTO qualification(cuisine, timing, category, calori, serve) VALUES(%s,%s,%s,%s,%s) RETURNING qualificationid",
@@ -275,7 +287,7 @@ def post_food():
             conn.commit()
 
             cursor.execute("INSERT INTO food(foodname, foodrecipe, foodphoto, foodtype, qualificationid, memberid, fooddate) VALUES (%s,%s,%s,%s,%s,%s,%s) RETURNING foodid" ,
-                        (foodname, foodrecipe, "", foodtype, qualificationId, 1, fooddate))
+                        (foodname, foodrecipe, foodphoto, foodtype, qualificationId, 1, fooddate))
             foodID = cursor.fetchone()[0]
             print("food" , foodID)
             conn.commit()
@@ -308,6 +320,31 @@ def post_food():
         return render_template("add-food.html" )
 
 
+
+@app.route('/file-upload', methods=['POST'])
+def upload_file():
+    print(request.files)
+    content_length = request.content_length
+    print(f"Content_length : {content_length}")
+    if request.method == 'POST':
+        # check if the post request has the file part
+        if 'file' not in request.files:
+            print('No file part')
+            return jsonify ({ " text" : " No File"})
+
+        file = request.files['file']
+        print(file.filename)
+        # if user does not select file, browser also
+        # submit an empty part without filename
+        if file.filename == '':
+            print('No selected file')
+            return jsonify ({ " text" : " File hasn't selected"})
+        print(allowed_file(file.filename))
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            return jsonify ({ " text" : " File Uploaded Successfully"})
+        return ""
 
 if __name__ == '_main_':
     app.run(port=5000, debug=True)
