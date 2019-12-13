@@ -937,7 +937,7 @@
                                                         <textarea class="single-textarea"  name="foodrecipe" placeholder="Recipe" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Receipe'" required></textarea>
                                                     </div>
                                                     <div class="mt-10">
-                                                        <!-- <input type="file" (change)="onFileUpload($event)" name="foodPhoto"  placeholder="Food Photo"> -->
+                                                        <input type="file" id="file" onchange="onFileUpload(event)" name="foodPhoto"  placeholder="Food Photo">
                                                     </div>
                         
                                                     <button id="mybutton" class="col-md-3 col-xs-3 col-sm-3 genric-btn danger radius" style="margin-top: 16px;padding-right:0px; left:-34%"> Save </button> 
@@ -1037,6 +1037,32 @@
 
                 var today = year + "-" + month + "-" + day;       
                 document.getElementById("fooddate").value = today;
+
+                function onFileUpload(event){
+                    var formData = new FormData();
+                    formData.append('file', $('#file')[0].files[0]);
+                    $.ajax({
+                            url: "file-upload", 
+                            type: "POST",
+                            crossDomain: true,
+                            processData: false,
+                            dataType: "multipart/form-data",
+                            contentType: false,
+                           
+                            data:formData,
+                            success: (response) => {
+                                console.log("ok")
+                            },
+                            error: () => {
+                                console.log("error")
+                            }
+                        })
+                    jQuery.post('file-upload', formData)
+                        .subscribe( res => {
+                        console.log(res);
+                        console.log('data passed to backend');
+                        });
+                }
             </script>
     </body>
 </html>
