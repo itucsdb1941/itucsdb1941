@@ -77,7 +77,6 @@
 		top: $header-height;
 		left: 50px;
 		margin: 0;
-		overflow-y: auto; 
 		ul {
 			@include span-columns(12);
 			clear: both;
@@ -574,7 +573,8 @@
                                     <li><a href="/dessert-menu">dessert</a></li>
                                 </ul>
                                 </li>
-                                <li> <i class="fa fa-search" aria-hidden="true"></i><li>
+                                <li class="active"><a href="/contact">contact</a></li>
+                                <li> <i class="fa fa-search" aria-hidden="true" style="color: white; margin-left: 15px; margin-right: 20px;"></i><li>
                             </ul>
                         </div>
                     </div>
@@ -606,9 +606,9 @@
                             </form>
                             {% endif %}
                         </p>
-                        <form method="get" action="add-food">	
-                            <button class="btn success" style = "margin-top: 320px;"> Add New Recipe</button>	
-                        </form>
+                        <form method="get" action="profile">	
+                                <button class="btn success" style = "margin-top: 320px;"> My Recipes</button>	
+                            </form>
                         <form method="get" action="logout">	
                                 <button class="btn success" style = "margin-top: 10px;"> Log Out</button>	
                         </form>

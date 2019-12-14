@@ -70,11 +70,10 @@
 		position: fixed;
 		padding:0;
 		z-index: 10;
-		height: calc(100% - 100px);
+		height: calc(100% - 90px);
 		overflow:hidden;
 		background:rgba(#D6D6D4, .2);
 		box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.2);
-		
 		top: $header-height;
 		left: 50px;
 		margin: 0;
@@ -421,7 +420,7 @@
 	</head>
 	<body>
 		<img src="./static/myLogom.png" class="logo" alt="bitter sweet sour" />
-		<header class="header-area">
+		<header class="header-area" style="background-color: #bec3ff   !important;">
 				<div class="container">
 					<div class="row">
 						<div class="col-md-12 col-xs-12 col-sm-12">
@@ -434,13 +433,14 @@
 								<ul>
 									<li class="active"><a href="/">home</a></li>
 									<li><a >recipes</a>
-										<ul class="sub-menu">
+										<ul class="sub-menu" style="background-color: #bec3ff   !important;">
 										<li><a href="/food-menu">food</a></li>
 										<li><a href="/drink-menu">drink</a></li>
 										<li><a href="/dessert-menu">dessert</a></li>
 									</ul>
 									</li>
-									<li> <i class="fa fa-search" aria-hidden="true"></i><li>
+									<li class="active"><a href="/contact">contact</a></li>
+									<li> <i class="fa fa-search" aria-hidden="true" style="color: white; margin-left: 15px; margin-right: 20px;"></i><li>
 								</ul>
 							</div>
 						</div>
