@@ -215,7 +215,7 @@
 								</div>  
 								<div class="main-menu">
 									<ul>
-										<li class="active"><a href="index.html">home</a></li>
+										<li class="active"><a href="#">home</a></li>
 										<li><a >recipes</a>
 										  <ul class="sub-menu">
 											<li><a href="/food-menu">food</a></li>
@@ -224,7 +224,7 @@
 										</ul>
 										</li>
 										{% if username %}
-										{{username}}
+										<a href="/profile">{{username}}</a>
 										{% else %}
 										<li><a href="/sign-up">sign up</a></li>
 										<li><a href="/sign-in">sign in</a></li>

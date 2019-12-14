@@ -7,7 +7,7 @@
 	<!-- Page Title -->
 	<title>BSS | Recipe</title>
 	<!-- Favicon -->
-	<link rel="shortcut icon" href="./static/fav.png" type="image/x-icon">
+	<link rel="shortcut icon" href="../static/fav.png" type="image/x-icon">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 	<!-- CSS Files -->
@@ -40,7 +40,6 @@
 			background-color: rgb(255, 255, 255);
 			color: rgb(59, 67, 68);
 			font-family: 'Montserrat', sans-serif;
-			background-image: url(http://assets.mugfoundation.com/images/textures/noisy/noisy1px.png);
 		}
 
 
@@ -300,6 +299,7 @@
 		.comment-container {
 		width: 60%;
 		margin: 2rem auto;
+		
 		}
 
 		a {
@@ -670,13 +670,36 @@
 				transition: .5s;
 			}
 			.selpak{
-				width: 20%;
-				height: 20%; 
+				width: 60%;
+				height: 10%; 
 				padding: 14px 20px;
 				margin: 8px 0;
 				border-radius: 2px;
 				cursor: pointer;
 				margin-left: 35px;
+			}
+			.selpak1{
+				width: 60%;
+				height: 40%; 
+				padding: 14px 20px;
+				margin: 8px 0;
+				border-radius: 2px;
+				cursor: pointer;
+				margin-left: 35px;
+			}
+			.btn{
+				width: 200px;
+				height: 35px;
+				border: none;
+				background-color: inherit;
+				font-size: 16px;
+				cursor: pointer;
+				display: inline-block;
+				padding: 6px;
+				background-color: brown;
+				color: white;
+				margin-bottom: 43px;
+				margin-left: 10px;
 			}
 
 		</style>
@@ -703,8 +726,8 @@
 									</ul>
 									</li>
 									{% if username %}
-										{{username}}
-									{% else %}
+										<a href="/profile">{{username}}</a>
+										{% else %}
 										<li><a href="/sign-up">sign up</a></li>
 										<li><a href="/sign-in">sign in</a></li>
 										<li> <i class="fa fa-search" aria-hidden="true"></i><li>
@@ -752,7 +775,13 @@
                             </div>
                         </div>
                     </div>
-                </section>
+				</section>
+				<div  style="
+			background-image: url(../static/assets/images/food-bg.png);
+			background-repeat: no-repeat;
+			position: static;
+			background-position-x: right;
+			background-position-y: bottom;">
         <div class="container">
              <div class="row" style="margin-top: 50px;">
                 <div class="col-12 col-lg-8" >
@@ -786,13 +815,12 @@
 	</div>
 
 	<div class="row">
-		<form method="post">
-			<textarea class="selpak" id="title" name="title" placeholder="Message"></textarea>
-			<textarea class="selpak" id="comment" name="comment" cols="30" rows="10" placeholder="Message"></textarea>
-		
-			<div>
-					<input type="submit">
-			</div>
+		<form method="post"  style="margin-bottom: -13%;">
+			<textarea class="selpak" id="title" name="title" placeholder="Message" required autofocus></textarea>
+			<textarea class="selpak1" id="comment" name="comment" cols="30" rows="10" placeholder="Message" required autofocus></textarea>
+			
+				<button class="btn" > Submit</button>
+
 		</form>
 	</div>
 			{%for i in range(0,len)%}
@@ -832,6 +860,8 @@
 				</div>
 			</div>
 			{%endfor%}
+			</div>
+			</div>
         </div>
 	</div>
 	

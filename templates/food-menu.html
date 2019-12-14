@@ -357,7 +357,7 @@
 									</ul>
 									</li>
 									{% if username %}
-										{{username}}
+									<a href="/profile">{{username}}</a>
 									{% else %}
 										<li><a href="/sign-up">sign up</a></li>
 										<li><a href="/sign-in">sign in</a></li>
@@ -382,7 +382,7 @@
 				</div>
 				
 				<div class="row" >
-						{%for i in range(0, len)%} 
+					{%for i in range(0, len)%} 
 					<div class="col-md-4 col-sm-6" >
 						<div class="single-food">
 							<div class="food-img">
