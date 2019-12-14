@@ -608,7 +608,12 @@
                         </p>
                         <form method="get" action="profile">	
                                 <button class="btn success" style = "margin-top: 320px;"> My Recipes</button>	
+                        </form>
+                        {% if authority == 'admin' %}
+                        <form method="get" action="all-contacts">	
+                                <button class="btn success" style = "margin-top: 10px;">Contacts</button>	
                             </form>
+                        {%endif%}
                         <form method="get" action="logout">	
                                 <button class="btn success" style = "margin-top: 10px;"> Log Out</button>	
                         </form>
