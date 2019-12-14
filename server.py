@@ -391,6 +391,7 @@ def dessertRecipe(id):
             (id))
         data3 = cursor.fetchall()
 
+        username = ""
         if 'username' in session:
             username = session['username']
         if data:
@@ -513,6 +514,30 @@ def upload_file():
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return jsonify ({ " text" : " File Uploaded Successfully"})
         return ""
+
+
+@app.route('/contact', methods=['GET', 'POST'])
+def contact():
+    if request.method == 'POST':
+        print("abcd")
+        message = request.form.get("message")
+        title = request.form.get("title")
+        category = request.form.get("category")
+        mail = request.form.get("e_mail")
+        date = request.form.get("date")
+        print(message, title, category, mail)
+        if message and title and category and mail:
+            cursor.execute(
+                "INSERT INTO contact(message, title, category, e_mail, date) VALUES (%s, %s, %s, %s, %s)",
+                (message, title, category, mail, date))
+            conn.commit()
+            return redirect(url_for('home'))
+
+        else:
+            return render_template("contact.html")
+    else:
+        return render_template("contact.html")
+
 
 if __name__ == '_main_':
     app.run(port=5000, debug=True)
