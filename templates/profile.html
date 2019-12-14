@@ -1,13 +1,13 @@
 <!doctype html>
 <html lang='en'>
   <meta charset="utf-8">
-  <base href="/sign-up">
+  <base href="/profile">
   <meta name="viewport" content="width=device-width, initial-scale=1">
  
 	<!-- Page Title -->
-	<title>BSS | Sign Up</title>
+	<title>BSS | Profile</title>
 	<!-- Favicon -->
-	<link rel="shortcut icon" href="./static/fav.png" type="image/x-icon">
+	<link rel="shortcut icon" href="../static/fav.png" type="image/x-icon">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 	<!-- CSS Files -->
@@ -71,7 +71,7 @@
 		padding:0;
 		z-index: 10;
 		height: calc(100% - 100px);
-		overflow-y: auto;
+		overflow:hidden;
 		background:rgba(#D6D6D4, .2);
 		box-shadow: 0 0 30px 0 rgba(0, 0, 0, 0.2);
 		
@@ -194,7 +194,6 @@
 		margin-top: $header-height;
 		float: left;
 		padding-bottom: $header-height;
-		background: #fbfefc;
 		}
 
 
@@ -475,11 +474,13 @@
 						</form>
 						{% endif %}
 					</p>
-					<form method="get" action="add-food">	
+					<form method="get" action="add-recipe">	
 						<button class="btn success" style = "margin-top: 320px;"> Add New Recipe</button>	
-						<button class="btn success" style = "margin-top: 10px;"> Log Out</button>
-						
 					</form>
+					<form method="get" action="logout">	
+						<button class="btn success" style = "margin-top: 10px;"> Log Out</button>	
+					</form>
+					
 				</div>
 				<ul class="profile-menu">
 				  <li><a href="/directory"><span class="glyphicon glyphicon-list-alt" title="Directory Phonebook"></span></a></li>

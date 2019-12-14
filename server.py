@@ -8,10 +8,8 @@ from werkzeug.utils import secure_filename
 import os
 import psycopg2 as dpapi
 
-
-
-
-url = os.getenv("DB_URL")
+url = "dbname='wezrrgcd' user='wezrrgcd' host='salt.db.elephantsql.com' password='gh4WaN_uVpfMTkAMF3AG-h2nXbbNr1FH' "
+# url = os.getenv("DB_URL")
 conn = dpapi.connect(url)
 cursor = conn.cursor()
 app = flask.Flask(__name__,template_folder="templates")
@@ -29,8 +27,6 @@ def allowed_file(filename):
 
 @app.route('/', methods=['GET'])
 def home():
-    user = request.args.get("username")
-
     cursor.execute("""SELECT comment.commentid, comment.title, comment.usercomment, comment.commentdate, comment.commentlike, f.foodid, f.foodname, f.foodphoto, m.username FROM comment 
                           JOIN food f ON comment.foodid = f.foodid JOIN members m on comment.memberid = m.memberid  ORDER BY comment.commentlike DESC NULLS LAST LIMIT 2     
                         """)
@@ -71,39 +67,38 @@ def home():
 @app.route('/profile', methods=['GET'])
 def profile():
 
-
     if "id" in session:
         print(session["id"])
         cursor.execute("""SELECT members.memberid, personaldata.name, personaldata.surname, personaldata.location, members.e_mail, members.username FROM members 
                        INNER JOIN personaldata 
                        ON personaldata.memberid = members.memberid and members.memberid = %s """, str(session["id"]))
-    data = cursor.fetchall()
+        data = cursor.fetchall()
 
 
-    cursor.execute(""" SELECT food.foodid, food.foodphoto, food.foodname, qualification.cuisine, qualification.timing, qualification.qualificationid, food.foodrecipe FROM qualification
-                INNER JOIN food
-                ON food.qualificationid = qualification.qualificationid and food.memberid = %s""", str(session["id"]))
+        cursor.execute(""" SELECT food.foodid, food.foodphoto, food.foodname, qualification.cuisine, qualification.timing, qualification.qualificationid, food.foodrecipe FROM qualification
+                    INNER JOIN food
+                    ON food.qualificationid = qualification.qualificationid and food.memberid = %s""", str(session["id"]))
 
-    foods = cursor.fetchall()
+        foods = cursor.fetchall()
 
-    cursor.execute(""" SELECT dessert.dessertid, dessert.dessertphoto, dessert.dessertname, qualification.cuisine, qualification.timing, qualification.qualificationid, dessert.dessertrecipe FROM qualification
-                    INNER JOIN dessert
-                    ON dessert.qualificationid = qualification.qualificationid and dessert.memberid = %s""", str(session["id"]))
+        cursor.execute(""" SELECT dessert.dessertid, dessert.dessertphoto, dessert.dessertname, qualification.cuisine, qualification.timing, qualification.qualificationid, dessert.dessertrecipe FROM qualification
+                        INNER JOIN dessert
+                        ON dessert.qualificationid = qualification.qualificationid and dessert.memberid = %s""", str(session["id"]))
 
-    desserts = cursor.fetchall()
+        desserts = cursor.fetchall()
 
-    cursor.execute(""" SELECT beverage.beverageid, beverage.beveragephoto, beverage.beveragename, qualification.cuisine, qualification.timing, qualification.qualificationid, beverage.beveragerecipe FROM qualification
-                    INNER JOIN beverage
-                    ON beverage.qualificationid = qualification.qualificationid and beverage.memberid = %s""", str(session["id"]))
+        cursor.execute(""" SELECT beverage.beverageid, beverage.beveragephoto, beverage.beveragename, qualification.cuisine, qualification.timing, qualification.qualificationid, beverage.beveragerecipe FROM qualification
+                        INNER JOIN beverage
+                        ON beverage.qualificationid = qualification.qualificationid and beverage.memberid = %s""", str(session["id"]))
 
-    drinks = cursor.fetchall()
+        drinks = cursor.fetchall()
 
-
-    conn.commit()
-    if data or foods or drinks or desserts:
-        return render_template("profile.html", datam=data, foodlen=len(foods), drinklen =len(drinks), dessertlen=len(desserts), food=foods, dessert=desserts, drink=drinks)
+        if data or foods or drinks or desserts:
+            return render_template("profile.html", datam=data, foodlen=len(foods), drinklen =len(drinks), dessertlen=len(desserts), food=foods, dessert=desserts, drink=drinks)
+        else:
+            return render_template("profile.html")
     else:
-        return render_template("profile.html")
+       return render_template("index.html")
 
 
 @app.route('/sign-in', methods=['GET'])
@@ -130,6 +125,13 @@ def get_members():
     else :
         return render_template("login-page.html")
 
+@app.route('/logout', methods=['GET'])
+def logout():
+   if 'id' in session:
+        session.pop('id')
+   if 'username' in session:
+       session.pop('username')
+   return redirect(url_for('home'))
 
 @app.route('/new-password', methods=['GET'])
 def newPass():
@@ -373,60 +375,92 @@ def dessertRecipe(id):
     return render_template("recipe.html")
 
 
-@app.route('/add-food', methods=['GET','POST'])
+@app.route('/add-recipe', methods=['GET','POST'])
 def post_food():
-
+    qualificationId = 0
     if request.method == 'POST':
-        membername = request.form.get("membername")
-        foodname = request.form.get('foodname')
-        foodtime = request.form.get('foodtime')
-        foodcalorie = request.form.get('foodcalorie')
-        foodcountry = request.form.get('foodcountry')
-        foodtype = request.form.get('foodtype')
-        fooddate = request.form.get('fooddate')
-        foodserve = request.form.get('foodserve')
-        foodrecipe = request.form.get('foodrecipe')
-        foodcategory = request.form.get('foodcategory')
-        foodphoto = request.form.get('foodphoto')
-
-        if foodname and foodtime and foodcalorie and fooddate and foodserve and foodrecipe:
+        memberid = session["id"]
+        name = request.form.get('recipename')
+        time = request.form.get('recipetime')
+        calorie = request.form.get('recipecalorie')
+        country = request.form.get('recipecountry')
+        type = request.form.get('recipetype')
+        date = request.form.get('recipedate')
+        serve = request.form.get('recipeserve')
+        recipe = request.form.get('recipes')
+        category = request.form.get('recipecategory')
+        photo = request.form.get('recipephoto')
+        recipeType = request.form.get('recipeType')
+        print(name , time , calorie, date , country, serve , recipe)
+        if name and time and calorie and date and serve and recipe:
+            print("Asdfsdf")
             cursor.execute("INSERT INTO qualification(cuisine, timing, category, calori, serve) VALUES(%s,%s,%s,%s,%s) RETURNING qualificationid",
-                              (foodcountry, foodtime, foodcategory, foodcalorie, foodserve))
+                              (country, time, category, calorie, serve))
             qualificationId = cursor.fetchone()[0]
             conn.commit()
 
-            cursor.execute("INSERT INTO food(foodname, foodrecipe, foodphoto, foodtype, qualificationid, memberid, fooddate) VALUES (%s,%s,%s,%s,%s,%s,%s) RETURNING foodid" ,
-                        (foodname, foodrecipe, foodphoto, foodtype, qualificationId, 1, fooddate))
-            foodID = cursor.fetchone()[0]
-            print("food" , foodID)
-            conn.commit()
+            id=0
+            if recipeType == "food":
+                cursor.execute("INSERT INTO food(foodname, foodrecipe, foodphoto, foodtype, qualificationid, memberid, fooddate) VALUES (%s,%s,%s,%s,%s,%s,%s) RETURNING foodid" ,
+                            (name, recipe, photo, type, qualificationId, memberid, date))
+                id = cursor.fetchone()[0]
+                print("food" , id)
+                conn.commit()
+            elif recipeType == "beverage":
+                cursor.execute(
+                    "INSERT INTO beverage(beveragename, beveragerecipe, beveragephoto, beveragetype, qualificationid, memberid, beveragedate) VALUES (%s,%s,%s,%s,%s,%s,%s) RETURNING foodid",
+                    (name, recipe, photo, type, qualificationId, memberid, date))
+                id = cursor.fetchone()[0]
+                print("beverage", id)
+                conn.commit()
+            elif recipeType == "beverage":
+                cursor.execute(
+                    "INSERT INTO dessert(dessertname, dessertrecipe, dessertphoto, desserttype, qualificationid, memberid, dessertdate) VALUES (%s,%s,%s,%s,%s,%s,%s) RETURNING foodid",
+                    (name, recipe, photo, type, qualificationId, memberid, date))
+                id = cursor.fetchone()[0]
+                print("dessert", id)
+                conn.commit()
 
-        i = 0
-        while request.form.get("ingrename" + str(i)) :
-            ingreFlavor = ""
-            ingreallergenic = False
-            ingrename = request.form.get("ingrename" + str(i))
-            ingreamount = request.form.get("ingreamount" + str(i))
-            ingreunit = request.form.get("ingreunit" + str(i))
-            if request.form.get("ingreallegernic" + str(i)):
-                ingreallergenic = True
-            if request.form.get("flavorHot" + str(i)):
-                ingreFlavor = ingreFlavor + "Hot"
-            if request.form.get("flavorSweet" + str(i)):
-                ingreFlavor = ingreFlavor + ",Sweet"
-            if request.form.get("flavorSour" + str(i)):
-                ingreFlavor = ingreFlavor + ",Sour"
+            i = 0
+            while request.form.get("ingrename" + str(i)) :
+                ingreFlavor = ""
+                ingreallergenic = False
+                ingrename = request.form.get("ingrename" + str(i))
+                ingreamount = request.form.get("ingreamount" + str(i))
+                ingreunit = request.form.get("ingreunit" + str(i))
+                if request.form.get("ingreallegernic" + str(i)):
+                    ingreallergenic = True
+                if request.form.get("flavorHot" + str(i)):
+                    ingreFlavor = ingreFlavor + "Hot"
+                if request.form.get("flavorSweet" + str(i)):
+                    ingreFlavor = ingreFlavor + ",Sweet"
+                if request.form.get("flavorSour" + str(i)):
+                    ingreFlavor = ingreFlavor + ",Sour"
+                if recipeType == "food":
+                    cursor.execute("INSERT INTO ingredient(ingrename, unit, amount, allergenic, flavor, foodid) VALUES (%s,%s,%s,%s,%s,%s)",
+                        (ingrename, ingreunit, ingreamount, ingreallergenic, ingreFlavor, id))
+                elif recipeType == "beverage":
+                    cursor.execute(
+                        "INSERT INTO ingredient(ingrename, unit, amount, allergenic, flavor, beverageid) VALUES (%s,%s,%s,%s,%s,%s)",
+                        (ingrename, ingreunit, ingreamount, ingreallergenic, ingreFlavor, id))
+                elif recipeType == "dessert":
+                    cursor.execute(
+                        "INSERT INTO ingredient(ingrename, unit, amount, allergenic, flavor, dessertid) VALUES (%s,%s,%s,%s,%s,%s)",
+                        (ingrename, ingreunit, ingreamount, ingreallergenic, ingreFlavor, id))
+                i = i + 1
+                conn.commit()
 
-            cursor.execute("INSERT INTO ingredient(ingrename, unit, amount, allergenic, flavor, foodid) VALUES (%s,%s,%s,%s,%s,%s)",
-                (ingrename, ingreunit, ingreamount, ingreallergenic, ingreFlavor, foodID))
-
-            i = i + 1
-            conn.commit()
-
-
-        return render_template("add-food.html" , result="ok")
+            myResult = recipeType + "added successfully."
+            return render_template("add-recipe.html" , result=myResult)
     else:
-        return render_template("add-food.html" )
+        if "id" in session:
+            print(session["id"])
+            cursor.execute("""SELECT members.memberid, personaldata.name, personaldata.surname, personaldata.location, members.e_mail, members.username FROM members 
+                            INNER JOIN personaldata 
+                            ON personaldata.memberid = members.memberid and members.memberid = %s """,
+                           str(session["id"]))
+        data = cursor.fetchall()
+        return render_template("add-recipe.html" , datam=data)
 
 
 
