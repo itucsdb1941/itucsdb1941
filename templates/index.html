@@ -291,84 +291,83 @@
 				</section>
 				<!-- Banner Area End -->
 				<!--================Blog Categorie Area =================-->
-				<section class="testimonial-area section-padding4">
-					<div class="container">
-						<div class="row">
-							<div class="col-lg-12">
-								<div class="section-top2 text-center">
-									<h3>Last <span>recipes</span></h3>
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							
-							<div class="col-lg-12">
-								<div class="testimonial-slider owl-carousel" style="
-										display: contents;
-										transform: translate3d(-1140px, 0px, 0px);
-										transition: all 1s ease 0s;
-										width: 3990px;">
-									<div style="width: 48%; float:left;">
-										{% if food %}
-										<div class="single-slide d-sm-flex" style ="margin-bottom: 30px; width: 100%;">
-											<div class="customer-img mr-4 mb-4 mb-sm-0">
-												<img src="./static/assets/images/{{food[3]}}" alt="" >
-											</div>
-											<div class="customer-text" >
-												<a  href="/recipe/food/{{food[0]}}"><h5 style="font-size: 20px !important; margin-bottom: -2%;">{{food[1]}}</h5></a>
-												<p class="p" style="font-size: 16px; margin-top: 15%;">{{food[2]}}</p>
-											</div>
-											<div class="customer-text2" >
-												<span style= "margin-left: -150px; text-align: left; font-size: 20px">{{food[4]}}</span>
-											</div>
-										</div>
-										{% endif %}	
-									</div>
-									<div style="width: 48%; float:left;">
-										{% if dessert %}
-										<div class="single-slide d-sm-flex" style ="margin-bottom: 30px; width: 100%;">
-											<div class="customer-img mr-4 mb-4 mb-sm-0">
-												<img src="./static/assets/images/{{dessert[3]}}" alt="">
-											</div>
-											<div class="customer-text" >
-												<a  href="/recipe/dessert/{{dessert[0]}}"><h5 style="font-size: 20px !important; margin-bottom: -2%;">{{dessert[1]}}</h5></a>
-												<p class="p" style="font-size: 16px; margin-top: 15%;">{{dessert[2]}}</p>
-											</div>
-											<div class="customer-text2" >
-												<span style= "margin-left: -150px; text-align: left; font-size: 20px">{{dessert[4]}}</span>
-											</div>
-										</div>
-										{% endif %}	
-									</div>
-									<div style="width: 48%; float:left;">
-										{% if beverage %}
-										<div class="single-slide d-sm-flex" style ="margin-bottom: 30px; width: 100%;">
-											<div class="customer-img mr-4 mb-4 mb-sm-0">
-												<img src="./static/assets/images/{{beverage[3]}}" alt="">
-											</div>
-											<div class="customer-text" >
-												<a  href="/recipe/drink/{{beverage[0]}}"><h5 style="font-size: 20px !important; margin-bottom: -2%;">{{beverage[1]}}</h5></a>
-												<p class="p" style="font-size: 16px; margin-top: 15%;">{{beverage[2]}}</p>
-											</div>
-											<div class="customer-text2" >
-												<span style= "margin-left: -150px; text-align: left; font-size: 20px">{{beverage[4]}}</span>
-											</div>
-										</div>
-										{% endif %}	
-									</div>
-
-	
-										
-										
-									</div>
-								</div>
-							</div>
-							
-					</div>
-				</section>
+				
 				<!--================Blog Categorie Area =================-->
 				<!-- Testimonial Area Starts -->
 				<section class="testimonial-area section-padding4">
+						<div class="container" style="max-width: 1600px;">
+								<div class="row">
+									<div class="col-lg-12">
+										<div class="section-top2 text-center">
+											<h3>Last <span>recipes</span></h3>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									
+									<div class="col-lg-12">
+										<div class="testimonial-slider owl-carousel" style="
+												display: contents;
+												transform: translate3d(-1140px, 0px, 0px);
+												transition: all 1s ease 0s;
+												width: 3990px;">
+											<div style="width: 31%; float:left; margin-right: 15px;">
+												{% if food %}
+												<div class="single-slide d-sm-flex" style ="margin-bottom: 30px; width: 100%; border-radius: 20px;">
+													<div class="customer-img mr-4 mb-4 mb-sm-0">
+														<img src="./static/assets/images/{{food[3]}}" alt="" >
+													</div>
+													<div class="customer-text" >
+														<a  href="/recipe/food/{{food[0]}}"><h5 style="font-size: 20px !important; margin-bottom: -2%;">{{food[1]}}</h5></a>
+														<p class="p" style="font-size: 16px; margin-top: 15%; color: rgb(0, 0, 0); font-family:Arial; ">{{food[2]}}</p>
+													</div>
+													<div class="customer-text2" >
+														<span style= "margin-left: -150px; text-align: left; font-size: 20px; color: #ffb606;">{{food[4]}}</span>
+													</div>
+												</div>
+												{% endif %}	
+											</div>
+											<div style="width: 31%; float:left; margin-right: 15px;">
+												{% if dessert %}
+												<div class="single-slide d-sm-flex" style ="margin-bottom: 30px; width: 100%; border-radius: 20px;">
+													<div class="customer-img mr-4 mb-4 mb-sm-0">
+														<img src="./static/assets/images/{{dessert[3]}}" alt="">
+													</div>
+													<div class="customer-text" >
+														<a  href="/recipe/dessert/{{dessert[0]}}"><h5 style="font-size: 20px !important; margin-bottom: -2%;">{{dessert[1]}}</h5></a>
+														<p class="p" style="font-size: 16px; margin-top: 15%; color: rgb(0, 0, 0); font-family: Arial;">{{dessert[2]}}</p>
+													</div>
+													<div class="customer-text2" >
+														<span style= "margin-left: -150px; text-align: left; font-size: 20px; color: #ffb606;">{{dessert[4]}}</span>
+													</div>
+												</div>
+												{% endif %}	
+											</div>
+											<div style="width: 31%; float:left; margin-right: 15px;">
+												{% if beverage %}
+												<div class="single-slide d-sm-flex" style ="margin-bottom: 30px; width: 100%; border-radius: 20px;">
+													<div class="customer-img mr-4 mb-4 mb-sm-0">
+														<img src="./static/assets/images/{{beverage[3]}}" alt="">
+													</div>
+													<div class="customer-text" >
+														<a  href="/recipe/drink/{{beverage[0]}}"><h5 style="font-size: 20px !important; margin-bottom: -2%;">{{beverage[1]}}</h5></a>
+														<p class="p" style="font-size: 16px; margin-top: 15%; color: rgb(0, 0, 0); font-family: Arial;">{{beverage[2]}}</p>
+													</div>
+													<div class="customer-text2" >
+														<span style= "margin-left: -150px; text-align: left; font-size: 20px; color: #ffb606;">{{beverage[4]}}</span>
+													</div>
+												</div>
+												{% endif %}	
+											</div>
+		
+			
+												
+												
+											</div>
+										</div>
+									</div>
+									
+							</div>
 					<div class="container">
 						<div class="row">
 							<div class="col-lg-12">
@@ -387,70 +386,70 @@
 										width: 3990px;">
 									<div style="width: 48%; float:left;">
 										{% if comment1 %}
-										<div class="single-slide d-sm-flex" style ="margin-bottom: 30px; width: 100%;">
+										<div class="single-slide d-sm-flex" style ="margin-bottom: 30px; width: 100%; border-radius: 20px;">
 											<div class="customer-img mr-4 mb-4 mb-sm-0">
 												<img src="./static/assets/images/{{comment1[7]}}" alt="">
 											</div>
 											<div class="customer-text"  >
 												<a href="/recipe/food/{{comment1[5]}}"><h5>{{comment1[6]}}</h5></a>
 												<h5 style="font-size: 16px !important;font-style: italic; margin-bottom: -2%;">{{comment1[1]}}</h5>
-												<p class="pt-3" style="font-size: 16px;">{{comment1[2]}}</p>
+												<p class="pt-3" style="font-size: 16px; color: rgb(0, 0, 0); font-family: Arial;">{{comment1[2]}}</p>
 											</div>
 											<div class="customer-text2" >
-												<h5>{{comment1[8]}}</h5>
-												<span>{{comment1[3]}}</span>
+												<h5 style="margin-left: -75px !important;">{{comment1[8]}}</h5>
+												<span style="margin-left: -75px !important; color: #ffb606;">{{comment1[3]}}</span>
 											</div>
 										</div>
 										{% endif %}
 										
 										{% if comment2 %}
-										<div class="single-slide d-sm-flex" style ="margin-bottom: 30px; width: 100%;">
+										<div class="single-slide d-sm-flex" style ="margin-bottom: 30px; width: 100%; border-radius: 20px;">
 											<div class="customer-img mr-4 mb-4 mb-sm-0">
 												<img src="./static/assets/images/{{comment2[7]}}" alt="">
 											</div>
 											<div class="customer-text"  >
 												<a  href="/recipe/dessert/{{comment2[5]}}"><h5>{{comment2[6]}}</h5></a>
 												<h5 style="font-size: 16px !important;font-style: italic; margin-bottom: -2%;">{{comment2[1]}}</h5>
-												<p class="pt-3" style="font-size: 16px;">{{comment2[2]}}</p>
+												<p class="pt-3" style="font-size: 16px; color: rgb(0, 0, 0); font-family:Arial;">{{comment2[2]}}</p>
 											</div>
 											<div class="customer-text2" >
-												<h5>{{comment2[8]}}</h5>
-												<span>{{comment2[3]}}</span>
+												<h5 style="margin-left: -75px !important;">{{comment2[8]}}</h5>
+												<span style="margin-left: -75px !important; color: #ffb606;">{{comment2[3]}}</span>
 											</div>
 										</div>
 										{% endif %}
 									</div>
 									<div style="width: 48%; float:right;">
 										{% if comment4 %}
-										<div class="single-slide d-sm-flex" style ="margin-bottom: 30px; width: 100%; ">
+										<div class="single-slide d-sm-flex" style ="margin-bottom: 30px; width: 100%; border-radius: 20px; ">
 											<div class="customer-img mr-4 mb-4 mb-sm-0">
 												<img src="./static/assets/images/{{comment4[7]}}" alt="">
 											</div>
 											<div class="customer-text"  >
 												<a  href="/recipe/food/{{comment4[5]}}"><h5>{{comment4[6]}}</h5></a>
 												<h5 style="font-size: 16px !important;font-style: italic; margin-bottom: -2%;">{{comment4[1]}}</h5>
-												<p class="pt-3" style="font-size: 16px;">{{comment4[2]}}</p>
+												<p class="pt-3" style="font-size: 16px; color: rgb(0, 0, 0); font-family: Arial;">{{comment4[2]}}</p>
 											</div>
 											<div class="customer-text2" >
-												<h5>{{comment4[8]}}</h5>
-												<span>{{comment4[3]}}</span>
+												<h5 style="margin-left: -75px !important;">{{comment4[8]}}</h5>
+												<span style="margin-left: -75px !important; color: #ffb606;">{{comment4[3]}}</span>
 											</div>
 										</div>
 										{% endif %}
 										
 										{% if comment3 %}
-										<div class="single-slide d-sm-flex" style ="margin-bottom: 30px; width: 100%;">
+										<div class="single-slide d-sm-flex" style ="margin-bottom: 30px; width: 100%; border-radius: 20px;">
 											<div class="customer-img mr-4 mb-4 mb-sm-0">
 												<img src="./static/assets/images/{{comment3[7]}}" alt="">
 											</div>
 											<div class="customer-text"  >
 												<a  href="/recipe/drink/{{comment3[5]}}"><h5>{{comment3[6]}}</h5></a>
 												<h5 style="font-size: 16px !important;font-style: italic; margin-bottom: -2%;">{{comment3[1]}}</h5>
-												<p class="pt-3" style="font-size: 16px;">{{comment3[2]}}</p>
+												<p class="pt-3" style="font-size: 16px; color: rgb(0, 0, 0); font-family:Arial;">{{comment3[2]}}</p>
 											</div>
 											<div class="customer-text2" >
-												<h5>{{comment3[8]}}</h5>
-												<span>{{comment3[3]}}</span>
+												<h5 style="margin-left: -75px !important;">{{comment3[8]}}</h5>
+												<span style="margin-left: -75px !important; color: #ffb606;">{{comment3[3]}}</span>
 											</div>
 										</div>
 										{% endif %}
