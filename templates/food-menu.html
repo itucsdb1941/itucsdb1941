@@ -391,31 +391,33 @@
 				</div>
 				
 				<div class="row" >
-					{%for i in range(0, len)%} 
-						<div class="col-md-4 col-sm-6" >
-							
-							<div class="single-food">
-								<div class="img-fluid"  style ="background-image: url('./static/assets/images/{{food[i][1]}}'); 
-									    width: 100%;
-   										height: 300px;
-									background-position: center;
-									background-size: cover;
-									background-repeat: no-repeat;
-								">
-									
-								</div>
-								<div class="food-content">
-									<div class="d-flex justify-content-between">
-											<div><a href="/recipe/food/{{food[i][0]}}"  style="font-family: Arial; font-size: 20px;" >{{food[i][2]}}</a></div> 
-											<div style="text-align: right;">
-												<i class="fa fa-globe col-md-12 col-sm-12 col-xs-12" aria-hidden="true"><a style="font-family: Arial;">{{food[i][3]}}</a></i>
-												<i class="fa fa-clock-o col-md-12 col-xs-12 col-sm-12" aria-hidden="true"> {{food[i][4]}}</i>
-											</div>
+					{% if food %}
+						{%for i in range(0, len)%} 
+							<div class="col-md-4 col-sm-6" >
+								
+								<div class="single-food">
+									<div class="img-fluid"  style ="background-image: url('./static/assets/images/{{food[i][1]}}'); 
+											width: 100%;
+											height: 300px;
+										background-position: center;
+										background-size: cover;
+										background-repeat: no-repeat;
+									">
+										
+									</div>
+									<div class="food-content">
+										<div class="d-flex justify-content-between">
+												<div><a href="/recipe/food/{{food[i][0]}}"  style="font-family: Arial; font-size: 20px;" >{{food[i][2]}}</a></div> 
+												<div style="text-align: right;">
+													<i class="fa fa-globe col-md-12 col-sm-12 col-xs-12" aria-hidden="true"><a style="font-family: Arial;">{{food[i][3]}}</a></i>
+													<i class="fa fa-clock-o col-md-12 col-xs-12 col-sm-12" aria-hidden="true"> {{food[i][4]}}</i>
+												</div>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-					{%endfor%}
+						{%endfor%}
+					{% endif %}
 				</div>
 			
 			</div>

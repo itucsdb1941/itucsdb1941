@@ -360,10 +360,10 @@
 									<li class="active"><a href="/contact">contact</a></li>	
 									<li> <i class="fa fa-search" aria-hidden="true" style="color: white; margin-left: 15px; margin-right: 20px;"></i><li></li>
 									{% if username %}
-										<a href="/profile " style= "color: #ffb606; font-size: medium;">{{username}}</a>
-										{% else %}
-										<li><a href="/sign-up">sign up</a></li>
-										<li><a href="/sign-in">sign in</a></li>	
+									<a href="/profile" style= "color: #ffb606; font-size: medium;">{{username}}</a>
+									{% else %}
+									<li><a href="/sign-up">sign up</a></li>
+									<li><a href="/sign-in">sign in</a></li>	
 									{% endif %}
 								</ul>
 							</div>
@@ -384,6 +384,7 @@
 				</div>
 				
 				<div class="row" >
+					{% if dessert %}
 						{%for i in range(0, len)%} 
 						<div class="col-md-4 col-sm-6" >
 							
@@ -408,7 +409,8 @@
 								</div>
 							</div>
 						</div>
-					{%endfor%}
+						{%endfor%}
+					{% endif %}
 				</div>
 			
 			</div>

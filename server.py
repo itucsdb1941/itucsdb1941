@@ -7,7 +7,6 @@ from werkzeug.utils import secure_filename
 import os
 import psycopg2 as dpapi
 
-
 url = os.getenv("DB_URL")
 conn = dpapi.connect(url)
 cursor = conn.cursor()
@@ -331,7 +330,7 @@ def foods():
     if data:
         return render_template("food-menu.html", len = len(data), food=data, username=username)
     else:
-        return render_template("food-menu.html")
+        return render_template("food-menu.html", username=username)
 
 
 @app.route('/drink-menu', methods=['GET'])
@@ -349,7 +348,7 @@ def drinks():
     if data:
         return render_template("drink-menu.html", len=len(data), drink=data, username=username)
     else:
-        return render_template("drink-menu.html")
+        return render_template("drink-menu.html", username=username)
 
 
 @app.route('/dessert-menu', methods=['GET'])
@@ -367,7 +366,7 @@ def desserts():
     if data:
         return render_template("dessert-menu.html", len=len(data), dessert=data, username=username)
     else:
-        return render_template("dessert-menu.html")
+        return render_template("dessert-menu.html", username=username)
 
 
 @app.route('/recipe/food/<id>', methods=['GET', 'POST'])
@@ -624,15 +623,20 @@ def post_food():
                 i = i + 1
                 conn.commit()
 
+            cursor.execute("""SELECT members.memberid, personaldata.name, personaldata.surname, personaldata.location, members.e_mail, members.username FROM members 
+                                       INNER JOIN personaldata 
+                                       ON personaldata.memberid = members.memberid and members.memberid = %s """,
+                           (session["id"],))
+            data2 = cursor.fetchall()
             myResult = recipeType + "added successfully."
-            return render_template("add-recipe.html" , result=myResult,  authority=session["authority"] )
+            return render_template("add-recipe.html" , result=myResult, datam=data2, authority=session["authority"])
     else:
         if "id" in session:
             print(session["id"])
             cursor.execute("""SELECT members.memberid, personaldata.name, personaldata.surname, personaldata.location, members.e_mail, members.username FROM members 
                             INNER JOIN personaldata 
                             ON personaldata.memberid = members.memberid and members.memberid = %s """,(session["id"],))
-        data = cursor.fetchall()
+            data = cursor.fetchall()
         return render_template("add-recipe.html" , datam=data,  authority=session["authority"] )
 
 

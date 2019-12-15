@@ -384,6 +384,7 @@
 				</div>
 				
 				<div class="row" >
+					{% if drink %}
 						{%for i in range(0, len)%} 
 						<div class="col-md-4 col-sm-6" >
 							
@@ -409,6 +410,7 @@
 							</div>
 						</div>
 					{%endfor%}
+					{% endif %}
 				</div>
 			
 			</div>
