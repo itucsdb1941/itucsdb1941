@@ -2,14 +2,13 @@ import sqlite3, psycopg2
 import flask
 import json
 from flask import jsonify, request, render_template,redirect, url_for, send_from_directory, session
-from flask import jsonify, request, render_template,redirect, url_for, send_from_directory
 from werkzeug.utils import secure_filename
 
 import os
 import psycopg2 as dpapi
 
-url = "dbname='wezrrgcd' user='wezrrgcd' host='salt.db.elephantsql.com' password='gh4WaN_uVpfMTkAMF3AG-h2nXbbNr1FH' "
-#url = os.getenv("DB_URL")
+
+url = os.getenv("DB_URL")
 conn = dpapi.connect(url)
 cursor = conn.cursor()
 app = flask.Flask(__name__,template_folder="templates")
@@ -64,16 +63,15 @@ def home():
     else:
         return render_template("index.html", username=username)
 
-@app.route('/profile', methods=['GET', 'POST'])
-def profile():
 
+@app.route('/profile', methods=['GET' , 'POST'])
+def profile():
     if "id" in session:
         print(session["id"])
-        cursor.execute("""SELECT members.memberid, personaldata.name, personaldata.surname, personaldata.location, members.e_mail, members.username FROM members 
+        cursor.execute("""SELECT members.memberid, personaldata.name, personaldata.surname, personaldata.location, members.e_mail, members.username, personaldata.personalid FROM members 
                        INNER JOIN personaldata 
                        ON personaldata.memberid = members.memberid and members.memberid = %s """, str(session["id"]))
         data = cursor.fetchall()
-
 
         cursor.execute(""" SELECT food.foodid, food.foodphoto, food.foodname, qualification.cuisine, qualification.timing, qualification.qualificationid, food.foodrecipe FROM qualification
                     INNER JOIN food
@@ -93,12 +91,60 @@ def profile():
 
         drinks = cursor.fetchall()
 
+        if request.method == 'POST':
+            i=0
+            while i < len(foods):
+                foodid = foods[i][0]
+                qid = foods[i][5]
+                print(qid, str(foodid))
+                cursor.execute(""" DELETE FROM comment WHERE comment.memberid=%s""", str(session["id"]))
+                cursor.execute(""" DELETE FROM ingredient WHERE ingredient.foodid = (SELECT foodid FROM food WHERE food.memberid = %s)""", str(session["id"]))
+                cursor.execute(""" DELETE FROM food WHERE food.foodid= %s""", (str(foodid),))
+                cursor.execute(""" DELETE FROM qualification WHERE qualification.qualificationid=%s """, (str(qid),))
+                conn.commit()
+                i = i + 1
+
+            i = 0
+            while i < len(drinks):
+                 drinkid = drinks[i][0]
+                 qid = drinks[i][5]
+                 cursor.execute(""" DELETE FROM comment WHERE comment.memberid=%s""", str(session["id"]))
+                 cursor.execute(""" DELETE FROM ingredient WHERE ingredient.beverageid = (SELECT beverageid FROM beverage WHERE beverage.memberid = %s)""",str(session["id"]))
+                 cursor.execute(""" DELETE FROM beverage WHERE beverage.beverageid= %s""", (str(drinkid),))
+                 cursor.execute(""" DELETE FROM qualification WHERE qualification.qualificationid=%s """, (str(qid),))
+                 conn.commit()
+                 i = i + 1
+
+            i = 0
+            while i < len(desserts):
+                 dessertid = desserts[i][0]
+                 qid = desserts[i][5]
+                 cursor.execute(""" DELETE FROM comment WHERE comment.memberid= %s""", str(session["id"]))
+                 cursor.execute(""" DELETE FROM ingredient WHERE ingredient.dessertid = (SELECT dessertid FROM dessert WHERE dessert.memberid = %s)""",str(session["id"]))
+                 cursor.execute(""" DELETE FROM dessert WHERE dessert.dessertid= %s""", (str(dessertid),))
+                 cursor.execute(""" DELETE FROM qualification WHERE qualification.qualificationid=%s """, (str(qid),))
+                 conn.commit()
+                 i = i + 1
+
+
+            cursor.execute(""" DELETE FROM personaldata WHERE memberid= %s""", str(session["id"]))
+            cursor.execute(""" DELETE FROM members WHERE memberid= %s""", str(session["id"]))
+            conn.commit()
+
+            if 'id' in session:
+                session.pop('id')
+            if 'username' in session:
+                session.pop('username')
+
+            return render_template("profile.html", datam=data, foodlen=len(foods), drinklen=len(drinks),
+                                   dessertlen=len(desserts), food=foods, dessert=desserts, drink=drinks)
+
         if data or foods or drinks or desserts:
             return render_template("profile.html", authority=session["authority"] , datam=data, foodlen =len(foods), drinklen =len(drinks), dessertlen=len(desserts), food=foods, dessert=desserts, drink=drinks)
         else:
             return render_template("profile.html")
-    else:
-       return render_template("index.html")
+
+    return render_template("index.html")
 
 @app.route('/all-contacts', methods=['GET' , 'POST'])
 def all_contacts():
@@ -201,7 +247,7 @@ def logout():
    if 'id' in session:
         session.pop('id')
    if 'username' in session:
-       session.pop('username')
+        session.pop('username')
    return redirect(url_for('home'))
 
 @app.route('/new-password', methods=['GET'])
@@ -534,18 +580,18 @@ def post_food():
                 cursor.execute("INSERT INTO food(foodname, foodrecipe, foodphoto, foodtype, qualificationid, memberid, fooddate) VALUES (%s,%s,%s,%s,%s,%s,%s) RETURNING foodid" ,
                             (name, recipe, photo, type, qualificationId, memberid, date))
                 id = cursor.fetchone()[0]
-                print("food" , id)
+                print("food", id)
                 conn.commit()
             elif recipeType == "beverage":
                 cursor.execute(
-                    "INSERT INTO beverage(beveragename, beveragerecipe, beveragephoto, beveragetype, qualificationid, memberid, beveragedate) VALUES (%s,%s,%s,%s,%s,%s,%s) RETURNING foodid",
+                    "INSERT INTO beverage(beveragename, beveragerecipe, beveragephoto, beveragetype, qualificationid, memberid, beveragedate) VALUES (%s,%s,%s,%s,%s,%s,%s) RETURNING beverageid",
                     (name, recipe, photo, type, qualificationId, memberid, date))
                 id = cursor.fetchone()[0]
                 print("beverage", id)
                 conn.commit()
-            elif recipeType == "beverage":
+            elif recipeType == "dessert":
                 cursor.execute(
-                    "INSERT INTO dessert(dessertname, dessertrecipe, dessertphoto, desserttype, qualificationid, memberid, dessertdate) VALUES (%s,%s,%s,%s,%s,%s,%s) RETURNING foodid",
+                    "INSERT INTO dessert(dessertname, dessertrecipe, dessertphoto, desserttype, qualificationid, memberid, dessertdate) VALUES (%s,%s,%s,%s,%s,%s,%s) RETURNING dessertid",
                     (name, recipe, photo, type, qualificationId, memberid, date))
                 id = cursor.fetchone()[0]
                 print("dessert", id)
