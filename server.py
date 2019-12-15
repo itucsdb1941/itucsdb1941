@@ -96,8 +96,8 @@ def profile():
                 foodid = foods[i][0]
                 qid = foods[i][5]
                 print(qid, str(foodid))
-                cursor.execute(""" DELETE FROM comment WHERE comment.memberid=%s""", str(session["id"]))
-                cursor.execute(""" DELETE FROM ingredient WHERE ingredient.foodid = (SELECT foodid FROM food WHERE food.memberid = %s)""", str(session["id"]))
+                cursor.execute(""" DELETE FROM comment WHERE comment.memberid=%s""", (str(session["id"]),))
+                cursor.execute(""" DELETE FROM ingredient WHERE ingredient.foodid = (SELECT foodid FROM food WHERE food.memberid = %s)""", (str(session["id"]),))
                 cursor.execute(""" DELETE FROM food WHERE food.foodid= %s""", (str(foodid),))
                 cursor.execute(""" DELETE FROM qualification WHERE qualification.qualificationid=%s """, (str(qid),))
                 conn.commit()
@@ -107,8 +107,8 @@ def profile():
             while i < len(drinks):
                  drinkid = drinks[i][0]
                  qid = drinks[i][5]
-                 cursor.execute(""" DELETE FROM comment WHERE comment.memberid=%s""", str(session["id"]))
-                 cursor.execute(""" DELETE FROM ingredient WHERE ingredient.beverageid = (SELECT beverageid FROM beverage WHERE beverage.memberid = %s)""",str(session["id"]))
+                 cursor.execute(""" DELETE FROM comment WHERE comment.memberid=%s""", (str(session["id"]),))
+                 cursor.execute(""" DELETE FROM ingredient WHERE ingredient.beverageid = (SELECT beverageid FROM beverage WHERE beverage.memberid = %s)""",(str(session["id"]),))
                  cursor.execute(""" DELETE FROM beverage WHERE beverage.beverageid= %s""", (str(drinkid),))
                  cursor.execute(""" DELETE FROM qualification WHERE qualification.qualificationid=%s """, (str(qid),))
                  conn.commit()
@@ -118,16 +118,16 @@ def profile():
             while i < len(desserts):
                  dessertid = desserts[i][0]
                  qid = desserts[i][5]
-                 cursor.execute(""" DELETE FROM comment WHERE comment.memberid= %s""", str(session["id"]))
-                 cursor.execute(""" DELETE FROM ingredient WHERE ingredient.dessertid = (SELECT dessertid FROM dessert WHERE dessert.memberid = %s)""",str(session["id"]))
+                 cursor.execute(""" DELETE FROM comment WHERE comment.memberid= %s""", (str(session["id"]),))
+                 cursor.execute(""" DELETE FROM ingredient WHERE ingredient.dessertid = (SELECT dessertid FROM dessert WHERE dessert.memberid = %s)""",(str(session["id"]),))
                  cursor.execute(""" DELETE FROM dessert WHERE dessert.dessertid= %s""", (str(dessertid),))
                  cursor.execute(""" DELETE FROM qualification WHERE qualification.qualificationid=%s """, (str(qid),))
                  conn.commit()
                  i = i + 1
 
 
-            cursor.execute(""" DELETE FROM personaldata WHERE memberid= %s""", str(session["id"]))
-            cursor.execute(""" DELETE FROM members WHERE memberid= %s""", str(session["id"]))
+            cursor.execute(""" DELETE FROM personaldata WHERE memberid= %s""", (str(session["id"]),))
+            cursor.execute(""" DELETE FROM members WHERE memberid= %s""", (str(session["id"]),))
             conn.commit()
 
             if 'id' in session:
@@ -135,8 +135,7 @@ def profile():
             if 'username' in session:
                 session.pop('username')
 
-            return render_template("profile.html", datam=data, foodlen=len(foods), drinklen=len(drinks),
-                                   dessertlen=len(desserts), food=foods, dessert=desserts, drink=drinks)
+            return redirect(url_for('home'))
 
         if data or foods or drinks or desserts:
             return render_template("profile.html", authority=session["authority"] , datam=data, foodlen =len(foods), drinklen =len(drinks), dessertlen=len(desserts), food=foods, dessert=desserts, drink=drinks)
@@ -151,7 +150,7 @@ def all_contacts():
     if request.method == 'POST':
         contactid = request.form.get('contactid')
         print(contactid)
-        cursor.execute("DELETE FROM contact WHERE contactid=%s" , str(contactid))
+        cursor.execute("DELETE FROM contact WHERE contactid=%s" , (str(contactid),))
         conn.commit()
         return redirect(url_for('all_contacts'))
     else:
@@ -160,7 +159,7 @@ def all_contacts():
             cursor.execute("""SELECT members.memberid, personaldata.name, personaldata.surname, personaldata.location, members.e_mail, members.username FROM members 
                               INNER JOIN personaldata 
                               ON personaldata.memberid = members.memberid and members.memberid = %s """,
-                           str(session["id"]))
+                           (str(session["id"]),))
             data = cursor.fetchall()
 
             if authority == 'admin':
@@ -300,13 +299,17 @@ def signUp():
         ranswer = request.form.get("RecoveryAnswer")
 
         if firstname and lastname and email and username and password and gender and birthdate and location and rques and ranswer:
-            cursor.execute("INSERT INTO members(username, userpassword, e_mail, recoveryques, recoveryans) VALUES (%s, %s, %s, %s, %s) RETURNING memberid",(username, password, email, rques, ranswer) )
+            cursor.execute("INSERT INTO members(username, userpassword, e_mail, recoveryques, recoveryans, authority) VALUES (%s, %s, %s, %s, %s, %s) RETURNING memberid",(username, password, email, rques, ranswer, 'user'))
             conn.commit()
             sql=cursor.fetchone()[0]
             cursor.execute("INSERT INTO personaldata (name, surname, birthdate, sex, location, memberid) "
                              "VALUES (%s,%s,%s,%s,%s,%s)", (firstname, lastname, birthdate, gender, location, sql))
             conn.commit()
-            return redirect(url_for('home',username=username))
+
+            session["username"] = username
+            session["id"] = sql
+            session['authority'] = 'user'
+            return redirect(url_for('home', username=session["username"]))
         
     elif request.method == 'GET':
         return render_template("sign-page.html")
@@ -400,13 +403,13 @@ def foodRecipe(id):
                     INNER JOIN qualification
                     ON food.qualificationid = qualification.qualificationid
                     INNER JOIN  ingredient
-                    ON ingredient.foodid = food.foodid AND food.foodid = %s""", (id))
+                    ON ingredient.foodid = food.foodid AND food.foodid = %s""", (id,))
         data = cursor.fetchone()
         foodid = data[0]
         cursor.execute("SELECT comment.usercomment, comment.commentdate, members.username, comment.title, comment.commentlike, comment.commentdislike, comment.commentid FROM comment INNER JOIN members ON comment.memberid = members.memberid where comment.foodid = %s ", (foodid,))
         data2 = cursor.fetchall()
 
-        cursor.execute("SELECT ingredient.ingrename, ingredient.unit, ingredient.amount FROM ingredient INNER JOIN food ON ingredient.foodid = food.foodid AND food.foodid = %s """,(id))
+        cursor.execute("SELECT ingredient.ingrename, ingredient.unit, ingredient.amount FROM ingredient INNER JOIN food ON ingredient.foodid = food.foodid AND food.foodid = %s """,(id,))
         data3 = cursor.fetchall()
 
         username = ""
@@ -456,7 +459,7 @@ def drinkRecipe(id):
                             INNER JOIN qualification
                             ON beverage.qualificationid = qualification.qualificationid
                             INNER JOIN  ingredient
-                            ON ingredient.beverageid = beverage.beverageid AND beverage.beverageid = %s""", (id))
+                            ON ingredient.beverageid = beverage.beverageid AND beverage.beverageid = %s""", (id,))
         data = cursor.fetchone()
         drinkid = data[0]
 
@@ -467,7 +470,7 @@ def drinkRecipe(id):
 
         cursor.execute(
             "SELECT ingredient.ingrename, ingredient.unit, ingredient.amount FROM ingredient INNER JOIN beverage ON ingredient.beverageid = beverage.beverageid AND beverage.beverageid = %s """,
-            (id))
+            (id,))
         data3 = cursor.fetchall()
 
         username = ""
@@ -521,7 +524,7 @@ def dessertRecipe(id):
                             INNER JOIN qualification
                             ON dessert.qualificationid = qualification.qualificationid
                             INNER JOIN  ingredient
-                            ON dessert.dessertid = dessert.dessertid AND dessert.dessertid = %s""", (id))
+                            ON dessert.dessertid = dessert.dessertid AND dessert.dessertid = %s""", (id,))
         data = cursor.fetchone()
         dessertid = data[0]
 
@@ -532,7 +535,7 @@ def dessertRecipe(id):
 
         cursor.execute(
             "SELECT ingredient.ingrename, ingredient.unit, ingredient.amount FROM ingredient INNER JOIN dessert ON ingredient.dessertid = dessert.dessertid AND dessert.dessertid = %s """,
-            (id))
+            (id,))
         data3 = cursor.fetchall()
 
         username = ""
@@ -675,10 +678,10 @@ def change_food(id):
         mymemberid = session["id"]
         cursor.execute(""" SELECT food.foodname, qualification.cuisine, qualification.calori, qualification.serve,  qualification.timing, qualification.category,food.foodrecipe, food.foodtype, qualification.qualificationid FROM qualification
                     INNER JOIN food
-                    ON food.qualificationid = qualification.qualificationid and food.foodid=%s""", (id))
+                    ON food.qualificationid = qualification.qualificationid and food.foodid=%s""", (id,))
         foods = cursor.fetchone()
         print(foods[4])
-        cursor.execute("SELECT ingredient.ingrename, ingredient.unit, ingredient.amount, ingredient.ingredientid FROM ingredient INNER JOIN food ON ingredient.foodid = food.foodid AND food.foodid = %s """,(id))
+        cursor.execute("SELECT ingredient.ingrename, ingredient.unit, ingredient.amount, ingredient.ingredientid FROM ingredient INNER JOIN food ON ingredient.foodid = food.foodid AND food.foodid = %s """,(id,))
         data3 = cursor.fetchall()
         print(data3)
         cursor.execute("""SELECT members.memberid, personaldata.name, personaldata.surname, personaldata.location, members.e_mail, members.username FROM members 
@@ -729,15 +732,15 @@ def change_dessert(id):
     else:
         cursor.execute(""" SELECT dessert.dessertname, qualification.cuisine, qualification.calori, qualification.serve,  qualification.timing, qualification.category,dessert.dessertrecipe, dessert.desserttype, qualification.qualificationid FROM qualification
                     INNER JOIN dessert
-                    ON dessert.qualificationid = qualification.qualificationid and dessert.dessertid=%s""", (id))
+                    ON dessert.qualificationid = qualification.qualificationid and dessert.dessertid=%s""", (id,))
         desserts = cursor.fetchone()
-        cursor.execute("SELECT ingredient.ingrename, ingredient.unit, ingredient.amount, ingredient.ingredientid FROM ingredient INNER JOIN dessert ON ingredient.dessertid = dessert.dessertid AND dessert.dessertid = %s """,(id))
+        cursor.execute("SELECT ingredient.ingrename, ingredient.unit, ingredient.amount, ingredient.ingredientid FROM ingredient INNER JOIN dessert ON ingredient.dessertid = dessert.dessertid AND dessert.dessertid = %s """,(id,))
         data3 = cursor.fetchall()
         print(data3)
         cursor.execute("""SELECT members.memberid, personaldata.name, personaldata.surname, personaldata.location, members.e_mail, members.username FROM members 
                            INNER JOIN personaldata 
                            ON personaldata.memberid = members.memberid and members.memberid = %s """,
-                       str(session["id"]))
+                       (str(session["id"]),))
         memberdata = cursor.fetchall()
         return render_template("change-recipe.html", datam=memberdata, data=desserts , ingre=data3 , ingrelen=len(data3))
 
@@ -783,16 +786,16 @@ def change_drink(id):
     else:
         cursor.execute(""" SELECT beverage.beveragename, qualification.cuisine, qualification.calori, qualification.serve,  qualification.timing, qualification.category,beverage.beveragerecipe, beverage.beveragetype, qualification.qualificationid FROM qualification
                     INNER JOIN beverage
-                    ON beverage.qualificationid = qualification.qualificationid and beverage.beverageid=%s""", (id))
+                    ON beverage.qualificationid = qualification.qualificationid and beverage.beverageid=%s""", (id,))
         drinks= cursor.fetchone()
 
-        cursor.execute("SELECT ingredient.ingrename, ingredient.unit, ingredient.amount, ingredient.ingredientid FROM ingredient INNER JOIN beverage ON ingredient.beverageid = beverage.beverageid AND beverage.beverageid = %s """,(id))
+        cursor.execute("SELECT ingredient.ingrename, ingredient.unit, ingredient.amount, ingredient.ingredientid FROM ingredient INNER JOIN beverage ON ingredient.beverageid = beverage.beverageid AND beverage.beverageid = %s """,(id,))
         data3 = cursor.fetchall()
         print(data3)
         cursor.execute("""SELECT members.memberid, personaldata.name, personaldata.surname, personaldata.location, members.e_mail, members.username FROM members 
                            INNER JOIN personaldata 
                            ON personaldata.memberid = members.memberid and members.memberid = %s """,
-                       str(session["id"]))
+                       (str(session["id"]),))
         memberdata = cursor.fetchall()
         return render_template("change-recipe.html", datam=memberdata, data=drinks , ingre=data3 , ingrelen=len(data3))
 
