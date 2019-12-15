@@ -7,8 +7,8 @@ from werkzeug.utils import secure_filename
 import os
 import psycopg2 as dpapi
 
-
-url = os.getenv("DB_URL")
+url = "dbname='wezrrgcd' user='wezrrgcd' host='salt.db.elephantsql.com' password='gh4WaN_uVpfMTkAMF3AG-h2nXbbNr1FH'"
+#url = os.getenv("DB_URL")
 conn = dpapi.connect(url)
 cursor = conn.cursor()
 app = flask.Flask(__name__,template_folder="templates")
@@ -67,27 +67,26 @@ def home():
 @app.route('/profile', methods=['GET' , 'POST'])
 def profile():
     if "id" in session:
-        print(session["id"])
         cursor.execute("""SELECT members.memberid, personaldata.name, personaldata.surname, personaldata.location, members.e_mail, members.username, personaldata.personalid FROM members 
                        INNER JOIN personaldata 
-                       ON personaldata.memberid = members.memberid and members.memberid = %s """, str(session["id"]))
-        data = cursor.fetchall()
+                       ON personaldata.memberid = members.memberid and members.memberid=%s;""", (session["id"],))
+        data = cursor.fetchone()
 
         cursor.execute(""" SELECT food.foodid, food.foodphoto, food.foodname, qualification.cuisine, qualification.timing, qualification.qualificationid, food.foodrecipe FROM qualification
                     INNER JOIN food
-                    ON food.qualificationid = qualification.qualificationid and food.memberid = %s""", str(session["id"]))
+                    ON food.qualificationid = qualification.qualificationid and food.memberid = %s;""",(session["id"],))
 
         foods = cursor.fetchall()
 
         cursor.execute(""" SELECT dessert.dessertid, dessert.dessertphoto, dessert.dessertname, qualification.cuisine, qualification.timing, qualification.qualificationid, dessert.dessertrecipe FROM qualification
                         INNER JOIN dessert
-                        ON dessert.qualificationid = qualification.qualificationid and dessert.memberid = %s""", str(session["id"]))
+                        ON dessert.qualificationid = qualification.qualificationid and dessert.memberid = %s;""",(session["id"],))
 
         desserts = cursor.fetchall()
 
         cursor.execute(""" SELECT beverage.beverageid, beverage.beveragephoto, beverage.beveragename, qualification.cuisine, qualification.timing, qualification.qualificationid, beverage.beveragerecipe FROM qualification
                         INNER JOIN beverage
-                        ON beverage.qualificationid = qualification.qualificationid and beverage.memberid = %s""", str(session["id"]))
+                        ON beverage.qualificationid = qualification.qualificationid and beverage.memberid = %s;""", (session["id"],))
 
         drinks = cursor.fetchall()
 
@@ -214,11 +213,6 @@ def changeInfo():
 
 
 
-
-
-
-
-
 @app.route('/sign-in', methods=['GET'])
 def get_members():
     userName = request.args.get("username")
@@ -235,7 +229,7 @@ def get_members():
             session["username"]= userName
             session["id"] = data[0]
             session['authority'] = data[6]
-            return redirect(url_for('profile'))
+            return redirect(url_for('home', username=session["username"]))
         else:
             myerror="Please try again!"
             return render_template('login-page.html', errors=myerror)
