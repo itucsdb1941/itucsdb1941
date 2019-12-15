@@ -216,8 +216,8 @@
 			overflow: hidden;
 			border-radius: 0;
 			z-index: 1;
-			width: 275px;
-			height: 275px;
+			width: 200px;
+			height: 200px;
 			background-position: center;
 			background-size: cover;
 			background-repeat: no-repeat;
@@ -253,8 +253,7 @@
 		}
 		.card-desc {
 			margin-top: 20px;
-			height: 140px;
-  			position: relative;
+			height: calc(100% - 200px);
 		}
 
 		.card-desc h3 {
@@ -276,7 +275,7 @@
 			margin: 0px;
 			margin-bottom: 20px;
 			padding: 0;
-			width: 80%;
+			width:100%;
 			font-family: 'Raleway', sans-serif;
 		}
 
@@ -284,10 +283,6 @@
 			display: inline-block;
 			background-color: #2ecc71;
 			padding: .84rem 2.14rem;
-			position: absolute;
-			bottom: 0;
-			left: 0;
-
 		}
 
 		.btn-card{
@@ -414,7 +409,7 @@
 				color:#305779;
 			}
 			p {
-				width: 200px;
+				width: 250px;
 				white-space: nowrap;
 				overflow: hidden;
 				text-overflow: ellipsis;
@@ -479,15 +474,12 @@
 						</form>
 						{% endif %}
 					</p>
-
 					<form method="get" action="add-recipe">	
 						<button class="btn success" style = "margin-top: 320px;"> Add New Recipe</button>	
 					</form>
-					{% if authority == 'admin' %}
-					<form method="get" action="all-contacts">	
-							<button class="btn success" style = "margin-top: 10px;">Contacts</button>	
+					<form method="get" action="profile">	
+							<button class="btn success" style = "margin-top: 10px;"> My Recipes</button>	
 						</form>
-					{%endif%}
 					<form method="get" action="logout">	
 						<button class="btn success" style = "margin-top: 10px;"> Log Out</button>	
 					</form>
@@ -510,58 +502,38 @@
   				<section>
 
 			<div class="row">
-			{%for i in range(0, foodlen)%} 
-				<div class="col-md-4">
+			{%for i in range(0, contactlen)%} 
+				<div class="col-md-4" style="padding-left: 20px;padding-bottom: 20px; box-shadow: 5px 0px 5px 5px #f8f8f8;">
 					<div class="card-content">
-						<div class="card-img" style="background-image: url('./static/assets/images/{{food[i][1]}}');"></div>
 						<div class="card-desc">
-						<h3>{{food[i][2]}}</h3>
-						<p>{{food[i][6]}}</p>
-						<form method="get">
-								<a href="/recipe/food/{{food[i][0]}}"  class="btn-info">Read More</a>  
-						</form>
+						<div class="row">
+							<div class="col-md-3 col-xs-3 col-sm-3"><h3>{{contact[i][3]}}</h3></div>
+							<div class="col-md-9 col-xs-9 col-sm-9"><p style="text-align: right;margin-top: 15px;font-weight: bold;">{{contact[i][2]}}</p></div>
 						</div>
-					</div>
-				</div>
-			{%endfor%}
-
-			{%for i in range(0, dessertlen)%} 
-				<div class="col-md-4">
-					<div class="card-content">
-						<div class="card-img" style="background-image: url('./static/assets/images/{{dessert[i][1]}}');">
+						<div class="row">
+								<div class="col-md-5 col-xs-5 col-sm-5"><p> <span style="font-weight:bold" >Category : </span>{{contact[i][4]}}</p></div>
+								<div class="col-md-7 col-xs-7 col-sm-7"><p style="text-align: right;"> <span style="font-weight:bold" >E-mail : </span> {{contact[i][5]}}</p></div>
 						</div>
-						<div class="card-desc">
-						<h3>{{dessert[i][2]}}</h3>
-						<p>{{dessert[i][6]}}</p>
-						<form method="get">
-								<a href="/recipe/dessert/{{dessert[i][0]}}"  class="btn-info">Read More</a>  
-						</form>
-						</div>
-					</div>
-				</div>
-			{%endfor%}
-			
-
-			{%for i in range(0, drinklen)%} 
-				<div class="col-md-4">
-					<div class="card-content">
-
-						<div class="card-img" style="background-image: url('./static/assets/images/{{drink[i][1]}}');"></div>
 						
-						<div class="card-desc">
-						<h3>{{drink[i][2]}}</h3>
-						<p>{{drink[i][6]}}</p>
-						<form method="get">
-								<a href="/recipe/drink/{{drink[i][0]}}"  class="btn-info">Read More</a>  
-						</form>
+						<p>{{contact[i][1]}}</p>
 						</div>
+						<form method="post">
+							<input type="hidden" name="contactid" value="{{contact[i][0]}}" >
+							<div class="col-md-1 col-xs-1 col-sm-1" style="float:right;"><button style="background:none; border:none;" ><i class="fa fa-trash-o" style="color:red; font-size:20px" aria-hidden="true"></i></button></div>
+						</form>
 					</div>
 				</div>
 			{%endfor%}
-			
+			{%if result%}	
+				<p style="
+					margin: auto;
+					font-size: 20px;
+					font-weight: bold;
+					/* margin-top: 11%; */
+					color: #bec3ff;
+				">{{result}}</p>
+			{%endif%}
 			</div>
-        
-    
 
   			</section>
 		</main>

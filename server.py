@@ -8,8 +8,7 @@ from werkzeug.utils import secure_filename
 import os
 import psycopg2 as dpapi
 
-url = "dbname='wezrrgcd' user='wezrrgcd' host='salt.db.elephantsql.com' password='gh4WaN_uVpfMTkAMF3AG-h2nXbbNr1FH' "
-# url = os.getenv("DB_URL")
+url = os.getenv("DB_URL")
 conn = dpapi.connect(url)
 cursor = conn.cursor()
 app = flask.Flask(__name__,template_folder="templates")
@@ -94,17 +93,42 @@ def profile():
         drinks = cursor.fetchall()
 
         if data or foods or drinks or desserts:
-            return render_template("profile.html", datam=data, foodlen=len(foods), drinklen =len(drinks), dessertlen=len(desserts), food=foods, dessert=desserts, drink=drinks)
+            return render_template("profile.html", authority=session["authority"] , datam=data, foodlen =len(foods), drinklen =len(drinks), dessertlen=len(desserts), food=foods, dessert=desserts, drink=drinks)
         else:
             return render_template("profile.html")
     else:
        return render_template("index.html")
 
+@app.route('/all-contacts', methods=['GET' , 'POST'])
+def all_contacts():
+    if request.method == 'POST':
+        contactid = request.form.get('contactid')
+        print(contactid)
+        cursor.execute("DELETE FROM contact WHERE contactid=%s" , str(contactid))
+        return redirect(url_for('all_contacts'))
+    else:
+        if "authority" in session:
+            authority = session['authority']
+            cursor.execute("""SELECT members.memberid, personaldata.name, personaldata.surname, personaldata.location, members.e_mail, members.username FROM members 
+                              INNER JOIN personaldata 
+                              ON personaldata.memberid = members.memberid and members.memberid = %s """,
+                           str(session["id"]))
+            data = cursor.fetchall()
+
+            if authority == 'admin':
+                cursor.execute("SELECT contactid, message, date, title, category, e_mail FROM contact")
+                contacts = cursor.fetchall()
+
+            if contacts:
+                return render_template("show-contacts.html",authority=session["authority"] , contact=contacts, datam=data, contactlen=len(contacts))
+            else:
+                return render_template("show-contacts.html",authority=session["authority"] ,  datam=data, contactlen=0, result="No contact..")
+        else :
+            return render_template(url_for("profile"))
+
 
 @app.route('/sign-in', methods=['GET'])
 def get_members():
-    if 'id' in session:
-        return redirect(url_for('profile'))
     userName = request.args.get("username")
     passWord = request.args.get("password")
 
@@ -118,6 +142,7 @@ def get_members():
         if data:
             session["username"]= userName
             session["id"] = data[0]
+            session['authority'] = data[6]
             return redirect(url_for('profile'))
         else:
             myerror="Please try again!"
