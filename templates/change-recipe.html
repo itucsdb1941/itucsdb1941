@@ -606,16 +606,22 @@
                             </form>
                             {% endif %}
                         </p>
-                        <form method="get" action="profile">	
-                                <button class="btn success" style = "margin-top: 320px;"> My Recipes</button>	
+                        <form method="get" action="add-recipe">	
+                            <button class="btn success" style = "margin-top: 220px;"> Add New Recipe</button>	
                         </form>
                         {% if authority == 'admin' %}
                         <form method="get" action="all-contacts">	
                                 <button class="btn success" style = "margin-top: 10px;">Contacts</button>	
                             </form>
                         {%endif%}
+                        <form method="get" action="change-info">	
+                            <button class="btn success" style = "margin-top: 10px;"> Change Personal Info </button>	
+                        </form>
                         <form method="get" action="logout">	
-                                <button class="btn success" style = "margin-top: 10px;"> Log Out</button>	
+                            <button class="btn success" style = "margin-top: 10px;"> Log Out</button>	
+                        </form>
+                        <form method="post" >	
+                                <button class="btn success" name="deleteButton" value="delete" style = "margin-top: 10px;"> Delete My Account</button>	
                         </form>
                     </div>
                 </div>
