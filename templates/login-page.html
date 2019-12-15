@@ -339,8 +339,8 @@ body{
 			<form method="get" action="new-password">
 				<button class="forgot" >Forgot password?</button>
 			</form>
-			{% if error %}
-				<label >{{ error }}</label> 
+			{% if errors %}
+				<p >{{ errors }}</p> 
 			{% endif %}
 		</div>
 		<form method="get" action="sign-up">		
