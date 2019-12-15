@@ -77,7 +77,6 @@
 		top: $header-height;
 		left: 50px;
 		margin: 0;
-		overflow-y: auto; 
 		ul {
 			@include span-columns(12);
 			clear: both;
@@ -481,13 +480,16 @@
 					</p>
 
 					<form method="get" action="add-recipe">	
-						<button class="btn success" style = "margin-top: 320px;"> Add New Recipe</button>	
+						<button class="btn success" style = "margin-top: 220px;"> Add New Recipe</button>	
 					</form>
 					{% if authority == 'admin' %}
 					<form method="get" action="all-contacts">	
 							<button class="btn success" style = "margin-top: 10px;">Contacts</button>	
 						</form>
 					{%endif%}
+					<form method="get" action="change-info">	
+						<button class="btn success" style = "margin-top: 10px;"> Change Personal Info </button>	
+					</form>
 					<form method="get" action="logout">	
 						<button class="btn success" style = "margin-top: 10px;"> Log Out</button>	
 					</form>

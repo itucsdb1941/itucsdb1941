@@ -8,7 +8,8 @@ from werkzeug.utils import secure_filename
 import os
 import psycopg2 as dpapi
 
-url = os.getenv("DB_URL")
+url = "dbname='wezrrgcd' user='wezrrgcd' host='salt.db.elephantsql.com' password='gh4WaN_uVpfMTkAMF3AG-h2nXbbNr1FH' "
+#url = os.getenv("DB_URL")
 conn = dpapi.connect(url)
 cursor = conn.cursor()
 app = flask.Flask(__name__,template_folder="templates")
@@ -61,9 +62,9 @@ def home():
     if data and data2 and data3 and data4 and data5 and data6:
         return render_template("index.html", comment1 =data[0], comment2=data2, comment3=data3, comment4 =data[1], beverage=data6, food= data4, dessert= data5, username=username)
     else:
-        return render_template("index.html")
+        return render_template("index.html", username=username)
 
-@app.route('/profile', methods=['GET'])
+@app.route('/profile', methods=['GET', 'POST'])
 def profile():
 
     if "id" in session:
@@ -101,10 +102,12 @@ def profile():
 
 @app.route('/all-contacts', methods=['GET' , 'POST'])
 def all_contacts():
+
     if request.method == 'POST':
         contactid = request.form.get('contactid')
         print(contactid)
         cursor.execute("DELETE FROM contact WHERE contactid=%s" , str(contactid))
+        conn.commit()
         return redirect(url_for('all_contacts'))
     else:
         if "authority" in session:
@@ -125,6 +128,49 @@ def all_contacts():
                 return render_template("show-contacts.html",authority=session["authority"] ,  datam=data, contactlen=0, result="No contact..")
         else :
             return render_template(url_for("profile"))
+
+
+@app.route('/change-info', methods=['GET' , 'POST'])
+def changeInfo():
+
+    firstname = request.form.get("FirstName")
+    lastname = request.form.get("LastName")
+    gender = request.form.get("Gender")
+    birthdate = request.form.get("Birthdate")
+    location = request.form.get("Location")
+    email = request.form.get("email")
+    password = request.form.get("password")
+
+    cursor.execute("""SELECT members.memberid, personaldata.name, personaldata.surname, personaldata.location, members.e_mail, members.username,  members.userpassword FROM members 
+                                    INNER JOIN personaldata 
+                                    ON personaldata.memberid = members.memberid and members.memberid = %s """,
+                   str(session["id"]))
+    data2 = cursor.fetchall()
+
+    if request.method == "POST":
+        cursor.execute(
+            "UPDATE personaldata SET name = %s, surname = %s , birthdate = %s, sex = %s, location = %s  WHERE personaldata.memberid = %s",
+            (firstname, lastname, birthdate, gender, location, session["id"]))
+        cursor.execute(
+            "UPDATE members SET e_mail = %s, userpassword = %s WHERE members.memberid = %s",
+            (email, password, session["id"]))
+        conn.commit()
+
+        return redirect(url_for('changeInfo', authority=session["authority"] , datam=data2))
+
+    else:
+        cursor.execute("""SELECT members.memberid, personaldata.name, personaldata.surname, personaldata.sex, personaldata.birthdate, personaldata.location, members.userpassword FROM personaldata 
+                            INNER JOIN members 
+                            ON personaldata.memberid = members.memberid and members.memberid = %s """,str(session["id"]))
+        data = cursor.fetchall()
+
+        return render_template('change-info.html',  authority=session["authority"] , info=data, datam=data2)
+
+
+
+
+
+
 
 
 @app.route('/sign-in', methods=['GET'])
@@ -260,6 +306,7 @@ def drinks():
         return render_template("drink-menu.html", len=len(data), drink=data, username=username)
     else:
         return render_template("drink-menu.html")
+
 
 @app.route('/dessert-menu', methods=['GET'])
 def desserts():
@@ -534,7 +581,7 @@ def post_food():
                 conn.commit()
 
             myResult = recipeType + "added successfully."
-            return render_template("add-recipe.html" , result=myResult)
+            return render_template("add-recipe.html" , result=myResult,  authority=session["authority"] )
     else:
         if "id" in session:
             print(session["id"])
@@ -543,7 +590,7 @@ def post_food():
                             ON personaldata.memberid = members.memberid and members.memberid = %s """,
                            str(session["id"]))
         data = cursor.fetchall()
-        return render_template("add-recipe.html" , datam=data)
+        return render_template("add-recipe.html" , datam=data,  authority=session["authority"] )
 
 
 
@@ -576,7 +623,11 @@ def upload_file():
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     if request.method == 'POST':
-        print("abcd")
+
+        username = ""
+        if 'username' in session:
+            username = session['username']
+
         message = request.form.get("message")
         title = request.form.get("title")
         category = request.form.get("category")
@@ -591,9 +642,13 @@ def contact():
             return redirect(url_for('home'))
 
         else:
-            return render_template("contact.html")
+
+            return render_template("contact.html", username=username)
     else:
-        return render_template("contact.html")
+        username = ""
+        if 'username' in session:
+            username = session['username']
+        return render_template("contact.html", username=username)
 
 
 if __name__ == '_main_':
