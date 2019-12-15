@@ -7,7 +7,8 @@ from werkzeug.utils import secure_filename
 import os
 import psycopg2 as dpapi
 
-url = os.getenv("DB_URL")
+url = "dbname='wezrrgcd' user='wezrrgcd' host='salt.db.elephantsql.com' password='gh4WaN_uVpfMTkAMF3AG-h2nXbbNr1FH' "
+# url = os.getenv("DB_URL")
 conn = dpapi.connect(url)
 cursor = conn.cursor()
 app = flask.Flask(__name__,template_folder="templates")
@@ -148,10 +149,16 @@ def all_contacts():
 
     if request.method == 'POST':
         contactid = request.form.get('contactid')
-        print(contactid)
-        cursor.execute("DELETE FROM contact WHERE contactid=%s" , (str(contactid),))
+        statusValue = request.form.get('status')
+        print(statusValue)
+        if statusValue == 'put':
+            cursor.execute("UPDATE contact SET status = %s WHERE contact.contactid = %s",
+            (True,contactid,))
+        else:
+            cursor.execute("DELETE FROM contact WHERE contactid=%s" , (str(contactid),))
+
         conn.commit()
-        return redirect(url_for('all_contacts'))
+        return redirect(url_for('all_contacts', status="done" ))
     else:
         if "authority" in session:
             authority = session['authority']
@@ -162,7 +169,7 @@ def all_contacts():
             data = cursor.fetchall()
 
             if authority == 'admin':
-                cursor.execute("SELECT contactid, message, date, title, category, e_mail FROM contact")
+                cursor.execute("SELECT contactid, message, date, title, category, e_mail, status FROM contact")
                 contacts = cursor.fetchall()
 
             if contacts:
@@ -628,8 +635,7 @@ def post_food():
                                        ON personaldata.memberid = members.memberid and members.memberid = %s """,
                            (session["id"],))
             data2 = cursor.fetchall()
-            myResult = recipeType + "added successfully."
-            return render_template("add-recipe.html" , result=myResult, datam=data2, authority=session["authority"])
+            return redirect(url_for("profile"))
     else:
         if "id" in session:
             print(session["id"])
