@@ -612,8 +612,11 @@
                             </form>
                             {% endif %}
                         </p>
+                        <form method="get" action="profile">	
+                            <button class="btn success" style = "margin-top: 220px;"> My Recipes</button>	
+                        </form>
                         <form method="get" action="add-recipe">	
-                            <button class="btn success" style = "margin-top: 220px;"> Add New Recipe</button>	
+                            <button class="btn success" style = "margin-top: 10px;"> Add New Recipe</button>	
                         </form>
                         {% if authority == 'admin' %}
                         <form method="get" action="all-contacts">	
