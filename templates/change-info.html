@@ -492,6 +492,7 @@
                 float: right !important;
                 display: inline-block;
                 outline: none;
+				background-color: #f49b0e;
                 line-height: 40px;
                 padding: 0px 0px;
                 font-size: .8em;
@@ -583,6 +584,121 @@
 			margin-left: 25%;
 
 			}
+			.disabled-checkbox input+label {
+                position: absolute;
+                left: 7px !important;
+                top: 10px !important;
+                right: 0;
+                bottom: 0;
+                width: 100%;
+                height: 100%;
+                border-radius: 3px;
+                cursor: pointer;
+                border: 1px solid #cecec7 !important;
+                margin-left:10px;
+            }
+
+            .primary-switch {
+                width: 38px;
+                height: 17px;
+                left: 24px;
+                top: -12px;
+                border-radius: 8.5px;
+                background: #fff;
+                position: relative;
+                cursor: pointer;
+            }
+            .primary-switch input+label {
+                position: absolute;
+                left: 0;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                width: 93% !important;
+                height: 100%;
+            }
+            .primary-switch input+label:before {
+                content: "";
+                position: absolute;
+                left: 0;
+                top: 0;
+                right: 0;
+                bottom: 0;
+                width: 100%;
+                height: 100%;
+                background: #f9f9ff !important;
+                border-radius: 8.5px;
+                cursor: pointer;
+                -webkit-transition: all 0.2s;
+                -moz-transition: all 0.2s;
+                -o-transition: all 0.2s;
+                transition: all 0.2s;
+            }
+            .primary-switch input:checked+label:before {
+                background: #e77991 !important;
+            }
+
+            /*file upload*/
+            .single-input-primary {
+                display: block;
+                width: 100%;
+                line-height: 30px;
+                border: 1px solid transparent;
+                outline: none;
+                background: #f9f9ff;
+                padding: 10px 10px;
+                font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+                font-size: 1rem;
+                font-weight: 400;
+                line-height: 1.5;
+                color: #797979;
+                text-align: left;
+            }
+
+            /*button*/
+            .genric-btn {
+                float: right !important;
+                display: inline-block;
+                outline: none;
+                line-height: 40px;
+                padding: 0px 0px;
+				background-color: #f49b0e !important;
+                font-size: .8em;
+                text-align: center;
+                text-decoration: none;
+                font-weight: 500;
+                cursor: pointer;
+                -webkit-transition: all 0.3s ease 0s;
+                -moz-transition: all 0.3s ease 0s;
+                -o-transition: all 0.3s ease 0s;
+                transition: all 0.3s ease 0s;
+            }
+
+			.genric-btn.danger:hover {
+                color: white;
+                border: 1px solid #5176de;
+                background: #5176de !important;
+            }
+            .input-group-icon-ingre{
+                margin-top:25px;
+                border-top: 1px solid #f9f9ff; 
+                border-bottom:1px solid #f9f9ff;
+                padding-top:10px;
+                padding-bottom:10px;
+                width:120%;
+                height:63px;
+            }
+            .mt-mb-20 {
+                margin-top:20px !important;
+                margin-bottom:20px!important;
+            }
+            .mt-30 {
+                margin-top: 30px;
+            }
+            .mt-5 {
+                margin-top:5px !important;
+            }
+           
 		
 		</style>
 	</head>
@@ -667,28 +783,42 @@
                             <div class="row">
                                 <div class="col-lg-8 col-md-8">
                                     <h3 class="mb-30 title_color">Change Personal Info</h3> 
-										<div class="row mt-10">
-																				
-											<div class="mb-3 col-md-7 col-xs-7 col-sm-7">
+										<div class="row mt-10">							
+											<div class="mb-3 col-md-7 col-xs-7 col-sm-7" style="margin-left: 47px;">
 												<div class="row" style="padding-top:5px;">
-													<form method="post">
+													<form method="post" style="width: 300px;">
 														{% if info %}
-															<input type="text" placeholder="first name"  name="FirstName" value = "{{ info[0][1] }}" />
-															<input type="text" placeholder="last name"  name="LastName" value = "{{ info[0][2] }}" /><br>
-															<select class="dropdown" name="Gender" value = "{{ info[0][3] }}">
+														<div class="input-group-icon mt-10">
+															<input type="text" name="FirstName" value = "{{ info[0][1] }}"  placeholder="First Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'First Name'" required class="single-input">
+														</div>
+														<div class="input-group-icon mt-10">
+															<input type="text" name="LastName" value = "{{ info[0][2] }}" placeholder="Last Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Last Name'" required class="single-input">
+														</div>
+														<div class="input-group-icon mt-10">
+															<select name="Gender" value = "{{ info[0][3] }}" class="form-control">
+																<option value="{{ info[0][3] }}" selected>{{ info[0][3] }}</option>
 																<option value="Female">Female</option>
 																<option value="Male">Male</option>
 																<option value="Others">Others</option>
 															</select><br>
-															<input type="date" id="datepicker" name="Birthdate" value = "">
-															<input type="text" placeholder="location"  name="Location" value = "{{ info[0][5] }}" /><br>
+														</div>
+														<div  class="input-group-icon" style="margin-top: -15px;">
+															<input type="date" id="datepicker" name="Birthdate" value = "{{ info[0][4] }}" class="form-control">
+														</div>
+														<div  class="input-group-icon mt-10">
+															<input type="text" name="Location" value = "{{ info[0][5] }}" placeholder="Location" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Location'" required class="single-input">
+														</div>
 														{% endif %}
 
 														{% if datam %}
-															<input type="text" placeholder="e-mail" name="email" value = "{{ datam[0][4] }}" />
-															<input type="text" placeholder="password" name="password" value = "{{ datam[0][6] }}" />
+														<div  class="input-group-icon mt-10">
+															<input type="text" name="email" value = "{{ datam[0][4] }}" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'" required class="single-input">
+														</div>
+														<div  class="input-group-icon mt-10">
+															<input type="text" name="password" value = "{{ datam[0][6] }}"  placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'" required class="single-input">
+														</div>
 														{% endif %}
-															<button id="mybutton" class="col-md-5 col-xs-5 col-sm-5 genric-btn danger radius" style="margin-top: 30px;padding-right:0px; left:-34%"> Save </button> 
+															<button id="mybutton" class="col-md-5 col-xs-5 col-sm-5 genric-btn danger radius" style="margin-top: 30px;padding-right:0px; left:-34%; "> Save </button> 
 														
 													</form>
 												</div>
