@@ -8,7 +8,8 @@ from werkzeug.utils import secure_filename
 import os
 import psycopg2 as dpapi
 
-url = os.getenv("DB_URL")
+url = "dbname='wezrrgcd' user='wezrrgcd' host='salt.db.elephantsql.com' password='gh4WaN_uVpfMTkAMF3AG-h2nXbbNr1FH' "
+# url = os.getenv("DB_URL")
 conn = dpapi.connect(url)
 cursor = conn.cursor()
 app = flask.Flask(__name__,template_folder="templates")
@@ -157,6 +158,7 @@ def logout():
    if 'username' in session:
        session.pop('username')
    return redirect(url_for('home'))
+
 
 @app.route('/new-password', methods=['GET'])
 def newPass():
@@ -488,6 +490,169 @@ def post_food():
         data = cursor.fetchall()
         return render_template("add-recipe.html" , datam=data)
 
+
+@app.route('/change-recipe/food/<id>', methods=['GET','POST'])
+def change_food(id):
+    qualificationId = 0
+    if request.method == 'POST':
+        memberid = session["id"]
+        qualificationid = request.form.get('qualificationid')
+        name = request.form.get('recipename')
+        time = request.form.get('recipetime')
+        calorie = request.form.get('recipecalorie')
+        country = request.form.get('recipecountry')
+        type = request.form.get('recipetype')
+        date = request.form.get('recipedate')
+        serve = request.form.get('recipeserve')
+        recipe = request.form.get('recipes')
+        category = request.form.get('recipecategory')
+        recipeType = request.form.get('recipeType')
+        print(name , time , calorie, date , country, serve , recipe)
+        cursor.execute("UPDATE qualification SET cuisine = %s , timing = %s, category = %s, calori = %s, serve= %s WHERE qualificationid = %s",
+                        (country, time, category, calorie, serve, qualificationid))
+        cursor.execute(
+            "UPDATE food SET foodname = %s , foodrecipe = %s, foodtype = %s WHERE foodid = %s",
+            (name, recipe, type, id))
+
+        i=0
+        while request.form.get("ingrename" + str(i)):
+            ingreid = request.form.get("ingredientid"+ str(i))
+            ingrename = request.form.get("ingrename" + str(i))
+            ingreamount = request.form.get("ingreamount" + str(i))
+            ingreunit = request.form.get("ingreunit" + str(i))
+            print(ingrename,ingreamount,ingreunit)
+            cursor.execute(
+                "UPDATE ingredient SET ingrename = %s , unit = %s, amount = %s WHERE foodid = %s and ingredientid=%s ",
+                (ingrename, ingreunit, ingreamount, id , ingreid))
+            conn.commit()
+            i=i+1
+        conn.commit()
+
+        return redirect(url_for("profile"))
+    else:
+        cursor.execute(""" SELECT food.foodname, qualification.cuisine, qualification.calori, qualification.serve,  qualification.timing, qualification.category,food.foodrecipe, food.foodtype, qualification.qualificationid FROM qualification
+                    INNER JOIN food
+                    ON food.qualificationid = qualification.qualificationid and food.foodid=%s""", (id))
+        foods = cursor.fetchone()
+        print(foods[4])
+        cursor.execute("SELECT ingredient.ingrename, ingredient.unit, ingredient.amount, ingredient.ingredientid FROM ingredient INNER JOIN food ON ingredient.foodid = food.foodid AND food.foodid = %s """,(id))
+        data3 = cursor.fetchall()
+        print(data3)
+        cursor.execute("""SELECT members.memberid, personaldata.name, personaldata.surname, personaldata.location, members.e_mail, members.username FROM members 
+                           INNER JOIN personaldata 
+                           ON personaldata.memberid = members.memberid and members.memberid = %s """,
+                       str(session["id"]))
+        memberdata = cursor.fetchall()
+        return render_template("change-recipe.html", datam=memberdata, data=foods , ingre=data3 , ingrelen=len(data3))
+
+
+@app.route('/change-recipe/dessert/<id>', methods=['GET','POST'])
+def change_dessert(id):
+    qualificationId = 0
+    if request.method == 'POST':
+        memberid = session["id"]
+        qualificationid = request.form.get('qualificationid')
+        name = request.form.get('recipename')
+        time = request.form.get('recipetime')
+        calorie = request.form.get('recipecalorie')
+        country = request.form.get('recipecountry')
+        type = request.form.get('recipetype')
+        date = request.form.get('recipedate')
+        serve = request.form.get('recipeserve')
+        recipe = request.form.get('recipes')
+        category = request.form.get('recipecategory')
+        recipeType = request.form.get('recipeType')
+        print(name , time , calorie, date , country, serve , recipe)
+        cursor.execute("UPDATE qualification SET cuisine = %s , timing = %s, category = %s, calori = %s, serve= %s WHERE qualificationid = %s",
+                        (country, time, category, calorie, serve, qualificationid))
+        cursor.execute(
+            "UPDATE dessert SET dessertname = %s , dessertrecipe = %s, desserttype = %s WHERE dessertid = %s",
+            (name, recipe, type, id))
+
+        i=0
+        while request.form.get("ingrename" + str(i)):
+            ingreid = request.form.get("ingredientid"+ str(i))
+            ingrename = request.form.get("ingrename" + str(i))
+            ingreamount = request.form.get("ingreamount" + str(i))
+            ingreunit = request.form.get("ingreunit" + str(i))
+            print(ingrename,ingreamount,ingreunit)
+            cursor.execute(
+                "UPDATE ingredient SET ingrename = %s , unit = %s, amount = %s WHERE dessertid = %s and ingredientid=%s ",
+                (ingrename, ingreunit, ingreamount, id , ingreid))
+            conn.commit()
+            i=i+1
+        conn.commit()
+
+        return redirect(url_for("profile"))
+    else:
+        cursor.execute(""" SELECT dessert.dessertname, qualification.cuisine, qualification.calori, qualification.serve,  qualification.timing, qualification.category,dessert.dessertrecipe, dessert.desserttype, qualification.qualificationid FROM qualification
+                    INNER JOIN dessert
+                    ON dessert.qualificationid = qualification.qualificationid and dessert.dessertid=%s""", (id))
+        desserts = cursor.fetchone()
+        cursor.execute("SELECT ingredient.ingrename, ingredient.unit, ingredient.amount, ingredient.ingredientid FROM ingredient INNER JOIN dessert ON ingredient.dessertid = dessert.dessertid AND dessert.dessertid = %s """,(id))
+        data3 = cursor.fetchall()
+        print(data3)
+        cursor.execute("""SELECT members.memberid, personaldata.name, personaldata.surname, personaldata.location, members.e_mail, members.username FROM members 
+                           INNER JOIN personaldata 
+                           ON personaldata.memberid = members.memberid and members.memberid = %s """,
+                       str(session["id"]))
+        memberdata = cursor.fetchall()
+        return render_template("change-recipe.html", datam=memberdata, data=desserts , ingre=data3 , ingrelen=len(data3))
+
+
+@app.route('/change-recipe/drink/<id>', methods=['GET','POST'])
+def change_drink(id):
+    qualificationId = 0
+    if request.method == 'POST':
+        memberid = session["id"]
+        qualificationid = request.form.get('qualificationid')
+        name = request.form.get('recipename')
+        time = request.form.get('recipetime')
+        calorie = request.form.get('recipecalorie')
+        country = request.form.get('recipecountry')
+        type = request.form.get('recipetype')
+        date = request.form.get('recipedate')
+        serve = request.form.get('recipeserve')
+        recipe = request.form.get('recipes')
+        category = request.form.get('recipecategory')
+        recipeType = request.form.get('recipeType')
+        print(name , time , calorie, date , country, serve , recipe)
+        cursor.execute("UPDATE qualification SET cuisine = %s , timing = %s, category = %s, calori = %s, serve= %s WHERE qualificationid = %s",
+                        (country, time, category, calorie, serve, qualificationid))
+        cursor.execute(
+            "UPDATE beverage SET beveragename = %s , beveragerecipe = %s, beveragetype = %s WHERE beverageid = %s",
+            (name, recipe, type, id))
+
+        i=0
+        while request.form.get("ingrename" + str(i)):
+            ingreid = request.form.get("ingredientid"+ str(i))
+            ingrename = request.form.get("ingrename" + str(i))
+            ingreamount = request.form.get("ingreamount" + str(i))
+            ingreunit = request.form.get("ingreunit" + str(i))
+            print(ingrename,ingreamount,ingreunit)
+            cursor.execute(
+                "UPDATE ingredient SET ingrename = %s , unit = %s, amount = %s WHERE beverageid = %s and ingredientid=%s ",
+                (ingrename, ingreunit, ingreamount, id , ingreid))
+            conn.commit()
+            i=i+1
+        conn.commit()
+
+        return redirect(url_for("profile"))
+    else:
+        cursor.execute(""" SELECT beverage.beveragename, qualification.cuisine, qualification.calori, qualification.serve,  qualification.timing, qualification.category,beverage.beveragerecipe, beverage.beveragetype, qualification.qualificationid FROM qualification
+                    INNER JOIN beverage
+                    ON beverage.qualificationid = qualification.qualificationid and beverage.beverageid=%s""", (id))
+        drinks= cursor.fetchone()
+
+        cursor.execute("SELECT ingredient.ingrename, ingredient.unit, ingredient.amount, ingredient.ingredientid FROM ingredient INNER JOIN beverage ON ingredient.beverageid = beverage.beverageid AND beverage.beverageid = %s """,(id))
+        data3 = cursor.fetchall()
+        print(data3)
+        cursor.execute("""SELECT members.memberid, personaldata.name, personaldata.surname, personaldata.location, members.e_mail, members.username FROM members 
+                           INNER JOIN personaldata 
+                           ON personaldata.memberid = members.memberid and members.memberid = %s """,
+                       str(session["id"]))
+        memberdata = cursor.fetchall()
+        return render_template("change-recipe.html", datam=memberdata, data=drinks , ingre=data3 , ingrelen=len(data3))
 
 
 @app.route('/file-upload', methods=['POST'])
