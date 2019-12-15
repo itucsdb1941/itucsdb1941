@@ -141,7 +141,8 @@
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
 		color: #9b9b9b;
-		margin-top: 20px;
+		margin-top: 8px;
+    	margin-right: 3px;
 		}
 
 		.ingredients .custom-control-label {
@@ -701,7 +702,88 @@
 				margin-bottom: 43px;
 				margin-left: 10px;
 			}
+			.button-like {
+				border: 2px solid #8a8a8a;
+				background-color: transparent;
+				text-decoration: none;
+				position: relative;
+				vertical-align: middle;
+				text-align: center;
+				display: inline-block;
+				border-radius: 3rem;
+				padding-right: 20px;
+				color: #8a8a8a;
+				transition: all ease 0.4s;
+				}
 
+				.button-like span {
+				margin-left: 0.5rem;
+				}
+
+				.button-like .fa,
+				.button-like span {
+				transition: all ease 0.4s;
+				}
+
+				.button-like:focus {
+				background-color: transparent;
+				}
+
+				.button-like:focus .fa,
+				.button-like:focus span {
+				color: #8a8a8a;
+				}
+
+				.button-like:hover {
+				border-color: #cc4b37;
+				background-color: transparent;
+				}
+
+				.button-like:hover .fa,
+				.button-like:hover span {
+				color: #cc4b37;
+				}
+
+				.liked {
+				background-color: #cc4b37;
+				border-color: #cc4b37;
+				}
+
+				.liked .fa,
+				.liked span {
+				color: #fefefe;
+				}
+
+				.liked:focus {
+				background-color: #cc4b37;
+				}
+
+				.liked:focus .fa,
+				.liked:focus span {
+				color: #fefefe;
+				}
+
+				.liked:hover {
+				background-color: #cc4b37;
+				border-color: #cc4b37;
+				}
+
+				.liked:hover .fa,
+				.liked:hover span {
+				color: #fefefe;
+				}
+
+				.datepicker{
+                font-size: 18px;
+                color: #777;
+                width: 160px;
+                padding: 2px;
+                display: inline-block;
+                font-size: 15px;
+                background-color: #f9f9ff;
+                border: 1px solid #e5e5e5;
+                border-radius: 4px;
+            }
 		</style>
 	</head>
 	<body>
@@ -758,16 +840,9 @@
                                             <div class="col-12 col-md-8">
                                                 <div class="receipe-headline my-5">
                                                     <div class="receipe-duration">
+														<i class="fa fa-calendar" aria-hidden="true"> Date: {{datam[10]}} </i><br>
                                                         <i class="fa fa-clock-o" aria-hidden="true"> Cook: {{datam[9]}}</i> <br>
                                                         <i class="fa fa-globe" aria-hidden="true"> Cuisine: {{datam[7]}}</i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                            
-                                            <div class="col-12 col-md-4">
-                                                <div class="receipe-ratings text-right my-5">
-                                                    <div class="ratings">
-														<span>{{datam[10]}}</span>
                                                     </div>
                                                 </div>
                                             </div>
@@ -799,7 +874,7 @@
                         <span>
                             <div class="custom-control custom-checkbox">
 								{%for i in range(0,len2)%}
-										<label> {{ingre[i][1]}} {{ingre[i][2]}} </label> <br>
+										<label> {{ingre[i][0]}} {{ingre[i][2]}}  {{ingre[i][1]}} </label> <br>
 								{%endfor%}
                             </div>
                         </span>
@@ -814,16 +889,26 @@
 			</div>
 		</div>
 	</div>
-
+	
 	<div class="row">
 		<form method="post"  style="margin-bottom: -13%;">
+
+			{%if session['username']%}
+			<div class="row" style="padding-top:5px;">
+				<div class="col-md-6 col-xs-6 col-sm-6" ><input type="date" value="" class="datepicker" id="commentdate" name="commentdate" hidden ></div>
+			</div>
+
 			<textarea class="selpak" id="title" name="title" placeholder="Message" required autofocus></textarea>
 			<textarea class="selpak1" id="comment" name="comment" cols="30" rows="10" placeholder="Message" required autofocus></textarea>
-			
-				<button class="btn" > Submit</button>
+			<button class="btn" > Submit</button>
 
+				{%else%}
+			<div ><h4 style="margin-left: 50px; font-size: 20px !important;">please login to comment</h4>  </div>
+				
+			{% endif %}
 		</form>
 	</div>
+	
 			{%for i in range(0,len)%}
 			<div style="margin-left: 17px;" class="comment-container theme--light" >
 				<div class="comments" >
@@ -835,23 +920,50 @@
 								font-style: italic;
 								text-transform: capitalize;
 								font-family: Roboto;">{{comment[i][3]}}</a>
-					
+								
 								<span style="text-align: end;color: brown;float: right;">
 										<a> {{comment[i][1]}}  </a>
 								</span>
 							</span>
 							<span style="text-align: end;color: brown;float: right; font-weight: bold;">
 									<a> {{comment[i][2]}}  </a>
-							</span>
+							</span>	
 							
 
 					<div  class="wrapper comment">
 						<div  class="header">
-						
 						<span  class="displayName"></span> </div>
-					<!---->
 						<p> {{comment[i][0]}}</p>
+
+						
+						<div class="row">
+							<div class="col-md-3 col-xs-3 col-sm-3">
+								<form method="POST">
+									<input type="hidden" name="like" value="PUT">
+									<input type="text" name="commentid" value="{{comment[i][6]}}" hidden>
+									<button class="button button-like">
+										<i class="fa fa-thumbs-up" style="font-size:15px"></i>
+										{{comment[i][4]}}
+									</button>
+								</form>
+							</div>
+							<div class="col-md-3 col-xs-3 col-sm-3">
+								<form method="POST">
+									<input type="hidden" name="dislike" value="PUT">
+									<input type="text" name="commentid" value="{{comment[i][6]}}" hidden>
+									<button class="button button-like">
+										<i class="fa fa-thumbs-down" style="font-size:15px"></i>
+										{{comment[i][5]}}
+									</button>
+								</form>
+							</div>
+							
+						</div>
+						
+
 					</div>
+					
+
 					<div  class="actions">
 					</div>
 					<div  class="v-dialog__container" style="display: block;"></div>
@@ -867,6 +979,19 @@
 	</div>
 	
 	{% endif %}
+	<script>
+		var date = new Date();
+		var day = date.getDate();
+		var month = date.getMonth() + 1;
+		var year = date.getFullYear();
+
+		if (month < 10) month = "0" + month;
+		if (day < 10) day = "0" + day;
+
+		var today = year + "-" + month + "-" + day;       
+		document.getElementById("commentdate").value = today;
+		console.log(today)
+		</script>
 
 	</body>
 </html>

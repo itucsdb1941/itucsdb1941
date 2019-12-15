@@ -77,7 +77,6 @@
 		top: $header-height;
 		left: 50px;
 		margin: 0;
-		overflow-y: auto; 
 		ul {
 			@include span-columns(12);
 			clear: both;
@@ -216,8 +215,8 @@
 			overflow: hidden;
 			border-radius: 0;
 			z-index: 1;
-			width: 200px;
-			height: 200px;
+			width: 275px;
+			height: 275px;
 			background-position: center;
 			background-size: cover;
 			background-repeat: no-repeat;
@@ -253,7 +252,8 @@
 		}
 		.card-desc {
 			margin-top: 20px;
-			height: calc(100% - 200px);
+			height: 140px;
+  			position: relative;
 		}
 
 		.card-desc h3 {
@@ -275,7 +275,7 @@
 			margin: 0px;
 			margin-bottom: 20px;
 			padding: 0;
-			width:100%;
+			width: 80%;
 			font-family: 'Raleway', sans-serif;
 		}
 
@@ -283,6 +283,10 @@
 			display: inline-block;
 			background-color: #2ecc71;
 			padding: .84rem 2.14rem;
+			position: absolute;
+			bottom: 0;
+			left: 0;
+
 		}
 
 		.btn-card{
@@ -409,7 +413,7 @@
 				color:#305779;
 			}
 			p {
-				width: 250px;
+				width: 200px;
 				white-space: nowrap;
 				overflow: hidden;
 				text-overflow: ellipsis;
@@ -420,7 +424,7 @@
 	</head>
 	<body>
 		<img src="./static/myLogom.png" class="logo" alt="bitter sweet sour" />
-		<header class="header-area" style="background-color: #bec3ff   !important;">
+		<header class="header-area" style="background-color: #bec3ff !important;">
 				<div class="container">
 					<div class="row">
 						<div class="col-md-12 col-xs-12 col-sm-12">
@@ -433,7 +437,7 @@
 								<ul>
 									<li class="active"><a href="/">home</a></li>
 									<li><a >recipes</a>
-										<ul class="sub-menu" style="background-color: #bec3ff   !important;">
+										<ul class="sub-menu" style="background-color: #bec3ff !important;">
 										<li><a href="/food-menu">food</a></li>
 										<li><a href="/drink-menu">drink</a></li>
 										<li><a href="/dessert-menu">dessert</a></li>
@@ -476,15 +480,21 @@
 					</p>
 
 					<form method="get" action="add-recipe">	
-						<button class="btn success" style = "margin-top: 320px;"> Add New Recipe</button>	
+						<button class="btn success" style = "margin-top: 220px;"> Add New Recipe</button>	
 					</form>
 					{% if authority == 'admin' %}
 					<form method="get" action="all-contacts">	
 							<button class="btn success" style = "margin-top: 10px;">Contacts</button>	
 						</form>
 					{%endif%}
+					<form method="get" action="change-info">	
+						<button class="btn success" style = "margin-top: 10px;"> Change Personal Info </button>	
+					</form>
 					<form method="get" action="logout">	
 						<button class="btn success" style = "margin-top: 10px;"> Log Out</button>	
+					</form>
+					<form method="post" >	
+							<button class="btn success" name="deleteButton" value="delete" style = "margin-top: 10px;"> Delete My Account</button>	
 					</form>
 					
 				</div>
@@ -556,12 +566,10 @@
 					</div>
 				</div>
 			{%endfor%}
-			
-			</div>
-        
-    
 
-  			</section>
+				</div>
+        	</section>
+
 		</main>
 
 	</body>

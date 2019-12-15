@@ -77,7 +77,6 @@
 		top: $header-height;
 		left: 50px;
 		margin: 0;
-		overflow-y: auto; 
 		ul {
 			@include span-columns(12);
 			clear: both;
@@ -420,7 +419,7 @@
 	</head>
 	<body>
 		<img src="./static/myLogom.png" class="logo" alt="bitter sweet sour" />
-		<header class="header-area" style="background-color: #bec3ff   !important;">
+		<header class="header-area" style="background-color: #bec3ff !important;">
 				<div class="container">
 					<div class="row">
 						<div class="col-md-12 col-xs-12 col-sm-12">
@@ -474,12 +473,16 @@
 						</form>
 						{% endif %}
 					</p>
-					<form method="get" action="add-recipe">	
-						<button class="btn success" style = "margin-top: 320px;"> Add New Recipe</button>	
-					</form>
+				
 					<form method="get" action="profile">	
-							<button class="btn success" style = "margin-top: 10px;"> My Recipes</button>	
-						</form>
+						<button class="btn success" style = "margin-top: 220px;"> My Recipes</button>	
+					</form>
+					<form method="get" action="add-recipe">	
+						<button class="btn success" style = "margin-top: 10px;"> Add New Recipe</button>	
+					</form>
+					<form method="get" action="change-info">	
+						<button class="btn success" style = "margin-top: 10px;"> Change Personal Info </button>	
+					</form>
 					<form method="get" action="logout">	
 						<button class="btn success" style = "margin-top: 10px;"> Log Out</button>	
 					</form>

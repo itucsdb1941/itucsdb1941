@@ -2,14 +2,12 @@ import sqlite3, psycopg2
 import flask
 import json
 from flask import jsonify, request, render_template,redirect, url_for, send_from_directory, session
-from flask import jsonify, request, render_template,redirect, url_for, send_from_directory
 from werkzeug.utils import secure_filename
 
 import os
 import psycopg2 as dpapi
 
-url = "dbname='wezrrgcd' user='wezrrgcd' host='salt.db.elephantsql.com' password='gh4WaN_uVpfMTkAMF3AG-h2nXbbNr1FH' "
-# url = os.getenv("DB_URL")
+url = os.getenv("DB_URL")
 conn = dpapi.connect(url)
 cursor = conn.cursor()
 app = flask.Flask(__name__,template_folder="templates")
@@ -59,53 +57,101 @@ def home():
     if 'username' in session:
         username = session['username']
 
-    if data and data2 and data3 and data4 and data5 and data6:
+    if data or data2 or data3 or data4 or data5 or data6:
         return render_template("index.html", comment1 =data[0], comment2=data2, comment3=data3, comment4 =data[1], beverage=data6, food= data4, dessert= data5, username=username)
     else:
-        return render_template("index.html")
+        return render_template("index.html", username=username)
 
-@app.route('/profile', methods=['GET'])
+
+@app.route('/profile', methods=['GET' , 'POST'])
 def profile():
-
     if "id" in session:
-        print(session["id"])
-        cursor.execute("""SELECT members.memberid, personaldata.name, personaldata.surname, personaldata.location, members.e_mail, members.username FROM members 
+        cursor.execute("""SELECT members.memberid, personaldata.name, personaldata.surname, personaldata.location, members.e_mail, members.username, personaldata.personalid FROM members 
                        INNER JOIN personaldata 
-                       ON personaldata.memberid = members.memberid and members.memberid = %s """, str(session["id"]))
-        data = cursor.fetchall()
-
+                       ON personaldata.memberid = members.memberid and members.memberid=%s;""", (session["id"],))
+        data = cursor.fetchone()
 
         cursor.execute(""" SELECT food.foodid, food.foodphoto, food.foodname, qualification.cuisine, qualification.timing, qualification.qualificationid, food.foodrecipe FROM qualification
                     INNER JOIN food
-                    ON food.qualificationid = qualification.qualificationid and food.memberid = %s""", str(session["id"]))
+                    ON food.qualificationid = qualification.qualificationid and food.memberid = %s;""",(session["id"],))
 
         foods = cursor.fetchall()
 
         cursor.execute(""" SELECT dessert.dessertid, dessert.dessertphoto, dessert.dessertname, qualification.cuisine, qualification.timing, qualification.qualificationid, dessert.dessertrecipe FROM qualification
                         INNER JOIN dessert
-                        ON dessert.qualificationid = qualification.qualificationid and dessert.memberid = %s""", str(session["id"]))
+                        ON dessert.qualificationid = qualification.qualificationid and dessert.memberid = %s;""",(session["id"],))
 
         desserts = cursor.fetchall()
 
         cursor.execute(""" SELECT beverage.beverageid, beverage.beveragephoto, beverage.beveragename, qualification.cuisine, qualification.timing, qualification.qualificationid, beverage.beveragerecipe FROM qualification
                         INNER JOIN beverage
-                        ON beverage.qualificationid = qualification.qualificationid and beverage.memberid = %s""", str(session["id"]))
+                        ON beverage.qualificationid = qualification.qualificationid and beverage.memberid = %s;""", (session["id"],))
 
         drinks = cursor.fetchall()
+
+        if request.method == 'POST':
+            i=0
+            while i < len(foods):
+                foodid = foods[i][0]
+                qid = foods[i][5]
+                print(qid, str(foodid))
+                cursor.execute(""" DELETE FROM comment WHERE comment.memberid=%s""", str(session["id"]))
+                cursor.execute(""" DELETE FROM ingredient WHERE ingredient.foodid = (SELECT foodid FROM food WHERE food.memberid = %s)""", str(session["id"]))
+                cursor.execute(""" DELETE FROM food WHERE food.foodid= %s""", (str(foodid),))
+                cursor.execute(""" DELETE FROM qualification WHERE qualification.qualificationid=%s """, (str(qid),))
+                conn.commit()
+                i = i + 1
+
+            i = 0
+            while i < len(drinks):
+                 drinkid = drinks[i][0]
+                 qid = drinks[i][5]
+                 cursor.execute(""" DELETE FROM comment WHERE comment.memberid=%s""", str(session["id"]))
+                 cursor.execute(""" DELETE FROM ingredient WHERE ingredient.beverageid = (SELECT beverageid FROM beverage WHERE beverage.memberid = %s)""",str(session["id"]))
+                 cursor.execute(""" DELETE FROM beverage WHERE beverage.beverageid= %s""", (str(drinkid),))
+                 cursor.execute(""" DELETE FROM qualification WHERE qualification.qualificationid=%s """, (str(qid),))
+                 conn.commit()
+                 i = i + 1
+
+            i = 0
+            while i < len(desserts):
+                 dessertid = desserts[i][0]
+                 qid = desserts[i][5]
+                 cursor.execute(""" DELETE FROM comment WHERE comment.memberid= %s""", str(session["id"]))
+                 cursor.execute(""" DELETE FROM ingredient WHERE ingredient.dessertid = (SELECT dessertid FROM dessert WHERE dessert.memberid = %s)""",str(session["id"]))
+                 cursor.execute(""" DELETE FROM dessert WHERE dessert.dessertid= %s""", (str(dessertid),))
+                 cursor.execute(""" DELETE FROM qualification WHERE qualification.qualificationid=%s """, (str(qid),))
+                 conn.commit()
+                 i = i + 1
+
+
+            cursor.execute(""" DELETE FROM personaldata WHERE memberid= %s""", str(session["id"]))
+            cursor.execute(""" DELETE FROM members WHERE memberid= %s""", str(session["id"]))
+            conn.commit()
+
+            if 'id' in session:
+                session.pop('id')
+            if 'username' in session:
+                session.pop('username')
+
+            return render_template("profile.html", datam=data, foodlen=len(foods), drinklen=len(drinks),
+                                   dessertlen=len(desserts), food=foods, dessert=desserts, drink=drinks)
 
         if data or foods or drinks or desserts:
             return render_template("profile.html", authority=session["authority"] , datam=data, foodlen =len(foods), drinklen =len(drinks), dessertlen=len(desserts), food=foods, dessert=desserts, drink=drinks)
         else:
             return render_template("profile.html")
-    else:
-       return render_template("index.html")
+
+    return render_template("index.html")
 
 @app.route('/all-contacts', methods=['GET' , 'POST'])
 def all_contacts():
+
     if request.method == 'POST':
         contactid = request.form.get('contactid')
         print(contactid)
         cursor.execute("DELETE FROM contact WHERE contactid=%s" , str(contactid))
+        conn.commit()
         return redirect(url_for('all_contacts'))
     else:
         if "authority" in session:
@@ -128,6 +174,44 @@ def all_contacts():
             return render_template(url_for("profile"))
 
 
+@app.route('/change-info', methods=['GET' , 'POST'])
+def changeInfo():
+
+    firstname = request.form.get("FirstName")
+    lastname = request.form.get("LastName")
+    gender = request.form.get("Gender")
+    birthdate = request.form.get("Birthdate")
+    location = request.form.get("Location")
+    email = request.form.get("email")
+    password = request.form.get("password")
+
+    cursor.execute("""SELECT members.memberid, personaldata.name, personaldata.surname, personaldata.location, members.e_mail, members.username,  members.userpassword FROM members 
+                                    INNER JOIN personaldata 
+                                    ON personaldata.memberid = members.memberid and members.memberid = %s """,
+                   str(session["id"]))
+    data2 = cursor.fetchall()
+
+    if request.method == "POST":
+        cursor.execute(
+            "UPDATE personaldata SET name = %s, surname = %s , birthdate = %s, sex = %s, location = %s  WHERE personaldata.memberid = %s",
+            (firstname, lastname, birthdate, gender, location, session["id"]))
+        cursor.execute(
+            "UPDATE members SET e_mail = %s, userpassword = %s WHERE members.memberid = %s",
+            (email, password, session["id"]))
+        conn.commit()
+
+        return redirect(url_for('changeInfo', authority=session["authority"] , datam=data2))
+
+    else:
+        cursor.execute("""SELECT members.memberid, personaldata.name, personaldata.surname, personaldata.sex, personaldata.birthdate, personaldata.location, members.userpassword FROM personaldata 
+                            INNER JOIN members 
+                            ON personaldata.memberid = members.memberid and members.memberid = %s """,str(session["id"]))
+        data = cursor.fetchall()
+
+        return render_template('change-info.html',  authority=session["authority"] , info=data, datam=data2)
+
+
+
 @app.route('/sign-in', methods=['GET'])
 def get_members():
     userName = request.args.get("username")
@@ -144,10 +228,10 @@ def get_members():
             session["username"]= userName
             session["id"] = data[0]
             session['authority'] = data[6]
-            return redirect(url_for('profile'))
+            return redirect(url_for('home', username=session["username"]))
         else:
-            errors="Please try again!"
-            return redirect(url_for('get_members',error=errors))
+            myerror="Please try again!"
+            return render_template('login-page.html', errors=myerror)
     else :
         return render_template("login-page.html")
 
@@ -156,35 +240,43 @@ def logout():
    if 'id' in session:
         session.pop('id')
    if 'username' in session:
-       session.pop('username')
+        session.pop('username')
    return redirect(url_for('home'))
 
 
 @app.route('/new-password', methods=['GET'])
 def newPass():
-    if 'id' in session:
-        return redirect(url_for('home'))
+
     userName = request.args.get("username")
     e_mail = request.args.get("email")
-    answer = request.args.get("Answer")
+    answer = request.args.get("answer")
+    newpassword = request.args.get("password")
 
-    if userName and e_mail:
-        cursor.execute("SELECT recoveryques, recoveryans FROM members where username=%s and e_mail=%s",(userName,e_mail))
 
-        data = cursor.fetchall()
+    cursor.execute("SELECT recoveryques, recoveryans, memberid FROM members where username=%s and e_mail=%s",(userName,e_mail))
+    data = cursor.fetchone()
+
+
+    if data:
+        session['memberid'] = data[2]
+        print(data[2])
+        return render_template('new-password.html', email=e_mail, datam=data)
+
+    if answer:
+        data = 'a'
+        memberid = session['memberid']
+        print("aa",memberid)
+        return render_template('new-password.html', datam=data, ans=answer, memberid=memberid)
+
+    if newpassword:
+        memberid = session['memberid']
+        print("bb",memberid)
+        cursor.execute("UPDATE members SET userpassword = %s  WHERE members.memberid = %s", (newpassword, memberid))
         conn.commit()
 
-        if data:
-            return render_template('new-password.html', email=e_mail, username=userName,datam=data)
-            if answer:
-                if(data[0][1] == answer):
-                    return redirect(url_for('home',username=userName))
+        return redirect(url_for('profile', id=id))
 
-        else:
-            return redirect(url_for('newPass'))
-
-    else :
-        return render_template("new-password.html")
+    return render_template('new-password.html')
 
 
 
@@ -255,6 +347,7 @@ def drinks():
     else:
         return render_template("drink-menu.html")
 
+
 @app.route('/dessert-menu', methods=['GET'])
 def desserts():
 
@@ -279,12 +372,27 @@ def foodRecipe(id):
     if request.method == 'POST':
         mytitle = request.form.get("title")
         mycomment = request.form.get("comment")
-        print(mytitle)
-        print(mycomment)
-        if mycomment and mytitle:
-            cursor.execute("INSERT INTO comment(usercomment, title, foodid) VALUES (%s, %s, %s)",(mycomment, mytitle,id))
+        like = request.form.get("like")
+        dislike = request.form.get("dislike")
+        comment_id = request.form.get("commentid")
+        date = request.form.get("commentdate")
+
+        print(comment_id)
+        if like == "PUT":
+            cursor.execute("UPDATE comment SET commentlike = commentlike + 1 WHERE comment.foodid = %s and comment.commentid = %s ", (id,comment_id))
             conn.commit()
-            return redirect(url_for('foodRecipe'))
+            return redirect(url_for('foodRecipe', id=id))
+
+        elif dislike == "PUT":
+            cursor.execute("UPDATE comment SET commentdislike = commentdislike + 1 WHERE comment.foodid = %s and comment.commentid = %s ", (id,comment_id))
+            conn.commit()
+            return redirect(url_for('foodRecipe', id=id))
+
+        if mycomment and mytitle:
+            cursor.execute("INSERT INTO comment(usercomment, title, foodid, memberid, commentdate) VALUES (%s, %s, %s, %s, %s)",
+                           (mycomment, mytitle, id, str(session["id"]), date))
+            conn.commit()
+            return redirect(url_for('foodRecipe', id=id))
     else:
         cursor.execute("""
                     SELECT food.foodid, food.foodname, food.foodphoto, food.foodrecipe, ingredient.ingrename, ingredient.unit, ingredient.amount, qualification.cuisine, qualification.qualificationid, qualification.timing, food.fooddate FROM food
@@ -294,8 +402,7 @@ def foodRecipe(id):
                     ON ingredient.foodid = food.foodid AND food.foodid = %s""", (id))
         data = cursor.fetchone()
         foodid = data[0]
-
-        cursor.execute("SELECT comment.usercomment, comment.commentdate, members.username, comment.title FROM comment INNER JOIN members ON comment.memberid = members.memberid where comment.foodid = %s ", (foodid,))
+        cursor.execute("SELECT comment.usercomment, comment.commentdate, members.username, comment.title, comment.commentlike, comment.commentdislike, comment.commentid FROM comment INNER JOIN members ON comment.memberid = members.memberid where comment.foodid = %s ", (foodid,))
         data2 = cursor.fetchall()
 
         cursor.execute("SELECT ingredient.ingrename, ingredient.unit, ingredient.amount FROM ingredient INNER JOIN food ON ingredient.foodid = food.foodid AND food.foodid = %s """,(id))
@@ -317,13 +424,31 @@ def drinkRecipe(id):
     if request.method == 'POST':
         mytitle = request.form.get("title")
         mycomment = request.form.get("comment")
-        print(mytitle)
-        print(mycomment)
-        if mycomment and mytitle:
-            cursor.execute("INSERT INTO comment(usercomment, title, beverageid) VALUES (%s, %s, %s)",
-                           (mycomment, mytitle, id))
+        like = request.form.get("like")
+        dislike = request.form.get("dislike")
+        comment_id = request.form.get("commentid")
+        date = request.form.get("commentdate")
+
+        print(comment_id)
+        if like == "PUT":
+            cursor.execute(
+                "UPDATE comment SET commentlike = commentlike + 1 WHERE comment.beverageid = %s and comment.commentid = %s ",
+                (id, comment_id))
             conn.commit()
-            return redirect(url_for('drinkRecipe'))
+            return redirect(url_for('drinkRecipe', id=id))
+
+        elif dislike == "PUT":
+            cursor.execute(
+                "UPDATE comment SET commentdislike = commentdislike + 1 WHERE comment.beverageid = %s and comment.commentid = %s ",
+                (id, comment_id))
+            conn.commit()
+            return redirect(url_for('drinkRecipe', id=id))
+
+        if mycomment and mytitle:
+            cursor.execute("INSERT INTO comment(usercomment, title, beverageid, memberid, commentdate) VALUES (%s, %s, %s, %s, %s)",
+                           (mycomment, mytitle, id,  str(session["id"]), date))
+            conn.commit()
+            return redirect(url_for('drinkRecipe', id=id))
     else:
         cursor.execute("""
                             SELECT beverage.beverageid, beverage.beveragename, beverage.beveragephoto, beverage.beveragerecipe, ingredient.ingrename, ingredient.unit, ingredient.amount, qualification.cuisine, qualification.qualificationid, qualification.timing, beverage.beveragedate FROM beverage
@@ -332,16 +457,15 @@ def drinkRecipe(id):
                             INNER JOIN  ingredient
                             ON ingredient.beverageid = beverage.beverageid AND beverage.beverageid = %s""", (id))
         data = cursor.fetchone()
-        print(data)
         drinkid = data[0]
 
         cursor.execute(
-            "SELECT comment.usercomment, comment.commentdate, members.username, comment.title FROM comment INNER JOIN members ON comment.memberid = members.memberid where comment.beverageid = %s ",
+            "SELECT comment.usercomment, comment.commentdate, members.username, comment.title, comment.commentlike, comment.commentdislike, comment.commentid  FROM comment INNER JOIN members ON comment.memberid = members.memberid where comment.beverageid = %s ",
             (drinkid,))
         data2 = cursor.fetchall()
 
         cursor.execute(
-            "SELECT ingredient.ingrename, ingredient.unit, ingredient.amount FROM ingredient INNER JOIN beverage ON ingredient.foodid = beverage.beverageid AND beverage.beverageid = %s """,
+            "SELECT ingredient.ingrename, ingredient.unit, ingredient.amount FROM ingredient INNER JOIN beverage ON ingredient.beverageid = beverage.beverageid AND beverage.beverageid = %s """,
             (id))
         data3 = cursor.fetchall()
 
@@ -361,14 +485,33 @@ def drinkRecipe(id):
 @app.route('/recipe/dessert/<id>', methods=['GET', 'POST'])
 def dessertRecipe(id):
 
+    print(session)
     if request.method == 'POST':
         mytitle = request.form.get("title")
         mycomment = request.form.get("comment")
-        print(mytitle)
-        print(mycomment)
+        like = request.form.get("like")
+        dislike = request.form.get("dislike")
+        comment_id = request.form.get("commentid")
+        date = request.form.get("commentdate")
+        print(date)
+
+        if like == "PUT":
+            cursor.execute(
+                "UPDATE comment SET commentlike = commentlike + 1 WHERE comment.dessertid = %s and comment.commentid = %s ",
+                (id, comment_id))
+            conn.commit()
+            return redirect(url_for('dessertRecipe', id=id))
+
+        elif dislike == "PUT":
+            cursor.execute(
+                "UPDATE comment SET commentdislike = commentdislike + 1 WHERE comment.dessertid = %s and comment.commentid = %s ",
+                (id, comment_id))
+            conn.commit()
+            return redirect(url_for('dessertRecipe', id=id))
+
         if mycomment and mytitle:
-            cursor.execute("INSERT INTO comment(usercomment, title, dessertid, memberid) VALUES (%s, %s, %s,1)",
-                           (mycomment, mytitle, id))
+            cursor.execute("INSERT INTO comment(usercomment, title, dessertid, memberid, commentdate) VALUES (%s, %s, %s, %s, %s)",
+                           (mycomment, mytitle, id,  str(session["id"]), date))
             conn.commit()
             return redirect(url_for('dessertRecipe', id=id))
     else:
@@ -379,14 +522,12 @@ def dessertRecipe(id):
                             INNER JOIN  ingredient
                             ON dessert.dessertid = dessert.dessertid AND dessert.dessertid = %s""", (id))
         data = cursor.fetchone()
-        print(data)
         dessertid = data[0]
 
         cursor.execute(
-            "SELECT comment.usercomment, comment.commentdate, members.username, comment.title FROM comment INNER JOIN members ON comment.memberid = members.memberid where comment.dessertid = %s ",
+            "SELECT comment.usercomment, comment.commentdate, members.username, comment.title, comment.commentlike, comment.commentdislike, comment.commentid FROM comment INNER JOIN members ON comment.memberid = members.memberid where comment.dessertid = %s ",
             (dessertid,))
         data2 = cursor.fetchall()
-        print(data2)
 
         cursor.execute(
             "SELECT ingredient.ingrename, ingredient.unit, ingredient.amount FROM ingredient INNER JOIN dessert ON ingredient.dessertid = dessert.dessertid AND dessert.dessertid = %s """,
@@ -420,6 +561,7 @@ def post_food():
         photo = request.form.get('recipephoto')
         recipeType = request.form.get('recipeType')
         print(name , time , calorie, date , country, serve , recipe)
+
         if name and time and calorie and date and serve and recipe:
             print("Asdfsdf")
             cursor.execute("INSERT INTO qualification(cuisine, timing, category, calori, serve) VALUES(%s,%s,%s,%s,%s) RETURNING qualificationid",
@@ -432,18 +574,18 @@ def post_food():
                 cursor.execute("INSERT INTO food(foodname, foodrecipe, foodphoto, foodtype, qualificationid, memberid, fooddate) VALUES (%s,%s,%s,%s,%s,%s,%s) RETURNING foodid" ,
                             (name, recipe, photo, type, qualificationId, memberid, date))
                 id = cursor.fetchone()[0]
-                print("food" , id)
+                print("food", id)
                 conn.commit()
             elif recipeType == "beverage":
                 cursor.execute(
-                    "INSERT INTO beverage(beveragename, beveragerecipe, beveragephoto, beveragetype, qualificationid, memberid, beveragedate) VALUES (%s,%s,%s,%s,%s,%s,%s) RETURNING foodid",
+                    "INSERT INTO beverage(beveragename, beveragerecipe, beveragephoto, beveragetype, qualificationid, memberid, beveragedate) VALUES (%s,%s,%s,%s,%s,%s,%s) RETURNING beverageid",
                     (name, recipe, photo, type, qualificationId, memberid, date))
                 id = cursor.fetchone()[0]
                 print("beverage", id)
                 conn.commit()
-            elif recipeType == "beverage":
+            elif recipeType == "dessert":
                 cursor.execute(
-                    "INSERT INTO dessert(dessertname, dessertrecipe, dessertphoto, desserttype, qualificationid, memberid, dessertdate) VALUES (%s,%s,%s,%s,%s,%s,%s) RETURNING foodid",
+                    "INSERT INTO dessert(dessertname, dessertrecipe, dessertphoto, desserttype, qualificationid, memberid, dessertdate) VALUES (%s,%s,%s,%s,%s,%s,%s) RETURNING dessertid",
                     (name, recipe, photo, type, qualificationId, memberid, date))
                 id = cursor.fetchone()[0]
                 print("dessert", id)
@@ -479,7 +621,7 @@ def post_food():
                 conn.commit()
 
             myResult = recipeType + "added successfully."
-            return render_template("add-recipe.html" , result=myResult)
+            return render_template("add-recipe.html" , result=myResult,  authority=session["authority"] )
     else:
         if "id" in session:
             print(session["id"])
@@ -488,7 +630,7 @@ def post_food():
                             ON personaldata.memberid = members.memberid and members.memberid = %s """,
                            str(session["id"]))
         data = cursor.fetchall()
-        return render_template("add-recipe.html" , datam=data)
+        return render_template("add-recipe.html" , datam=data,  authority=session["authority"] )
 
 
 @app.route('/change-recipe/food/<id>', methods=['GET','POST'])
@@ -684,7 +826,11 @@ def upload_file():
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     if request.method == 'POST':
-        print("abcd")
+
+        username = ""
+        if 'username' in session:
+            username = session['username']
+
         message = request.form.get("message")
         title = request.form.get("title")
         category = request.form.get("category")
@@ -699,9 +845,13 @@ def contact():
             return redirect(url_for('home'))
 
         else:
-            return render_template("contact.html")
+
+            return render_template("contact.html", username=username)
     else:
-        return render_template("contact.html")
+        username = ""
+        if 'username' in session:
+            username = session['username']
+        return render_template("contact.html", username=username)
 
 
 if __name__ == '_main_':
