@@ -7,7 +7,8 @@ from werkzeug.utils import secure_filename
 import os
 import psycopg2 as dpapi
 
-url = os.getenv("DB_URL")
+url = "dbname='wezrrgcd' user='wezrrgcd' host='salt.db.elephantsql.com' password='gh4WaN_uVpfMTkAMF3AG-h2nXbbNr1FH' "
+#url = os.getenv("DB_URL")
 conn = dpapi.connect(url)
 cursor = conn.cursor()
 app = flask.Flask(__name__,template_folder="templates")
@@ -69,7 +70,7 @@ def profile():
         cursor.execute("""SELECT members.memberid, personaldata.name, personaldata.surname, personaldata.location, members.e_mail, members.username, personaldata.personalid FROM members 
                        INNER JOIN personaldata 
                        ON personaldata.memberid = members.memberid and members.memberid=%s;""", (session["id"],))
-        data = cursor.fetchone()
+        data = cursor.fetchall()
 
         cursor.execute(""" SELECT food.foodid, food.foodphoto, food.foodname, qualification.cuisine, qualification.timing, qualification.qualificationid, food.foodrecipe FROM qualification
                     INNER JOIN food
@@ -140,7 +141,7 @@ def profile():
         if data or foods or drinks or desserts:
             return render_template("profile.html", authority=session["authority"] , datam=data, foodlen =len(foods), drinklen =len(drinks), dessertlen=len(desserts), food=foods, dessert=desserts, drink=drinks)
         else:
-            return render_template("profile.html")
+            return render_template("profile.html" , datam=data, authority=session["authority"]  ,foodlen =len(foods),drinklen =len(drinks), dessertlen=len(desserts), food=foods, dessert=desserts, drink=drinks)
 
     return render_template("index.html")
 
@@ -187,9 +188,9 @@ def changeInfo():
 
     cursor.execute("""SELECT members.memberid, personaldata.name, personaldata.surname, personaldata.location, members.e_mail, members.username,  members.userpassword FROM members 
                                     INNER JOIN personaldata 
-                                    ON personaldata.memberid = members.memberid and members.memberid = %s """,
-                   str(session["id"]))
+                                    ON personaldata.memberid = members.memberid and members.memberid = %s """, (str(session["id"]),))
     data2 = cursor.fetchall()
+    print(data2)
 
     if request.method == "POST":
         cursor.execute(
@@ -205,8 +206,9 @@ def changeInfo():
     else:
         cursor.execute("""SELECT members.memberid, personaldata.name, personaldata.surname, personaldata.sex, personaldata.birthdate, personaldata.location, members.userpassword FROM personaldata 
                             INNER JOIN members 
-                            ON personaldata.memberid = members.memberid and members.memberid = %s """,str(session["id"]))
+                            ON personaldata.memberid = members.memberid and members.memberid = %s """,(str(session["id"]),))
         data = cursor.fetchall()
+        print(data)
 
         return render_template('change-info.html',  authority=session["authority"] , info=data, datam=data2)
 
@@ -298,12 +300,11 @@ def signUp():
         ranswer = request.form.get("RecoveryAnswer")
 
         if firstname and lastname and email and username and password and gender and birthdate and location and rques and ranswer:
-            cursor.execute("INSERT INTO members(username, userpassword, e_mail, recoveryques, recoveryans) VALUES (%s, %s, %s, %s, %s)",(username, password, email, rques, ranswer) )
+            cursor.execute("INSERT INTO members(username, userpassword, e_mail, recoveryques, recoveryans) VALUES (%s, %s, %s, %s, %s) RETURNING memberid",(username, password, email, rques, ranswer) )
             conn.commit()
-            cursor.execute("SELECT CURRVAL('members_memberid_seq')")
-            sql = cursor.fetchone()
+            sql=cursor.fetchone()[0]
             cursor.execute("INSERT INTO personaldata (name, surname, birthdate, sex, location, memberid) "
-                             "VALUES (%s,%s,%s,%s,%s,%s)", (firstname, lastname, birthdate, gender, location, sql[0]))
+                             "VALUES (%s,%s,%s,%s,%s,%s)", (firstname, lastname, birthdate, gender, location, sql))
             conn.commit()
             return redirect(url_for('home',username=username))
         
@@ -627,8 +628,7 @@ def post_food():
             print(session["id"])
             cursor.execute("""SELECT members.memberid, personaldata.name, personaldata.surname, personaldata.location, members.e_mail, members.username FROM members 
                             INNER JOIN personaldata 
-                            ON personaldata.memberid = members.memberid and members.memberid = %s """,
-                           str(session["id"]))
+                            ON personaldata.memberid = members.memberid and members.memberid = %s """,(session["id"],))
         data = cursor.fetchall()
         return render_template("add-recipe.html" , datam=data,  authority=session["authority"] )
 
@@ -672,6 +672,7 @@ def change_food(id):
 
         return redirect(url_for("profile"))
     else:
+        mymemberid = session["id"]
         cursor.execute(""" SELECT food.foodname, qualification.cuisine, qualification.calori, qualification.serve,  qualification.timing, qualification.category,food.foodrecipe, food.foodtype, qualification.qualificationid FROM qualification
                     INNER JOIN food
                     ON food.qualificationid = qualification.qualificationid and food.foodid=%s""", (id))
@@ -682,8 +683,7 @@ def change_food(id):
         print(data3)
         cursor.execute("""SELECT members.memberid, personaldata.name, personaldata.surname, personaldata.location, members.e_mail, members.username FROM members 
                            INNER JOIN personaldata 
-                           ON personaldata.memberid = members.memberid and members.memberid = %s """,
-                       str(session["id"]))
+                           ON personaldata.memberid = members.memberid and members.memberid = %s """,(mymemberid,))
         memberdata = cursor.fetchall()
         return render_template("change-recipe.html", datam=memberdata, data=foods , ingre=data3 , ingrelen=len(data3))
 
