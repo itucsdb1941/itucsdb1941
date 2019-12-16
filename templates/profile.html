@@ -581,8 +581,7 @@
 					
 				</div>
 			{%endfor%}
-			
-
+		
 			{%for i in range(0, drinklen)%} 
 				<div class="col-md-4">
 					<div class="card-content">
@@ -595,21 +594,16 @@
 						<h3>{{drink[i][2]}}</h3>
 						<p>{{drink[i][6]}}</p>
 						<form method="get">
-
 								<a href="/recipe/drink/{{drink[i][0]}}"  class="col-md-5 col-xs-5 col-sm-5 genric-btn danger radius" style="margin-top: 30px;padding-right:0px;left: -64%;width: 150px;">Read More</a>  
 								<a href="/change-recipe/drink/{{drink[i][0]}}"  class="col-md-5 col-xs-5 col-sm-5 genric-btn danger radius" style="width: 150px;margin-top: 30px; margin-right: -45px; left: 12%;">Edit</a> 
 						</form>
 						</div>
 					</div>
-					
 				</div>
 			{%endfor%}
-
 				</div>
         	</section>
-
 		</main>
-
 	</body>
 </html>
 
