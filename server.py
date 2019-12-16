@@ -7,7 +7,8 @@ from werkzeug.utils import secure_filename
 import os
 import psycopg2 as dpapi
 
-url = os.getenv("DB_URL")
+url= "dbname='wezrrgcd' user='wezrrgcd' host='salt.db.elephantsql.com' password='gh4WaN_uVpfMTkAMF3AG-h2nXbbNr1FH' "
+#url = os.getenv("DB_URL")
 conn = dpapi.connect(url)
 cursor = conn.cursor()
 app = flask.Flask(__name__,template_folder="templates")
@@ -88,26 +89,6 @@ def profile():
                         ON beverage.qualificationid = qualification.qualificationid and beverage.memberid = %s;""", (session["id"],))
 
         drinks = cursor.fetchall()
-
-        """deletefood = request.form.get('deletefood')
-        deletedrink = request.form.get('deletedrink')
-        deletedesset = request.form.get('deletedesset')
-
-        if request.method == 'POST':
-            if deletefood:
-                cursor.execute("DELETE FROM food WHERE foodid=%s", (deletefood,))
-                conn.commit()
-                return redirect(url_for('profile'))
-
-            elif deletedrink:
-                cursor.execute("DELETE FROM beverage WHERE beverageid=%s", (deletedrink,))
-                conn.commit()
-                return redirect(url_for('profile'))
-
-            elif deletedesset:
-                cursor.execute("DELETE FROM dessert WHERE deletedesset=%s", (deletedesset,))
-                conn.commit()
-                return redirect(url_for('profile'))"""
 
         if request.method == 'POST':
 
