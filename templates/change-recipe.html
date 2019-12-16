@@ -670,7 +670,7 @@
                                                 </div>
                                                 <div class="col-md-3 col-xs-3 col-sm-3">
                                                     <select id="funit" name="ingreunit{{i}}" value="{{ingre[i][1]}}"class="form-control">
-                                                        <option value="{{ingre[i][1]}}" selected>{{ingre[i][1]}}</option>
+                                                        <option value="{{ingre[i][1]}}" selected disabled>{{ingre[i][1]}}</option>
                                                         <option value="teaspoon">teaspoon</option>
                                                         <option value="tablespoon">tablespoon</option>
                                                         <option value="fluis ounce">fluis ounce</option>
@@ -701,7 +701,7 @@
                                                 <div class="mb-3 col-md-7 col-xs-7 col-sm-7">
                                                     <div class="row" style="padding-top:5px;">
                                                         <div class="col-md-5 col-xs-5 col-sm-5"><p class="mt-5">Timing (minutes) : </p></div>
-                                                        <div class="col-md-6 col-xs-6 col-sm-6" ><input class="timepicker" value="{{data[4]}}" type="time" id="foodtime" name="recipetime"
+                                                        <div class="col-md-6 col-xs-6 col-sm-6" ><input class="timepicker" value="{{data[4]}}" type="text" id="foodtime" name="recipetime"
                                                             min="00:00" max="23:00" required></div>
                                                     </div>
                                                 </div>
@@ -964,7 +964,7 @@
                                             </div>
                                             <div class="input-group-icon mt-10">
                                                     <select id="ftype" name="recipetype" value="{{data[7]}}" class="form-control">
-                                                        <option value="{{data[7]}}" selected>{{data[7]}}</option>
+                                                        <option value="{{data[7]}}" selected disabled>{{data[7]}}</option>
                                                         <option value="Vegan">Vegan</option>
                                                         <option value="None">None</option>
                                                         <option value="Vegeterian">Vegeterian</option>
@@ -985,15 +985,18 @@
                                                         <option value="Meat and Poultry">Meat and Poultry</option>
                                                         <option value="Fish and Seafood">Fish and Seafood</option>
                                                         <option value="Dairy Foods">Dairy Foods</option>
+                                                        <option value="Alcohol">Alcohol</option>
+                                                        <option value="Pastry">Pastry</option>
                                                     </select>
                                             </div> 
                                             <div class="input-group-icon mt-10">
                                                     <select id="fctype" name="recipecategory" value="{{data[5]}}" class="form-control">
-                                                        <option value="{{data[5]}}" selected>{{data[5]}}</option>
-                                                        <option value="Ramadan">Ramadan</option>
+                                                        <option value="{{data[5]}}" selected disabled>{{data[5]}}</option>
                                                         <option value="None">None</option>
                                                         <option value="Dinner">Dinner</option>
-                                                        <option value="Breakfeast">Breakfeast</option>
+                                                        <option value="Breakfast">Breakfast</option>
+                                                        <option value="Lunch">Lunch</option>
+                                                        <option value="Brunch">Brunch</option>
                                                         <option value="Snack">Snack</option>
                                                     </select>
                                             </div> 
@@ -1018,130 +1021,6 @@
                 </div>                  
             </section>
         </main>
-        <script>
-            function addRow() {
-                var element = document.getElementById('ingre')
-                var index =element.children.length
-                const div = document.createElement('div');
-        
-                div.className = 'row wrap input-group-icon-ingre';
-        
-                div.innerHTML = `
-                <div class="col-md-3 col-xs-3 col-sm-3">
-                    <input type="text" name="ingrename` + index + `" id="ingrename"  placeholder="Ingredient Name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ingredient Name'" required class="single-input">
-                </div>
-                <div class="col-md-3 col-xs-3 col-sm-3">
-                    <input type="number" name="ingreamount`+ index + `" placeholder="Ingredient Amount" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Ingredient Amount'" required class="single-input">
-                </div>
-                <div class="col-md-3 col-xs-3 col-sm-3">
-                    <select id="funit" name="ingreunit`+ index + `" class="form-control">
-                        <option value="teaspoon">teaspoon</option>
-                        <option value="tablespoon">tablespoon</option>
-                        <option value="fluis ounce">fluis ounce</option>
-                        <option value="gill">gill</option>
-                        <option value="cup">cup</option>
-                        <option value="pint">pint</option>
-                        <option value="quart">quarte</option>
-                        <option value="gallon">gallon</option>
-                        <option value="mililiter">mililiter</option>
-                        <option value="liter">liter</option>
-                        <option value="deciliter">deciliter</option>
-                        <option value="pound">pound</option>
-                        <option value="ounce">ounce</option>
-                        <option value="miligram">miligram</option>
-                        <option value="gram">gram</option>
-                        <option value="kilogram">kilogram</option>
-                        <option value="milimeter">milimeter</option>
-                        <option value="centimeter">centimeter</option>
-                        <option value="meter">meter</option>
-                        <option value="inch">inch</option>
-                        <option value="piece">piece</option>
-                        
-                    </select>
-                </div>
-                <div class="col-md-2 col-xs-2 col-sm-2">
-                        <div class="col-md-6 col-xs-6 col-sm-6"><p>Allergic: </p></div>
-                        <div class="primary-switch col-md-6 col-xs-6 col-sm-6">
-                            <input type="checkbox" id="primary-switch`+ index + `" name="ingreallegernic`+ index + `" >
-                            <label for="primary-switch`+ index + `" ></label>
-                        </div>
-                </div>
-                <div class="col-md-5 col-xs-5 col-sm-5" >
-                <div class="row wrap single-element-widget">
-                    <div class="col-md-3 col-xs-3 col-sm-3"><p>Flavor : </p></div>
-                    <div class="switch-wrap justify-content-between col-md-4 col-xs-4 col-sm-4">
-                        <p><img src="../static/assets/images/add-food/chilli.png" width="30px" height="30px"> Hot</p>
-                        <div class="disabled-checkbox1">
-                            <input type="checkbox" name="flavorHot`+ index + `" id="disabled-checkbox-hot">
-                        </div>
-                    </div>
-                    <div class="switch-wrap justify-content-between col-md-4 col-xs-4 col-sm-4">
-                            <p><img src="../static/assets/images/add-food/cupcake.png" width="30px" height="30px"> Sweet</p>
-                            <div class="disabled-checkbox2">
-                                <input type="checkbox"  name="flavorSweet`+ index + `" id="disabled-checkbox-sweet">
-                                
-                            </div>
-                    </div>
-                    <div class="switch-wrap justify-content-between col-md-4 col-xs-4 col-sm-4">
-                            <p><img src="../static/assets/images/add-food/lemon.png" width="30px" height="30px">Sour </p>
-                            <div class="disabled-checkbox3">
-                                <input type="checkbox"  name="flavorSour`+ index + `" id="disabled-checkbox-sour">
-                                
-                            </div>
-                    </div>
-                    <div class="mt-mb-20"><i class="fa fa-times" style="margin-left:10px; color:red;" aria-hidden="true" name="deleteindex" onclick="deleteRow()"></i></div>
-                </div>
-                </div>`;
-        
-                document.getElementById('ingre').appendChild(div);
-                
-            }
-            
-            function deleteRow()
-            {
-                var myNode =  document.getElementById('ingre')
-                myNode.removeChild(myNode.firstChild);
-                var index =myNode.children.length;
-                console.log(index);
-            }
-            
-            var date = new Date();
-            var day = date.getDate();
-            var month = date.getMonth() + 1;
-            var year = date.getFullYear();
-
-            if (month < 10) month = "0" + month;
-            if (day < 10) day = "0" + day;
-
-            var today = year + "-" + month + "-" + day;       
-            document.getElementById("fooddate").value = today;
-
-            function onFileUpload(event){
-                var formData = new FormData();
-                formData.append('file', $('#file')[0].files[0]);
-                $.ajax({
-                        url: "file-upload", 
-                        type: "POST",
-                        crossDomain: true,
-                        processData: false,
-                        dataType: "multipart/form-data",
-                        contentType: false,
-                        
-                        data:formData,
-                        success: (response) => {
-                            console.log("ok")
-                        },
-                        error: () => {
-                            console.log("error")
-                        }
-                    })
-                jQuery.post('file-upload', formData)
-                    .subscribe( res => {
-                    console.log(res);
-                    console.log('data passed to backend');
-                    });
-            }
-        </script> 
     </body>
 </html>
 
