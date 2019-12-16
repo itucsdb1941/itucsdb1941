@@ -89,52 +89,124 @@ def profile():
 
         drinks = cursor.fetchall()
 
+        """deletefood = request.form.get('deletefood')
+        deletedrink = request.form.get('deletedrink')
+        deletedesset = request.form.get('deletedesset')
+
         if request.method == 'POST':
-            i=0
-            while i < len(foods):
-                foodid = foods[i][0]
-                qid = foods[i][5]
-                print(qid, str(foodid))
-                cursor.execute(""" DELETE FROM comment WHERE comment.memberid=%s""", (str(session["id"]),))
-                cursor.execute(""" DELETE FROM ingredient WHERE ingredient.foodid = (SELECT foodid FROM food WHERE food.memberid = %s)""", (str(session["id"]),))
-                cursor.execute(""" DELETE FROM food WHERE food.foodid= %s""", (str(foodid),))
-                cursor.execute(""" DELETE FROM qualification WHERE qualification.qualificationid=%s """, (str(qid),))
+            if deletefood:
+                cursor.execute("DELETE FROM food WHERE foodid=%s", (deletefood,))
                 conn.commit()
-                i = i + 1
+                return redirect(url_for('profile'))
 
-            i = 0
-            while i < len(drinks):
-                 drinkid = drinks[i][0]
-                 qid = drinks[i][5]
-                 cursor.execute(""" DELETE FROM comment WHERE comment.memberid=%s""", (str(session["id"]),))
-                 cursor.execute(""" DELETE FROM ingredient WHERE ingredient.beverageid = (SELECT beverageid FROM beverage WHERE beverage.memberid = %s)""",(str(session["id"]),))
-                 cursor.execute(""" DELETE FROM beverage WHERE beverage.beverageid= %s""", (str(drinkid),))
-                 cursor.execute(""" DELETE FROM qualification WHERE qualification.qualificationid=%s """, (str(qid),))
-                 conn.commit()
-                 i = i + 1
+            elif deletedrink:
+                cursor.execute("DELETE FROM beverage WHERE beverageid=%s", (deletedrink,))
+                conn.commit()
+                return redirect(url_for('profile'))
 
-            i = 0
-            while i < len(desserts):
-                 dessertid = desserts[i][0]
-                 qid = desserts[i][5]
-                 cursor.execute(""" DELETE FROM comment WHERE comment.memberid= %s""", (str(session["id"]),))
-                 cursor.execute(""" DELETE FROM ingredient WHERE ingredient.dessertid = (SELECT dessertid FROM dessert WHERE dessert.memberid = %s)""",(str(session["id"]),))
-                 cursor.execute(""" DELETE FROM dessert WHERE dessert.dessertid= %s""", (str(dessertid),))
-                 cursor.execute(""" DELETE FROM qualification WHERE qualification.qualificationid=%s """, (str(qid),))
-                 conn.commit()
-                 i = i + 1
+            elif deletedesset:
+                cursor.execute("DELETE FROM dessert WHERE deletedesset=%s", (deletedesset,))
+                conn.commit()
+                return redirect(url_for('profile'))"""
+
+        if request.method == 'POST':
+
+            deletedrink = request.form.get('drinkdelete')
+            deletedessert = request.form.get('dessertdelete')
+            deletefood = request.form.get('fooddelete')
+
+            if deletedrink:
+                i = 0
+
+                while i < len(drinks):
+                    deletedrink = drinks[i][0]
+                    qid = drinks[i][5]
+                    cursor.execute(""" DELETE FROM comment WHERE comment.beverageid=%s""", (str(deletedrink),))
+                    cursor.execute( """ DELETE FROM ingredient WHERE ingredient.beverageid IN (SELECT beverageid FROM beverage WHERE beverage.beverageid = %s)""", (str(deletedrink),))
+                    cursor.execute(""" DELETE FROM beverage WHERE beverage.beverageid= %s""", (str(deletedrink),))
+                    cursor.execute(""" DELETE FROM qualification WHERE qualification.qualificationid=%s """,
+                                   (str(qid),))
+                    conn.commit()
+                    i = i + 1
+                    return redirect(url_for('profile'))
+
+            elif deletefood:
+                i = 0
+
+                while i < len(foods):
+                    deletefood = foods[i][0]
+                    qid = foods[i][5]
+                    cursor.execute(""" DELETE FROM comment WHERE comment.foodid=%s""", (str(deletefood),))
+                    cursor.execute( """ DELETE FROM ingredient WHERE ingredient.foodid IN (SELECT foodid FROM food WHERE food.foodid = %s)""",  (str(deletefood),))
+                    cursor.execute(""" DELETE FROM food WHERE food.foodid= %s""", (str(deletefood),))
+                    cursor.execute(""" DELETE FROM qualification WHERE qualification.qualificationid=%s """,
+                                   (str(qid),))
+                    conn.commit()
+                    i = i + 1
+                    return redirect(url_for('profile'))
+
+            elif deletedessert:
+                i = 0
+
+                while i < len(desserts):
+
+                    deletedessert = desserts[i][0]
+                    print(desserts[i][0])
+
+                    qid = desserts[i][5]
+                    cursor.execute(""" DELETE FROM comment WHERE comment.dessertid=%s""",  (str(deletedessert),))
+                    cursor.execute( """ DELETE FROM ingredient WHERE ingredient.dessertid IN (SELECT dessertid FROM dessert WHERE dessert.dessertid = %s)""", (str(deletedessert),))
+                    cursor.execute(""" DELETE FROM dessert WHERE dessert.dessertid= %s""", (str(deletedessert),))
+                    cursor.execute(""" DELETE FROM qualification WHERE qualification.qualificationid=%s """, (str(qid),))
+                    conn.commit()
+                    i = i + 1
+                    return redirect(url_for('profile'))
+            else:
+                i=0
+                while i < len(foods):
+                    foodid = foods[i][0]
+                    qid = foods[i][5]
+                    print(qid, str(foodid))
+                    cursor.execute(""" DELETE FROM comment WHERE comment.memberid=%s""", (str(session["id"]),))
+                    cursor.execute(""" DELETE FROM ingredient WHERE ingredient.foodid IN (SELECT foodid FROM food WHERE food.memberid = %s)""", (str(session["id"]),))
+                    cursor.execute(""" DELETE FROM food WHERE food.foodid= %s""", (str(foodid),))
+                    cursor.execute(""" DELETE FROM qualification WHERE qualification.qualificationid=%s """, (str(qid),))
+                    conn.commit()
+                    i = i + 1
+
+                i = 0
+                while i < len(drinks):
+                     drinkid = drinks[i][0]
+                     qid = drinks[i][5]
+                     cursor.execute(""" DELETE FROM comment WHERE comment.memberid=%s""", (str(session["id"]),))
+                     cursor.execute(""" DELETE FROM ingredient WHERE ingredient.beverageid IN (SELECT beverageid FROM beverage WHERE beverage.memberid = %s)""",(str(session["id"]),))
+                     cursor.execute(""" DELETE FROM beverage WHERE beverage.beverageid= %s""", (str(drinkid),))
+                     cursor.execute(""" DELETE FROM qualification WHERE qualification.qualificationid=%s """, (str(qid),))
+                     conn.commit()
+                     i = i + 1
+
+                i = 0
+                while i < len(desserts):
+                     dessertid = desserts[i][0]
+                     qid = desserts[i][5]
+                     cursor.execute(""" DELETE FROM comment WHERE comment.memberid= %s""", (str(session["id"]),))
+                     cursor.execute(""" DELETE FROM ingredient WHERE ingredient.dessertid IN (SELECT dessertid FROM dessert WHERE dessert.memberid = %s)""",(str(session["id"]),))
+                     cursor.execute(""" DELETE FROM dessert WHERE dessert.dessertid= %s""", (str(dessertid),))
+                     cursor.execute(""" DELETE FROM qualification WHERE qualification.qualificationid=%s """, (str(qid),))
+                     conn.commit()
+                     i = i + 1
 
 
-            cursor.execute(""" DELETE FROM personaldata WHERE memberid= %s""", (str(session["id"]),))
-            cursor.execute(""" DELETE FROM members WHERE memberid= %s""", (str(session["id"]),))
-            conn.commit()
+                cursor.execute(""" DELETE FROM personaldata WHERE memberid= %s""", (str(session["id"]),))
+                cursor.execute(""" DELETE FROM members WHERE memberid= %s""", (str(session["id"]),))
+                conn.commit()
 
-            if 'id' in session:
-                session.pop('id')
-            if 'username' in session:
-                session.pop('username')
+                if 'id' in session:
+                    session.pop('id')
+                if 'username' in session:
+                    session.pop('username')
 
-            return redirect(url_for('home'))
+                return redirect(url_for('home'))
 
         if data or foods or drinks or desserts:
             return render_template("profile.html", authority=session["authority"] , datam=data, foodlen =len(foods), drinklen =len(drinks), dessertlen=len(desserts), food=foods, dessert=desserts, drink=drinks)
