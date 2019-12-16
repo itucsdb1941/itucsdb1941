@@ -38,15 +38,15 @@ def home():
     data3 = cursor.fetchone()
 
     cursor.execute("""SELECT  food.foodid, food.foodname, food.foodrecipe, food.foodphoto, food.fooddate FROM food 
-                            ORDER BY food.fooddate ASC NULLS LAST """)
+                            ORDER BY food.fooddate DESC NULLS LAST """)
     data4 = cursor.fetchone()
 
     cursor.execute("""SELECT  dessert.dessertid, dessert.dessertname, dessert.dessertrecipe, dessert.dessertphoto, dessert.dessertdate FROM dessert 
-                                ORDER BY dessert.dessertdate ASC NULLS LAST """)
+                                ORDER BY dessert.dessertdate DESC NULLS LAST """)
     data5 = cursor.fetchone()
 
     cursor.execute("""SELECT  beverage.beverageid, beverage.beveragename, beverage.beveragerecipe, beverage.beveragephoto, beverage.beveragedate FROM beverage 
-                                ORDER BY beverage.beveragedate ASC NULLS LAST """)
+                                ORDER BY beverage.beveragedate DESC NULLS LAST """)
     data6 = cursor.fetchone()
 
    # cursor.execute("SELECT food.foodid, food.foodname, food.foodrecipe, food.foodphoto, food.foodtype, food.foodscore FROM food ORDER BY foodscore ASC LIMIT 1")
