@@ -37,11 +37,20 @@
 			margin: 0;
 			padding: 0;
 		}
-		body {
-			background-color: rgb(255, 255, 255);
-			color: rgb(59, 67, 68);
+		.body {
+			position: fixed;
+			top: -20px;
+			left: -20px;
+			right: -40px;
+			bottom: -40px;
+			width: auto;
+			height: auto;
+			background-image: url(./static/assets/images/ox.jpg);
+			background-size: auto;
+			background-position: 251px 20px;
+			-webkit-filter: blur(5px);
+			z-index: 0;
 			font-family: 'Montserrat', sans-serif;
-			background-image: url(http://assets.mugfoundation.com/images/textures/noisy/noisy1px.png);
 		}
 
 		header {
@@ -192,7 +201,6 @@
 		margin-top: $header-height;
 		float: left;
 		padding-bottom: $header-height;
-        background-color: white;
         margin-left: 10%;
 		}
 
@@ -200,7 +208,6 @@
 		section {
 		@include span-columns(12);
         padding: 20px;
-        background-color: white;
 		margin: 10% 0;
 		
 		}
@@ -703,6 +710,7 @@
 		</style>
 	</head>
 	<body>  
+		<div class="body"  ></div>
         <img src="./static/myLogom.png" class="logo" alt="bitter sweet sour" />
         <header class="header-area" style="background-color: #bec3ff !important;">
             <div class="container">
