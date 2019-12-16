@@ -826,7 +826,7 @@ def change_food(id):
                            ON personaldata.memberid = members.memberid and members.memberid = %s """,(mymemberid,))
         memberdata = cursor.fetchall()
         conn.close()
-        return render_template("change-recipe.html", datam=memberdata, data=foods , ingre=data3 , ingrelen=len(data3))
+        return render_template("change-recipe.html",  authority=session["authority"]  ,datam=memberdata, data=foods , ingre=data3 , ingrelen=len(data3))
 
 
 @app.route('/change-recipe/dessert/<id>', methods=['GET','POST'])
@@ -883,7 +883,7 @@ def change_dessert(id):
                        (str(session["id"]),))
         memberdata = cursor.fetchall()
         conn.close()
-        return render_template("change-recipe.html", datam=memberdata, data=desserts , ingre=data3 , ingrelen=len(data3))
+        return render_template("change-recipe.html",  authority=session["authority"] , datam=memberdata, data=desserts , ingre=data3 , ingrelen=len(data3))
 
 
 @app.route('/change-recipe/drink/<id>', methods=['GET','POST'])
@@ -941,7 +941,7 @@ def change_drink(id):
                        (str(session["id"]),))
         memberdata = cursor.fetchall()
         conn.close()
-        return render_template("change-recipe.html", datam=memberdata, data=drinks , ingre=data3 , ingrelen=len(data3))
+        return render_template("change-recipe.html",  authority=session["authority"] , datam=memberdata, data=drinks , ingre=data3 , ingrelen=len(data3))
 
 
 @app.route('/file-upload', methods=['POST'])
