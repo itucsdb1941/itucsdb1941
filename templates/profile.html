@@ -205,9 +205,14 @@
 
 		//cards
 		.card-content {
-			/*background: #ffffff;*/
 			border: 4px;
 			box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			padding: 30px;
+			background-color: #eee;
+			border-radius: 5px;
 		}
 
 		.card-img {
@@ -541,7 +546,7 @@
 			<div class="row">
 			{%for i in range(0, foodlen)%} 
 				<div class="col-md-4">
-					<div class="card-content">
+					<div class="card-content" >
 						<div class="card-img" style="background-image: url('./static/assets/images/{{food[i][1]}}');"></div>
 						<div class="card-desc">
 						<h3><a href="/recipe/food/{{food[i][0]}}" style="color: #000000 !important;">{{food[i][2]}}</a></h3>
@@ -582,7 +587,7 @@
 		
 			{%for i in range(0, drinklen)%} 
 				<div class="col-md-4">
-					<div class="card-content">
+					<div class="card-content" >
 						<div class="card-img" style="background-image: url('./static/assets/images/{{drink[i][1]}}');"></div>
 						<div class="card-desc">
 						<h3><a href="/recipe/drink/{{drink[i][0]}}" style="color: #000000 !important;">{{drink[i][2]}}</a></h3>
