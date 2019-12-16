@@ -8,7 +8,7 @@ import os
 import psycopg2 as dpapi
 
 
- url = os.getenv("DB_URL")
+url = os.getenv("DB_URL")
 app = flask.Flask(__name__,template_folder="templates")
 app.secret_key = "sdsgchg"
 ingreList = [];
