@@ -834,17 +834,23 @@
                             </div>
                             <div class="col-md-6 align-self-center">
                                 <div class="welcome-text mt-5 mt-md-0">
-                                    <h3><span class="style-change">{{datam[1]}}</span></h3>
+									<h3><span class="style-change">{{datam[1]}}</span></h3>
+									<i class="fa fa-user" aria-hidden="true" style="font-weight: bold;">  {{fooduser[0]}} </i><br>
                                     <div class="row">
-                                            <div class="col-12 col-md-8">
+                                            <div class="col-12 col-md-12">
                                                 <div class="receipe-headline my-5">
-                                                    <div class="receipe-duration">
+													<div style="float:right;margin-top:3%;" class="col-md-7 col-sm-7 col-sm-7">
+                                                        {% if datam[13] != 'None' %}<i class="fa fa-cutlery" aria-hidden="true"> Category: {{datam[13]}}</i>{%endif%}  <br>
+														{% if datam[15] != 'None' %}<i class="fa fa-tag" aria-hidden="true"> FoodType: {{datam[15]}}</i> {%endif%} <br>
+													</div>
+                                                    <div class="receipe-duration col-md-6 col-sm-6 col-xs-6">
 														<i class="fa fa-calendar" aria-hidden="true"> Date: {{datam[10]}} </i><br>
                                                         <i class="fa fa-clock-o" aria-hidden="true"> Cook: {{datam[9]}}</i> <br>
 														<i class="fa fa-globe" aria-hidden="true"> Cuisine: {{datam[7]}}</i>  <br>
 														<i class="fa fa-bar-chart" aria-hidden="true"> Calories: {{datam[11]}}</i>  <br>
 														<i class="fa fa-pie-chart" aria-hidden="true"> Servings: {{datam[12]}}</i>
 													</div>
+												
 									
                                                 </div>
                                             </div>
@@ -906,7 +912,7 @@
 			</div>
 
 			<textarea class="selpak" id="title" name="title" placeholder="Message" required autofocus></textarea>
-			<textarea class="selpak1" id="comment" name="comment" cols="30" rows="10" placeholder="Message" required autofocus></textarea>
+			<textarea class="selpak1" id="comment" name="comment" maxlength="250" cols="30" rows="10" placeholder="Message" required autofocus></textarea>
 			<button class="btn" > Submit</button>
 
 				{%else%}

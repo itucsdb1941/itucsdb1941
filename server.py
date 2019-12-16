@@ -7,8 +7,7 @@ import hashlib
 import os
 import psycopg2 as dpapi
 
-url = "dbname='wezrrgcd' user='wezrrgcd' host='salt.db.elephantsql.com' password='gh4WaN_uVpfMTkAMF3AG-h2nXbbNr1FH' "
-# url = os.getenv("DB_URL")
+url = os.getenv("DB_URL")
 app = flask.Flask(__name__,template_folder="templates")
 app.secret_key = "sdsgchg"
 ingreList = [];
@@ -507,25 +506,28 @@ def foodRecipe(id):
             return redirect(url_for('foodRecipe', id=id))
     else:
         cursor.execute("""
-                    SELECT food.foodid, food.foodname, food.foodphoto, food.foodrecipe, ingredient.ingrename, ingredient.unit, ingredient.amount, qualification.cuisine, qualification.qualificationid, qualification.timing, food.fooddate, qualification.calori, qualification.serve FROM food
+                    SELECT food.foodid, food.foodname, food.foodphoto, food.foodrecipe, ingredient.ingrename, ingredient.unit, ingredient.amount, qualification.cuisine, qualification.qualificationid, qualification.timing, food.fooddate, qualification.calori, qualification.serve, qualification.category, food.memberid, food.foodtype FROM food
                     INNER JOIN qualification
                     ON food.qualificationid = qualification.qualificationid
                     INNER JOIN  ingredient
                     ON ingredient.foodid = food.foodid AND food.foodid = %s""", (id,))
         data = cursor.fetchone()
         foodid = data[0]
+        memberid=data[14]
         cursor.execute("SELECT comment.usercomment, comment.commentdate, members.username, comment.title, comment.commentlike, comment.commentdislike, comment.commentid FROM comment INNER JOIN members ON comment.memberid = members.memberid where comment.foodid = %s ", (foodid,))
         data2 = cursor.fetchall()
 
         cursor.execute("SELECT ingredient.ingrename, ingredient.unit, ingredient.amount, ingredient.allergenic FROM ingredient INNER JOIN food ON ingredient.foodid = food.foodid AND food.foodid = %s """,(id,))
         data3 = cursor.fetchall()
 
+        cursor.execute("SELECT username FROM members where memberid=%s",(memberid,))
+        foodusername = cursor.fetchone()
         username = ""
         if 'username' in session:
             username = session['username']
         if data:
             conn.close()
-            return render_template("recipe.html", len=len(data2), len2=len(data3), datam=data , comment=data2, ingre=data3, username=username)
+            return render_template("recipe.html", len=len(data2), len2=len(data3), datam=data , fooduser=foodusername ,comment=data2, ingre=data3, username=username)
 
     conn.close()
     return render_template("recipe.html")
@@ -569,14 +571,14 @@ def drinkRecipe(id):
             return redirect(url_for('drinkRecipe', id=id))
     else:
         cursor.execute("""
-                            SELECT beverage.beverageid, beverage.beveragename, beverage.beveragephoto, beverage.beveragerecipe, ingredient.ingrename, ingredient.unit, ingredient.amount, qualification.cuisine, qualification.qualificationid, qualification.timing, beverage.beveragedate, qualification.calori, qualification.serve FROM beverage
+                            SELECT beverage.beverageid, beverage.beveragename, beverage.beveragephoto, beverage.beveragerecipe, ingredient.ingrename, ingredient.unit, ingredient.amount, qualification.cuisine, qualification.qualificationid, qualification.timing, beverage.beveragedate, qualification.calori, qualification.serve, qualification.category, beverage.memberid, beverage.beveragetype FROM beverage
                             INNER JOIN qualification
                             ON beverage.qualificationid = qualification.qualificationid
                             INNER JOIN  ingredient
                             ON ingredient.beverageid = beverage.beverageid AND beverage.beverageid = %s""", (id,))
         data = cursor.fetchone()
         drinkid = data[0]
-
+        memberid = data[14]
         cursor.execute(
             "SELECT comment.usercomment, comment.commentdate, members.username, comment.title, comment.commentlike, comment.commentdislike, comment.commentid  FROM comment INNER JOIN members ON comment.memberid = members.memberid where comment.beverageid = %s ",
             (drinkid,))
@@ -587,13 +589,16 @@ def drinkRecipe(id):
             (id,))
         data3 = cursor.fetchall()
 
+        cursor.execute("SELECT username FROM members where memberid=%s", (memberid,))
+        beverageuser = cursor.fetchone()
+
         username = ""
         if 'username' in session:
             username = session['username']
 
         if data:
             conn.close()
-            return render_template("recipe.html", len=len(data2), len2=len(data3), datam=data, comment=data2, ingre=data3, username=username)
+            return render_template("recipe.html", len=len(data2), len2=len(data3), datam=data, fooduser=beverageuser ,comment=data2, ingre=data3, username=username)
 
     conn.close()
     return render_template("recipe.html")
@@ -638,14 +643,14 @@ def dessertRecipe(id):
             return redirect(url_for('dessertRecipe', id=id))
     else:
         cursor.execute("""
-                            SELECT dessert.dessertid, dessert.dessertname, dessert.dessertphoto, dessert.dessertrecipe, ingredient.ingrename, ingredient.unit, ingredient.amount, qualification.cuisine, qualification.qualificationid, qualification.timing, dessert.dessertdate, qualification.calori, qualification.serve FROM dessert
+                            SELECT dessert.dessertid, dessert.dessertname, dessert.dessertphoto, dessert.dessertrecipe, ingredient.ingrename, ingredient.unit, ingredient.amount, qualification.cuisine, qualification.qualificationid, qualification.timing, dessert.dessertdate, qualification.calori, qualification.serve, qualification.category, dessert.memberid, dessert.desserttype FROM dessert
                             INNER JOIN qualification
                             ON dessert.qualificationid = qualification.qualificationid
                             INNER JOIN  ingredient
                             ON dessert.dessertid = dessert.dessertid AND dessert.dessertid = %s""", (id,))
         data = cursor.fetchone()
         dessertid = data[0]
-
+        memberid = data[14]
         cursor.execute(
             "SELECT comment.usercomment, comment.commentdate, members.username, comment.title, comment.commentlike, comment.commentdislike, comment.commentid FROM comment INNER JOIN members ON comment.memberid = members.memberid where comment.dessertid = %s ",
             (dessertid,))
@@ -656,12 +661,15 @@ def dessertRecipe(id):
             (id,))
         data3 = cursor.fetchall()
 
+        cursor.execute("SELECT username FROM members where memberid=%s", (memberid,))
+        dessertuser = cursor.fetchone()
+
         username = ""
         if 'username' in session:
             username = session['username']
         if data:
             conn.close()
-            return render_template("recipe.html", len=len(data2), len2=len(data3), datam=data, comment=data2, ingre=data3, username=username)
+            return render_template("recipe.html", len=len(data2), len2=len(data3), datam=data, fooduser=dessertuser ,comment=data2, ingre=data3, username=username)
 
     conn.close()
     return render_template("recipe.html")
