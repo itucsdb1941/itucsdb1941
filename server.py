@@ -58,7 +58,7 @@ def home():
         username = session['username']
 
     if data or data2 or data3 or data4 or data5 or data6:
-        return render_template("index.html", comment1 =data[0], comment2=data2, comment3=data3, comment4 =data[1], beverage=data6, food= data4, dessert= data5, username=username)
+        return render_template("index.html", comment1 =data, len=len(data), comment2=data2, comment3=data3, beverage=data6, food= data4, dessert= data5, username=username)
     else:
         return render_template("index.html", username=username)
 
