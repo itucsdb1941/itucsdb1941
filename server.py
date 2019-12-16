@@ -7,12 +7,10 @@ from werkzeug.utils import secure_filename
 import os
 import psycopg2 as dpapi
 
-url ="dbname='wezrrgcd' user='wezrrgcd' host='salt.db.elephantsql.com' password='gh4WaN_uVpfMTkAMF3AG-h2nXbbNr1FH' "
+url = os.getenv("DB_URL")
 
-#url = os.getenv("DB_URL")
 app = flask.Flask(__name__,template_folder="templates")
 app.secret_key = "sdsgchg"
-
 ingreList = [];
 ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
 UPLOAD_FOLDER = 'static/assets/images/'
@@ -95,7 +93,6 @@ def profile():
                         ON beverage.qualificationid = qualification.qualificationid and beverage.memberid = %s;""", (session["id"],))
 
         drinks = cursor.fetchall()
-
 
         if request.method == 'POST':
 
