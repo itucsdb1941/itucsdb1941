@@ -3,11 +3,12 @@ import flask
 import json
 from flask import jsonify, request, render_template,redirect, url_for, send_from_directory, session
 from werkzeug.utils import secure_filename
-
+import hashlib
 import os
 import psycopg2 as dpapi
 
-url = os.getenv("DB_URL")
+url = "dbname='wezrrgcd' user='wezrrgcd' host='salt.db.elephantsql.com' password='gh4WaN_uVpfMTkAMF3AG-h2nXbbNr1FH' "
+# url = os.getenv("DB_URL")
 conn = dpapi.connect(url)
 cursor = conn.cursor()
 app = flask.Flask(__name__,template_folder="templates")
@@ -274,7 +275,7 @@ def changeInfo():
             (firstname, lastname, birthdate, gender, location, session["id"]))
         cursor.execute(
             "UPDATE members SET e_mail = %s, userpassword = %s WHERE members.memberid = %s",
-            (email, password, session["id"]))
+            (email, hashlib.md5(password.encode('utf-8')).hexdigest(), session["id"]))
         conn.commit()
 
         return redirect(url_for('changeInfo', authority=session["authority"] , datam=data2))
@@ -296,17 +297,18 @@ def get_members():
     passWord = request.args.get("password")
 
     if userName and passWord:
+        print(hashlib.md5(passWord.encode('utf-8')).hexdigest())
         if request.form.get("forgotPassword"):
             return render_template("index.html")
-        cursor.execute("SELECT * FROM members where username=%s and userPassword=%s",(userName,passWord))
+        cursor.execute("SELECT * FROM members where username=%s and userpassword=%s",(userName,hashlib.md5(passWord.encode('utf-8')).hexdigest()))
         data = cursor.fetchone()
-        conn.commit()
 
-        if data:
-            session["username"]= userName
-            session["id"] = data[0]
-            session['authority'] = data[6]
-            return redirect(url_for('home', username=session["username"]))
+        conn.commit()
+        if data :
+                session["username"]= userName
+                session["id"] = data[0]
+                session['authority'] = data[6]
+                return redirect(url_for('home', username=session["username"]))
         else:
             myerror="Please try again!"
             return render_template('login-page.html', errors=myerror)
@@ -349,7 +351,7 @@ def newPass():
     if newpassword:
         memberid = session['memberid']
         print("bb",memberid)
-        cursor.execute("UPDATE members SET userpassword = %s  WHERE members.memberid = %s", (newpassword, memberid))
+        cursor.execute("UPDATE members SET userpassword = %s  WHERE members.memberid = %s", (hashlib.md5(newpassword.encode('utf-8')).hexdigest(), memberid))
         conn.commit()
 
         return redirect(url_for('profile', id=id))
@@ -376,7 +378,7 @@ def signUp():
         ranswer = request.form.get("RecoveryAnswer")
 
         if firstname and lastname and email and username and password and gender and birthdate and location and rques and ranswer:
-            cursor.execute("INSERT INTO members(username, userpassword, e_mail, recoveryques, recoveryans, authority) VALUES (%s, %s, %s, %s, %s, %s) RETURNING memberid",(username, password, email, rques, ranswer, 'user'))
+            cursor.execute("INSERT INTO members(username, userpassword, e_mail, recoveryques, recoveryans, authority) VALUES (%s, %s, %s, %s, %s, %s) RETURNING memberid",(username, hashlib.md5(password.encode('utf-8')).hexdigest(), email, rques, ranswer, 'user'))
             conn.commit()
             sql=cursor.fetchone()[0]
             cursor.execute("INSERT INTO personaldata (name, surname, birthdate, sex, location, memberid) "
