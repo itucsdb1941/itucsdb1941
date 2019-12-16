@@ -809,7 +809,7 @@
 									</li>
 									
 									<li class="active"><a href="/contact">contact</a></li>
-									<li> <i class="fa fa-search" aria-hidden="true" style="color: white; margin-left: 15px; margin-right: 20px;"></i><li></li>
+									
 									{% if username %}
 										<a href="/profile" style= "color: #ffb606; font-size: medium;">{{username}}</a>
 										{% else %}
@@ -833,20 +833,23 @@
                         <div class="row">
                             <div class="col-md-6 align-self-center">
                                 <div class="welcome-img">
-                                    <img src="../static/assets/images/{{datam[2]}}" >
+                                    <img src="../static/assets/images/{{datam[2]}}"  style ="width: 100%; height: 100%;">
                                 </div>
                             </div>
                             <div class="col-md-6 align-self-center">
                                 <div class="welcome-text mt-5 mt-md-0">
-                                    <h3><span class="style-change">{{datam[1]}}</span> <br>to food fun</h3>
+                                    <h3><span class="style-change">{{datam[1]}}</span></h3>
                                     <div class="row">
                                             <div class="col-12 col-md-8">
                                                 <div class="receipe-headline my-5">
                                                     <div class="receipe-duration">
 														<i class="fa fa-calendar" aria-hidden="true"> Date: {{datam[10]}} </i><br>
                                                         <i class="fa fa-clock-o" aria-hidden="true"> Cook: {{datam[9]}}</i> <br>
-                                                        <i class="fa fa-globe" aria-hidden="true"> Cuisine: {{datam[7]}}</i>
-                                                    </div>
+														<i class="fa fa-globe" aria-hidden="true"> Cuisine: {{datam[7]}}</i>  <br>
+														<i class="fa fa-bar-chart" aria-hidden="true"> Calories: {{datam[11]}}</i>  <br>
+														<i class="fa fa-pie-chart" aria-hidden="true"> Servings: {{datam[12]}}</i>
+													</div>
+									
                                                 </div>
                                             </div>
                                     </div>
@@ -877,7 +880,12 @@
                         <span>
                             <div class="custom-control custom-checkbox">
 								{%for i in range(0,len2)%}
+									{% if ingre[i][3] %}
+										<i class="fa fa-exclamation-triangle" aria-hidden="true" style="color: #dc3545; margin-left: -7%;"></i>
+										<label>{{ingre[i][0]}} {{ingre[i][2]}}  {{ingre[i][1]}} </label> <br>
+									{% else %}
 										<label> {{ingre[i][0]}} {{ingre[i][2]}}  {{ingre[i][1]}} </label> <br>
+									{% endif %}
 								{%endfor%}
                             </div>
                         </span>
