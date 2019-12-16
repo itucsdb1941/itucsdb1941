@@ -7,14 +7,10 @@ import hashlib
 import os
 import psycopg2 as dpapi
 
-<<<<<<< HEAD
 
-url = os.getenv("DB_URL")
-=======
-#url = os.getenv("DB_URL")
+# url = os.getenv("DB_URL")
 url = "dbname='wezrrgcd' user='wezrrgcd' host='salt.db.elephantsql.com' password='gh4WaN_uVpfMTkAMF3AG-h2nXbbNr1FH' "
 
->>>>>>> 7dfb3437ff75236866313c73344475617ff2131a
 app = flask.Flask(__name__,template_folder="templates")
 app.secret_key = "sdsgchg"
 ingreList = [];

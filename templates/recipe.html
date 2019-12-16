@@ -462,11 +462,6 @@
 		a:hover {
 		text-decoration: none !important;
 		}
-
-		.wrapper {
-		overflow: auto;
-		}
-
 		.answers {
 		padding-left: 64px;
 		}
@@ -527,6 +522,7 @@
 		padding: 32px 16px;
 		margin-bottom: 32px;
 		display: flex;
+		height: 233px;
 		flex-direction: column;
 		}
 
@@ -942,9 +938,15 @@
 							
 
 					<div  class="wrapper comment">
-						<div  class="header">
-						<span  class="displayName"></span> </div>
-						<p> {{comment[i][0]}}</p>
+						<textarea maxlength="250" style="
+							font-family: sans-serif;
+							width: 139%;
+							height: 100%;
+							border: none;
+							font-family: 'Montserrat', sans-serif;
+							font-weight: 500;
+							font-size: 16px;
+						">{{comment[i][0]}}</textarea>
 
 						
 						<div class="row">
