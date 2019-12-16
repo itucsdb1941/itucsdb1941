@@ -815,10 +815,10 @@
 
 														{% if datam %}
 														<div  class="input-group-icon mt-10">
-															<input type="text" name="email" value = "{{ datam[0][4] }}" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'" required class="single-input">
+															<input type="email" name="email" value = "{{ datam[0][4] }}" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'" required class="single-input">
 														</div>
 														<div  class="input-group-icon mt-10">
-															<input type="text" name="password" value = "{{ datam[0][6] }}"  placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'" required class="single-input">
+															<input type="password" name="password" value = "{{ datam[0][6] }}"  placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'" required class="single-input">
 														</div>
 														{% endif %}
 															<button id="mybutton" class="col-md-5 col-xs-5 col-sm-5 genric-btn danger radius" style="margin-top: 30px;padding-right:0px; left:-34%; "> Save </button> 
