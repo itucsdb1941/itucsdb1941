@@ -12,8 +12,8 @@ Also, user can contact admins with message.
 
 .. toctree::
 
-   Rumeysa Nur Arslan
-   Simge Tiraş
-   İlgin Balkan
+   member1
+   member2
+   member3
   
    
