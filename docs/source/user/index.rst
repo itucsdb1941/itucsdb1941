@@ -7,7 +7,7 @@ Also, user can contact admins with message.
 
    .. figure:: home1.PNG
       :scale: 50 %
-      :alt: bitter sweet soutr
+      :alt: bitter sweet sour
 
 
 .. toctree::
