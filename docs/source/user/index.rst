@@ -1,22 +1,19 @@
 User Guide
 ==========
 
-**explain how your application works from the user perspective, use
-screenshots whereever appropriate**
+The user can sing-up on website for adding new recipe and comment. 
+Also, user can contact admins with message.
 
-**to add a picture, use the following example**::
 
-   .. figure:: picture.png
+   .. figure:: home1.png
       :scale: 50 %
-      :alt: map to buried treasure
+      :alt: bitter sweet soutr
 
-      This is the caption of the figure (a simple paragraph).
 
 .. toctree::
 
-   member1
-   member2
-   member3
-   member4
-   member5
+   Rumeysa Nur Arslan
+   Simge Tiraş
+   İlgin Balkan
+  
    
