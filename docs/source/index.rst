@@ -1,17 +1,20 @@
-Welcome to itucsdbNN's documentation!
+Welcome to itucsdb1941's documentation!
 =====================================
 
-:Team: Team Name
+:Team: ITUCSDB1941
 
 :Members:
 
-   * Member 1
-   * Member 2
-   * Member 3
-   * Member 4
-   * Member 5
+   * Rumeysa Nur Arslan
+   * Simge Tiraş
+   * İlgin Balkan
 
-**project description goes here (a few paragraphs)**
+Bitter Sweet Sour is an application that users can find and send recipes of food, beverage and dessert,
+and also write comments.
+
+App: http://itucsdb1941.herokuapp.com/
+
+Github Page: https://github.com/itucsdb1941/itucsdb1941
 
 Contents:
 
