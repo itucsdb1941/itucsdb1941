@@ -55,7 +55,8 @@ Parts Implemented by Simge Tiraş
 			  conn.close()
 			  return render_template("index.html", username=username)
 
-	   At the bottom of the main page of the project shows the most recently added recipes and the most like comments. Therefore, in this section, we have listed the comments in the database according to the likes of the comments and showed the most liked comments. At the same time, while adding food, drinks and desserts, according to the recipe dates, we took the most recently added dishes from the database with the Select command and showed them on the home page.
+
+   At the bottom of the main page of the project shows the most recently added recipes and the most like comments. Therefore, in this section, we have listed the comments in the database according to the likes of the comments and showed the most liked comments. At the same time, while adding food, drinks and desserts, according to the recipe dates, we took the most recently added dishes from the database with the Select command and showed them on the home page.
 	 
 
    .. code-block:: python

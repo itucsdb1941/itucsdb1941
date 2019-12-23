@@ -364,7 +364,7 @@ Parts Implemented by Rumeysa Nur Arslan
 			  return render_template("change-recipe.html",  authority=session["authority"] , datam=memberdata, data=desserts , ingre=data3 , ingrelen=len(data3))
 
 
-    In this method, the name of the dessert, the recipe, the ingredient name and amount, and the qualification properties of the dessert can be changed. So update operation is made.
+   In this method, the name of the dessert, the recipe, the ingredient name and amount, and the qualification properties of the dessert can be changed. So update operation is made.
 
 
    .. code-block:: python
@@ -428,7 +428,7 @@ Parts Implemented by Rumeysa Nur Arslan
 
 
 
-    In this method, the name of the beverage, the recipe, the ingredient name and amount, and the qualification properties of the beverage can be changed. So update operation is made.
+   In this method, the name of the beverage, the recipe, the ingredient name and amount, and the qualification properties of the beverage can be changed. So update operation is made.
 
    .. code-block:: python
 

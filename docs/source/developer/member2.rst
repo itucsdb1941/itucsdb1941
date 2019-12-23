@@ -330,7 +330,7 @@ Parts Implemented by Ilgin Balkan
 
 
 
-    In this method, the user can access the recipe, the photograph, the ingredients of the food. In addition, user can see foods' cuisine, cooking time, type, calorie amount, serving amount. If the user has logged in, he/she can comment on the food and give like or dislike.
+   In this method, the user can access the recipe, the photograph, the ingredients of the food. In addition, user can see foods' cuisine, cooking time, type, calorie amount, serving amount. If the user has logged in, he/she can comment on the food and give like or dislike.
 
 
    .. code-block:: python
@@ -407,7 +407,7 @@ Parts Implemented by Ilgin Balkan
 
 
 
-    In this method, the user can access the recipe, the photograph, the ingredients of the beverage. In addition, user can see beverages' cuisine, cooking time, type, calorie amount, serving amount. If the user has logged in, he/she can comment on the beverage and give like or dislike.
+   In this method, the user can access the recipe, the photograph, the ingredients of the beverage. In addition, user can see beverages' cuisine, cooking time, type, calorie amount, serving amount. If the user has logged in, he/she can comment on the beverage and give like or dislike.
 
    .. code-block:: python
 
@@ -481,7 +481,7 @@ Parts Implemented by Ilgin Balkan
 		  return render_template("recipe.html")
 
 
-    In this method, the user can access the recipe, the photograph, the ingredients of the dessert. In addition, user can see desserts' cuisine, cooking time, type, calorie amount, serving amount. If the user has logged in, he/she can comment on the dessert and give like or dislike.
+   In this method, the user can access the recipe, the photograph, the ingredients of the dessert. In addition, user can see desserts' cuisine, cooking time, type, calorie amount, serving amount. If the user has logged in, he/she can comment on the dessert and give like or dislike.
 
   
    .. code-block:: python
