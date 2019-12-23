@@ -2,20 +2,6 @@ Parts Implemented by Rumeysa Nur Arslan
 ================================
 In this part, food, members, and personal data tables are used to all operations.
 
-   .. figure:: food-menu.jpeg
-      :scale: 50 %
-      :alt: The recipes of all foods
-
-      This page is recipes page for foods.The user can see all food recipes on this page.
-      
-	  
-   .. figure:: food-recipe.PNG
-      :scale: 50 %
-      :alt: The recipe page for a food
-
-      This page is an recipes page for foods.The user can see all information about this food in this page. Also,
-	  user can write a comment for this food if user sign in before.
-	  
 
    .. figure:: sign-up.PNG
       :scale: 50 %
@@ -26,48 +12,52 @@ In this part, food, members, and personal data tables are used to all operations
 	  create a new food, edit a food that had been added before. In addition, the user can change personal data with this personal page.
 	  
 
-   .. figure:: login.PNG
+   .. figure:: all-contact.PNG
       :scale: 50 %
-      :alt: Stadium Adding
+      :alt: All contacts showing at this page
 
-      User can login with this page. After login operation, members' information are carried with sessions.
-
-	  
-   .. figure:: forgot-pass.PNG
-      :scale: 50 %
-      :alt: Forgot Password
-
-      When users forgot their password, they can change their password with this panel. After enter email and username,
-	  user's recovery question show on the new page and system expected to take correct answer for this question.
-	  If answer correct, user enter the new password on the system.
-      
-	  
-   .. figure:: personal-data.jpeg
-      :scale: 50 %
-      :alt: Personal Info 
-
-      After login the website, the user can manage their personal page.Firstly, when user click on username, they redirect to this page, and they see their recipes that had been added before.
-	  They can show and edit their recipes, and also they can change personal informations.In addition, they can delete their account and their recipes,or they can log out easily.
-   
-   
+      All contacts are showing on this page by the admin. This page only displayed on the admins. Therefore, when the user send a message, admin display them,
+	  and if the admin wants to delete this message, they can delete with trash icon. Also, if they not to delete this message, they can check the message. When to check the messsage,
+	  the tick icon will turn on green.
+	 
+	 
    .. figure:: add-recipe.PNG
       :scale: 50 %
       :alt: Food Add
 
-      This page for adding recipes in the website. The user can add a recipe which type do you want by choosing on dropdown.
-	  Also, the user should enter all information about the foods, desserts and beverages to add.
-	  Thus, the user can upload an image for recipe.
+	  This page for adding recipes in the website. The user can add a recipe which type do you want by choosing on dropdown.
+	  Also, the user should enter all information about the foods, desserts and beverages to add. Thus, the user can upload an image for recipe.
+	  We used qualification table on this page also. All information like calorie or timing about the recipes are taken from this page.
 	  
+	  
+   .. figure:: add-ingredient.PNG
+      :scale: 50 %
+      :alt: Food Add	
+	  
+	  This panel was created to add multiple ingredients for a recipe. The user can use plus icon to add a new row for adding the newest on in the recipe.
+	  Also, the cross icon for deleting when there is no necessary to add more ingredient.
+	  This panel include 2 textbox for unit and amount, and also, we can controlled if ingredient is allergenic or not, and which flavor ingredient is.
+	
 	  
    .. figure:: edit-food.PNG
       :scale: 50 %
       :alt: Food Edit
 
       This page for editing recipes. The user can edit their recipes if is necessary.
+	
 
-	  
-   .. figure:: personal-data-edit.PNG
+   .. figure:: dessert-edit.PNG
       :scale: 50 %
-      :alt: Update Assist's page
+      :alt: Editing for dessert
+	  
+	  This page for editing dessert's recipes. The user can edit their recipes if is necessary. In this page, the user edit some information about recipe.
+		
+  
+   .. figure:: beverage-edit.PNG
+      :scale: 50 %
+      :alt: Editing for beverage
+	  
+	  This page for editing beverage's recipes. The user can edit their recipes if is necessary. In this page, the user edit some information about recipe.
+		
 
-      In order to edit personal information like birth date or location, userr can use this panel easily.
+   
