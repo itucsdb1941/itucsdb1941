@@ -30,8 +30,8 @@ In this part, dessert, ingredient, and qualification tables are used to all oper
    This page is an recipes page for desserts, foods and beverages. The user can see all information about this recipe in this page. Also, user can write a comment for this recipe if user sign in before. In this page, the user see the qualification about the recipe on the right of the photo. These informations are country, foodtype, fooddate, who enter this food etc. Also, ingredient table datas at ingredient header on the page. Thus, at the beginning of the ingredient name, there is a red triangle. This triangle show that this ingredient can be allergenic for people.
 	    
 	    
-   .. figure:: login.png
-	  :scale: 50 %
+   .. figure:: login-page.png
+      :scale: 50 %
       :alt: Login Page
 	 
    User can login with this page. After login operation, members' information are carried with sessions.
@@ -53,7 +53,7 @@ In this part, dessert, ingredient, and qualification tables are used to all oper
    
    .. figure:: personal-data-edit.png
       :scale: 50 %
-      :alt: Update Assist's page
+      :alt: Update Personal Data Page
 
    In order to edit personal information like birth date or location, userr can use this panel easily.
   
@@ -67,13 +67,13 @@ In this part, dessert, ingredient, and qualification tables are used to all oper
 
    .. figure:: comment-panel.png
       :scale: 50 %
-      :alt: comments panel 
+      :alt: Comments Panel 
       
    These are comment panel. User can write comment for recipe and also user can like or dislike to comment with this panel.
  
  
    .. figure:: commentfood.png
       :scale: 50 %
-      :alt: All comments
+      :alt: All Comments
       
    These are comment panel. All comments show in these area for a recipe.
