@@ -43,21 +43,7 @@ In this part, food, members, and personal data tables are used to all operations
       :scale: 50 %
       :alt: Food Edit
 
-      This page for editing recipes. The user can edit their recipes if is necessary.
+      This page for editing recipes. The user can edit their recipes if is necessary. In this page, the user edit some information about recipe.
 	
-
-   .. figure:: dessert-edit.PNG
-      :scale: 50 %
-      :alt: Editing for dessert
-	  
-	  This page for editing dessert's recipes. The user can edit their recipes if is necessary. In this page, the user edit some information about recipe.
-		
-  
-   .. figure:: beverage-edit.PNG
-      :scale: 50 %
-      :alt: Editing for beverage
-	  
-	  This page for editing beverage's recipes. The user can edit their recipes if is necessary. In this page, the user edit some information about recipe.
-		
 
    

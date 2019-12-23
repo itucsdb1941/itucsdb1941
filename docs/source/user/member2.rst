@@ -25,7 +25,7 @@ In this part, dessert, ingredient, and qualification tables are used to all oper
 	  
    .. figure:: dessert-recipe.PNG
       :scale: 50 %
-      :alt: The recipe page for a dessert
+      :alt: The recipe page for a recipe
 
 	  This page is an recipes page for desserts, foods and beverages. The user can see all information about this recipe in this page. Also,
 	  user can write a comment for this recipe if user sign in before.
@@ -36,7 +36,7 @@ In this part, dessert, ingredient, and qualification tables are used to all oper
 	  
    .. figure:: login.PNG
 	  :scale: 50 %
-      :alt: Stadium Adding
+      :alt: Login Page
 
 	  User can login with this page. After login operation, members' information are carried with sessions.
 
@@ -80,4 +80,9 @@ In this part, dessert, ingredient, and qualification tables are used to all oper
       These are comment panel. User can write comment for recipe and also user can like or dislike to comment with this panel.
 
 	  
-	 
+   .. figure:: commentfood.PNG
+      :scale: 50 %
+      :alt: All comments
+
+      These are comment panel. All comments show in these area for a recipe.
+	  

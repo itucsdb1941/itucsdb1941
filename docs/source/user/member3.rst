@@ -3,12 +3,12 @@ Parts Implemented by Simge Tiraş
 In this part, beverage, comment, and contact tables are used to all operations.
 
  
-   .. figure:: commentfood.PNG
+   .. figure:: home1.PNG
       :scale: 50 %
-      :alt: All comments
-
-      These are comment panel. All comments show in these area for a recipe.
-	  
+      :alt: Home Page
+		
+	  Users can easily access the food, beverage and dessert menus on the homepage.
+       
 	  
    .. figure:: homepage2.PNG
       :scale: 50 %
@@ -22,7 +22,7 @@ In this part, beverage, comment, and contact tables are used to all operations.
       :alt: Navigation Bar
 		
 	  Menu buttons are used to switch between pages. At the same time, if the user is logged in, his/her name appears and can go to his/her profile.
-      
+     
 
 	  
   
