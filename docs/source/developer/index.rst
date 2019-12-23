@@ -4,28 +4,20 @@ Developer Guide
 Database Design
 ---------------
 
-**explain the database design of your project**
+**This E / R diagram shows the entities in the database and their attributes, also their relationship to each other.**
 
-**include the E/R diagram(s)**
+   .. figure:: erDiagram.png
+         :scale: 50 %
+         :alt: E/R Diagram for our project
+
 
 Code
-----
 
-**explain the technical structure of your code**
-
-**to include a code listing, use the following example**::
-
-   .. code-block:: python
-
-      class Foo:
-
-         def __init__(self, x):
-            self.x = x
+In this part of the documentation, the relationship between back-end and front-end will be discussed. In addition, how a form information received from the front-end is processed on the back-end side and the operations to be performed on the database with this information will be given through python codes.
 
 .. toctree::
 
-   member1
-   member2
-   member3
-   member4
-   member5
+   Rumeysa Nur Arslan
+   İlgin Balkan
+   Simge Tiraş
+   
