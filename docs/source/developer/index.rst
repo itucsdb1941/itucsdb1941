@@ -17,7 +17,7 @@ In this part of the documentation, the relationship between back-end and front-e
 
 .. toctree::
 
-   Rumeysa Nur Arslan
-   İlgin Balkan
-   Simge Tiraş
+   member1
+   member2
+   member3
    
