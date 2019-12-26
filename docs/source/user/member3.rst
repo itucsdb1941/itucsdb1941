@@ -1,6 +1,6 @@
 Parts Implemented by Simge Tiraş
 ================================
-In this part, beverage, comment, and contact tables are used to all operations.
+
 
  
    .. figure:: home1.png

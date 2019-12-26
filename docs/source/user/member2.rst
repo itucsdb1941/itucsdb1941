@@ -1,6 +1,6 @@
 Parts Implemented by İlgin Balkan
 ================================
-In this part, dessert, ingredient, and qualification tables are used to all operations.
+
 
    .. figure:: dessert-menu.png
       :scale: 50 %
@@ -34,21 +34,21 @@ In this part, dessert, ingredient, and qualification tables are used to all oper
       :scale: 50 %
       :alt: Login Page
 	 
-   User can login with this page. After login operation, members' information are carried with sessions.
+   User can login with this page. After login operation, members’ information are carried with sessions. In the login page, we showed the error message on the screen when the user entered to their username or password false. Also, we used hash algorithm to keep the user's password on database as a secret key. Therefore, the user enter to our system , their passwords converted to a hash code, and compare to their original passwords that is holding in the database. 
 
 
    .. figure:: forgot-pass.png
       :scale: 50 %
       :alt: Forgot Password
       
-   When users forgot their password, they can change their password with this panel. After enter email and username, user's recovery question show on the new page and system expected to take correct answer for this question. If answer correct, user enter the new password on the system.
+   When users forgot their password, they can change their password with this panel. After enter email and username, user’s recovery question show on the new page and system expected to take correct answer for this question. If answer correct, user enter the new password on the system.
       
       
    .. figure:: personal-data.png
       :scale: 50 %
       :alt: Personal Info 
      
-   After login the website, the user can manage their personal page.Firstly, when user click on username, they redirect to this page, and they see their recipes that had been added before. They can show and edit their recipes, and also they can change personal informations.In addition, they can delete their account and their recipes,or they can log out easily.
+   After login the website, the user can manage their personal page.Firstly, when user click on username, they redirect to this page, and they see their recipes that had been added before. They can show and edit their recipes, and also they can change personal informations.In addition, they can delete their account and their recipes, or they can log out easily.
    
    
    .. figure:: personal-data-edit.png
@@ -69,11 +69,11 @@ In this part, dessert, ingredient, and qualification tables are used to all oper
       :scale: 50 %
       :alt: Comments Panel 
       
-   These are comment panel. User can write comment for recipe and also user can like or dislike to comment with this panel.
+   These are comment panel. User can write comment for recipe and all comments show in these area that recipe. Only logged in users can add new comment
  
  
    .. figure:: commentfood.png
       :scale: 50 %
       :alt: All Comments
       
-   These are comment panel. All comments show in these area for a recipe.
+   User can read all of the comments and can give like or dislike.

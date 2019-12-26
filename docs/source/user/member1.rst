@@ -1,6 +1,6 @@
 Parts Implemented by Rumeysa Nur Arslan
 ================================
-In this part, food, members, and personal data tables are used to all operations.
+
 
 
    .. figure:: sign-up.png
