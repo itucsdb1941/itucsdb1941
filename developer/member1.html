@@ -1,0 +1,642 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Parts Implemented by Rumeysa Nur Arslan &mdash; ITUCSDB1941  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Parts Implemented by Ilgin Balkan" href="member2.html" />
+    <link rel="prev" title="Developer Guide" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ITUCSDB1941
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../user/index.html">User Guide</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Developer Guide</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="index.html#database-design">Database Design</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Parts Implemented by Rumeysa Nur Arslan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="member2.html">Parts Implemented by Ilgin Balkan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="member3.html">Parts Implemented by Simge Tiraş</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ITUCSDB1941</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Developer Guide</a> &raquo;</li>
+        
+      <li>Parts Implemented by Rumeysa Nur Arslan</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/developer/member1.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="parts-implemented-by-rumeysa-nur-arslan">
+<h1>Parts Implemented by Rumeysa Nur Arslan<a class="headerlink" href="#parts-implemented-by-rumeysa-nur-arslan" title="Permalink to this headline">¶</a></h1>
+<p><strong>explain the technical structure of your code</strong></p>
+<p><strong>to include a code listing, use the following example</strong>:</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/all-contacts&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span> <span class="p">,</span> <span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+<span class="k">def</span> <span class="nf">all_contacts</span><span class="p">():</span>
+        <span class="n">conn</span> <span class="o">=</span> <span class="n">dpapi</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+        <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+                <span class="n">contactid</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;contactid&#39;</span><span class="p">)</span>
+                <span class="n">statusValue</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;status&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="n">statusValue</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">statusValue</span> <span class="o">==</span> <span class="s1">&#39;put&#39;</span><span class="p">:</span>
+                        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;UPDATE contact SET status = </span><span class="si">%s</span><span class="s2"> WHERE contact.contactid = </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                        <span class="p">(</span><span class="kc">True</span><span class="p">,</span><span class="n">contactid</span><span class="p">,))</span>
+                <span class="k">else</span><span class="p">:</span>
+                        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;DELETE FROM contact WHERE contactid=</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="p">,</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">contactid</span><span class="p">),))</span>
+
+                <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+                <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;all_contacts&#39;</span><span class="p">,</span> <span class="n">status</span><span class="o">=</span><span class="s2">&quot;done&quot;</span> <span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="s2">&quot;authority&quot;</span> <span class="ow">in</span> <span class="n">session</span><span class="p">:</span>
+                        <span class="n">authority</span> <span class="o">=</span> <span class="n">session</span><span class="p">[</span><span class="s1">&#39;authority&#39;</span><span class="p">]</span>
+                        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;SELECT members.memberid, personaldata.name, personaldata.surname, personaldata.location, members.e_mail, members.username FROM members</span>
+<span class="s2">                                                          INNER JOIN personaldata</span>
+<span class="s2">                                                          ON personaldata.memberid = members.memberid and members.memberid = </span><span class="si">%s</span><span class="s2"> &quot;&quot;&quot;</span><span class="p">,</span>
+                                                   <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]),))</span>
+                        <span class="n">data</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+
+                        <span class="k">if</span> <span class="n">authority</span> <span class="o">==</span> <span class="s1">&#39;admin&#39;</span><span class="p">:</span>
+                                <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT contactid, message, date, title, category, e_mail, status FROM contact&quot;</span><span class="p">)</span>
+                                <span class="n">contacts</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+
+                        <span class="k">if</span> <span class="n">contacts</span><span class="p">:</span>
+                                <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                                <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;show-contacts.html&quot;</span><span class="p">,</span><span class="n">authority</span><span class="o">=</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;authority&quot;</span><span class="p">]</span> <span class="p">,</span> <span class="n">contact</span><span class="o">=</span><span class="n">contacts</span><span class="p">,</span> <span class="n">datam</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">contactlen</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">contacts</span><span class="p">))</span>
+                        <span class="k">else</span><span class="p">:</span>
+                                <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                                <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;show-contacts.html&quot;</span><span class="p">,</span><span class="n">authority</span><span class="o">=</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;authority&quot;</span><span class="p">]</span> <span class="p">,</span>  <span class="n">datam</span><span class="o">=</span><span class="n">data</span><span class="p">,</span> <span class="n">contactlen</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">result</span><span class="o">=</span><span class="s2">&quot;No contact..&quot;</span><span class="p">)</span>
+                <span class="k">else</span> <span class="p">:</span>
+                        <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                        <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s2">&quot;profile&quot;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>In this method, if the logged-in users authority is admin, a button opens to display the ‘contacts’ and the admin can view the problems such as suggestions, complaints. Admin can delete or mark these comments as seen.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/sign-in&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+    <span class="k">def</span> <span class="nf">get_members</span><span class="p">():</span>
+            <span class="n">conn</span> <span class="o">=</span> <span class="n">dpapi</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="n">userName</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;username&quot;</span><span class="p">)</span>
+            <span class="n">passWord</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;password&quot;</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">userName</span> <span class="ow">and</span> <span class="n">passWord</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="n">passWord</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">())</span>
+                    <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;forgotPassword&quot;</span><span class="p">):</span>
+                            <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;index.html&quot;</span><span class="p">)</span>
+                    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT * FROM members where username=</span><span class="si">%s</span><span class="s2"> and userpassword=</span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,(</span><span class="n">userName</span><span class="p">,</span><span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="n">passWord</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()))</span>
+                    <span class="n">data</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+                    <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+                    <span class="k">if</span> <span class="n">data</span><span class="p">:</span>
+                            <span class="n">session</span><span class="p">[</span><span class="s2">&quot;username&quot;</span><span class="p">]</span><span class="o">=</span> <span class="n">userName</span>
+                            <span class="n">session</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                            <span class="n">session</span><span class="p">[</span><span class="s1">&#39;authority&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span><span class="p">[</span><span class="mi">6</span><span class="p">]</span>
+                            <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;home&#39;</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;username&quot;</span><span class="p">]))</span>
+                    <span class="k">else</span><span class="p">:</span>
+                            <span class="n">myerror</span><span class="o">=</span><span class="s2">&quot;Please try again!&quot;</span>
+                            <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                            <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">&#39;login-page.html&#39;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="n">myerror</span><span class="p">)</span>
+            <span class="k">else</span> <span class="p">:</span>
+                    <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;login-page.html&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This method allows the user to login if the username and password entered in the are correct in the database, redirects to the home page, if wrong, gives an error message.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/logout&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">])</span>
+    <span class="k">def</span> <span class="nf">logout</span><span class="p">():</span>
+       <span class="n">conn</span> <span class="o">=</span> <span class="n">dpapi</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+       <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+
+       <span class="k">if</span> <span class="s1">&#39;id&#39;</span> <span class="ow">in</span> <span class="n">session</span><span class="p">:</span>
+                    <span class="n">session</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">)</span>
+       <span class="k">if</span> <span class="s1">&#39;username&#39;</span> <span class="ow">in</span> <span class="n">session</span><span class="p">:</span>
+                    <span class="n">session</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;username&#39;</span><span class="p">)</span>
+
+       <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+       <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;home&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>This method allows the user to log out. The username and id popped from session to log out.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/sign-up&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+    <span class="k">def</span> <span class="nf">signUp</span><span class="p">():</span>
+            <span class="n">conn</span> <span class="o">=</span> <span class="n">dpapi</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="k">if</span> <span class="s1">&#39;id&#39;</span> <span class="ow">in</span> <span class="n">session</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;home&#39;</span><span class="p">))</span>
+
+            <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+                    <span class="n">firstname</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;FirstName&quot;</span><span class="p">)</span>
+                    <span class="n">lastname</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;LastName&quot;</span><span class="p">)</span>
+                    <span class="n">email</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Email&quot;</span><span class="p">)</span>
+                    <span class="n">username</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Username&quot;</span><span class="p">)</span>
+                    <span class="n">password</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Password&quot;</span><span class="p">)</span>
+                    <span class="n">gender</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Gender&quot;</span><span class="p">)</span>
+                    <span class="n">birthdate</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Birthdate&quot;</span><span class="p">)</span>
+                    <span class="n">location</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Location&quot;</span><span class="p">)</span>
+                    <span class="n">rques</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;RecoveryQuestion&quot;</span><span class="p">)</span>
+                    <span class="n">ranswer</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;RecoveryAnswer&quot;</span><span class="p">)</span>
+
+                    <span class="k">if</span> <span class="n">firstname</span> <span class="ow">and</span> <span class="n">lastname</span> <span class="ow">and</span> <span class="n">email</span> <span class="ow">and</span> <span class="n">username</span> <span class="ow">and</span> <span class="n">password</span> <span class="ow">and</span> <span class="n">gender</span> <span class="ow">and</span> <span class="n">birthdate</span> <span class="ow">and</span> <span class="n">location</span> <span class="ow">and</span> <span class="n">rques</span> <span class="ow">and</span> <span class="n">ranswer</span><span class="p">:</span>
+                            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;INSERT INTO members(username, userpassword, e_mail, recoveryques, recoveryans, authority) VALUES (</span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">, </span><span class="si">%s</span><span class="s2">) RETURNING memberid&quot;</span><span class="p">,(</span><span class="n">username</span><span class="p">,</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="n">password</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">(),</span> <span class="n">email</span><span class="p">,</span> <span class="n">rques</span><span class="p">,</span> <span class="n">ranswer</span><span class="p">,</span> <span class="s1">&#39;user&#39;</span><span class="p">))</span>
+                            <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+                            <span class="n">sql</span><span class="o">=</span><span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+                            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;INSERT INTO personaldata (name, surname, birthdate, sex, location, memberid) &quot;</span>
+                                                             <span class="s2">&quot;VALUES (</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">)&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">firstname</span><span class="p">,</span> <span class="n">lastname</span><span class="p">,</span> <span class="n">birthdate</span><span class="p">,</span> <span class="n">gender</span><span class="p">,</span> <span class="n">location</span><span class="p">,</span> <span class="n">sql</span><span class="p">))</span>
+                            <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+                            <span class="n">session</span><span class="p">[</span><span class="s2">&quot;username&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">username</span>
+                            <span class="n">session</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">sql</span>
+                            <span class="n">session</span><span class="p">[</span><span class="s1">&#39;authority&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;user&#39;</span>
+                            <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                            <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s1">&#39;home&#39;</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;username&quot;</span><span class="p">]))</span>
+
+            <span class="k">elif</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;GET&#39;</span><span class="p">:</span>
+                    <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;sign-page.html&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This method receives the necessary information from the user and performs the membership process. User must enter all information to become a member. Redirects to the home page after becoming a member.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/add-recipe&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+    <span class="k">def</span> <span class="nf">post_food</span><span class="p">():</span>
+<span class="n">conn</span> <span class="o">=</span> <span class="n">dpapi</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+<span class="n">qualificationId</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+    <span class="n">memberid</span> <span class="o">=</span> <span class="n">session</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+    <span class="n">name</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recipename&#39;</span><span class="p">)</span>
+    <span class="n">time</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recipetime&#39;</span><span class="p">)</span>
+    <span class="n">calorie</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recipecalorie&#39;</span><span class="p">)</span>
+    <span class="n">country</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recipecountry&#39;</span><span class="p">)</span>
+    <span class="nb">type</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recipetype&#39;</span><span class="p">)</span>
+    <span class="n">date</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recipedate&#39;</span><span class="p">)</span>
+    <span class="n">serve</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recipeserve&#39;</span><span class="p">)</span>
+    <span class="n">recipe</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recipes&#39;</span><span class="p">)</span>
+    <span class="n">category</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recipecategory&#39;</span><span class="p">)</span>
+    <span class="n">photo</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recipephoto&#39;</span><span class="p">)</span>
+    <span class="n">recipeType</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recipeType&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">name</span> <span class="p">,</span> <span class="n">time</span> <span class="p">,</span> <span class="n">calorie</span><span class="p">,</span> <span class="n">date</span> <span class="p">,</span> <span class="n">country</span><span class="p">,</span> <span class="n">serve</span> <span class="p">,</span> <span class="n">recipe</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">name</span> <span class="ow">and</span> <span class="n">time</span> <span class="ow">and</span> <span class="n">calorie</span> <span class="ow">and</span> <span class="n">date</span> <span class="ow">and</span> <span class="n">serve</span> <span class="ow">and</span> <span class="n">recipe</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Asdfsdf&quot;</span><span class="p">)</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;INSERT INTO qualification(cuisine, timing, category, calori, serve) VALUES(</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">) RETURNING qualificationid&quot;</span><span class="p">,</span>
+                          <span class="p">(</span><span class="n">country</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">category</span><span class="p">,</span> <span class="n">calorie</span><span class="p">,</span> <span class="n">serve</span><span class="p">))</span>
+        <span class="n">qualificationId</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+        <span class="nb">id</span><span class="o">=</span><span class="mi">0</span>
+        <span class="k">if</span> <span class="n">recipeType</span> <span class="o">==</span> <span class="s2">&quot;food&quot;</span><span class="p">:</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;INSERT INTO food(foodname, foodrecipe, foodphoto, foodtype, qualificationid, memberid, fooddate) VALUES (</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">) RETURNING foodid&quot;</span> <span class="p">,</span>
+                        <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">recipe</span><span class="p">,</span> <span class="n">photo</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">qualificationId</span><span class="p">,</span> <span class="n">memberid</span><span class="p">,</span> <span class="n">date</span><span class="p">))</span>
+            <span class="nb">id</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;food&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
+            <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">recipeType</span> <span class="o">==</span> <span class="s2">&quot;beverage&quot;</span><span class="p">:</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+                <span class="s2">&quot;INSERT INTO beverage(beveragename, beveragerecipe, beveragephoto, beveragetype, qualificationid, memberid, beveragedate) VALUES (</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">) RETURNING beverageid&quot;</span><span class="p">,</span>
+                <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">recipe</span><span class="p">,</span> <span class="n">photo</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">qualificationId</span><span class="p">,</span> <span class="n">memberid</span><span class="p">,</span> <span class="n">date</span><span class="p">))</span>
+            <span class="nb">id</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;beverage&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
+            <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+        <span class="k">elif</span> <span class="n">recipeType</span> <span class="o">==</span> <span class="s2">&quot;dessert&quot;</span><span class="p">:</span>
+            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+                <span class="s2">&quot;INSERT INTO dessert(dessertname, dessertrecipe, dessertphoto, desserttype, qualificationid, memberid, dessertdate) VALUES (</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">) RETURNING dessertid&quot;</span><span class="p">,</span>
+                <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">recipe</span><span class="p">,</span> <span class="n">photo</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">qualificationId</span><span class="p">,</span> <span class="n">memberid</span><span class="p">,</span> <span class="n">date</span><span class="p">))</span>
+            <span class="nb">id</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;dessert&quot;</span><span class="p">,</span> <span class="nb">id</span><span class="p">)</span>
+            <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+        <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="k">while</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ingrename&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="p">:</span>
+            <span class="n">ingreFlavor</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+            <span class="n">ingreallergenic</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="n">ingrename</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ingrename&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+            <span class="n">ingreamount</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ingreamount&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+            <span class="n">ingreunit</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ingreunit&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+            <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ingreallegernic&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)):</span>
+                <span class="n">ingreallergenic</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;flavorHot&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)):</span>
+                <span class="n">ingreFlavor</span> <span class="o">=</span> <span class="n">ingreFlavor</span> <span class="o">+</span> <span class="s2">&quot;Hot&quot;</span>
+            <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;flavorSweet&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)):</span>
+                <span class="n">ingreFlavor</span> <span class="o">=</span> <span class="n">ingreFlavor</span> <span class="o">+</span> <span class="s2">&quot;,Sweet&quot;</span>
+            <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;flavorSour&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)):</span>
+                <span class="n">ingreFlavor</span> <span class="o">=</span> <span class="n">ingreFlavor</span> <span class="o">+</span> <span class="s2">&quot;,Sour&quot;</span>
+            <span class="k">if</span> <span class="n">recipeType</span> <span class="o">==</span> <span class="s2">&quot;food&quot;</span><span class="p">:</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;INSERT INTO ingredient(ingrename, unit, amount, allergenic, flavor, foodid) VALUES (</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">)&quot;</span><span class="p">,</span>
+                    <span class="p">(</span><span class="n">ingrename</span><span class="p">,</span> <span class="n">ingreunit</span><span class="p">,</span> <span class="n">ingreamount</span><span class="p">,</span> <span class="n">ingreallergenic</span><span class="p">,</span> <span class="n">ingreFlavor</span><span class="p">,</span> <span class="nb">id</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="n">recipeType</span> <span class="o">==</span> <span class="s2">&quot;beverage&quot;</span><span class="p">:</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+                    <span class="s2">&quot;INSERT INTO ingredient(ingrename, unit, amount, allergenic, flavor, beverageid) VALUES (</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">)&quot;</span><span class="p">,</span>
+                    <span class="p">(</span><span class="n">ingrename</span><span class="p">,</span> <span class="n">ingreunit</span><span class="p">,</span> <span class="n">ingreamount</span><span class="p">,</span> <span class="n">ingreallergenic</span><span class="p">,</span> <span class="n">ingreFlavor</span><span class="p">,</span> <span class="nb">id</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="n">recipeType</span> <span class="o">==</span> <span class="s2">&quot;dessert&quot;</span><span class="p">:</span>
+                <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+                    <span class="s2">&quot;INSERT INTO ingredient(ingrename, unit, amount, allergenic, flavor, dessertid) VALUES (</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">,</span><span class="si">%s</span><span class="s2">)&quot;</span><span class="p">,</span>
+                    <span class="p">(</span><span class="n">ingrename</span><span class="p">,</span> <span class="n">ingreunit</span><span class="p">,</span> <span class="n">ingreamount</span><span class="p">,</span> <span class="n">ingreallergenic</span><span class="p">,</span> <span class="n">ingreFlavor</span><span class="p">,</span> <span class="nb">id</span><span class="p">))</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+            <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;SELECT members.memberid, personaldata.name, personaldata.surname, personaldata.location, members.e_mail, members.username FROM members</span>
+<span class="s2">                                   INNER JOIN personaldata</span>
+<span class="s2">                                   ON personaldata.memberid = members.memberid and members.memberid = </span><span class="si">%s</span><span class="s2"> &quot;&quot;&quot;</span><span class="p">,</span>
+                       <span class="p">(</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">],))</span>
+        <span class="n">data2</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+        <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s2">&quot;profile&quot;</span><span class="p">))</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">if</span> <span class="s2">&quot;id&quot;</span> <span class="ow">in</span> <span class="n">session</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">])</span>
+        <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;SELECT members.memberid, personaldata.name, personaldata.surname, personaldata.location, members.e_mail, members.username FROM members</span>
+<span class="s2">                        INNER JOIN personaldata</span>
+<span class="s2">                        ON personaldata.memberid = members.memberid and members.memberid = </span><span class="si">%s</span><span class="s2"> &quot;&quot;&quot;</span><span class="p">,(</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">],))</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>In this method, the user first selects whether the recipe he wants to add is food or dessert. Then uploads the recipe by adding all the necessary ingredients, recipe, informations and photo. The user has to enter them all.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/change-recipe/food/&lt;id&gt;&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+    <span class="k">def</span> <span class="nf">change_food</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
+            <span class="n">conn</span> <span class="o">=</span> <span class="n">dpapi</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="n">qualificationId</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+                    <span class="n">memberid</span> <span class="o">=</span> <span class="n">session</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+                    <span class="n">qualificationid</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;qualificationid&#39;</span><span class="p">)</span>
+                    <span class="n">name</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recipename&#39;</span><span class="p">)</span>
+                    <span class="n">time</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recipetime&#39;</span><span class="p">)</span>
+                    <span class="n">calorie</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recipecalorie&#39;</span><span class="p">)</span>
+                    <span class="n">country</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recipecountry&#39;</span><span class="p">)</span>
+                    <span class="nb">type</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recipetype&#39;</span><span class="p">)</span>
+                    <span class="n">date</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recipedate&#39;</span><span class="p">)</span>
+                    <span class="n">serve</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recipeserve&#39;</span><span class="p">)</span>
+                    <span class="n">recipe</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recipes&#39;</span><span class="p">)</span>
+                    <span class="n">category</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recipecategory&#39;</span><span class="p">)</span>
+                    <span class="n">recipeType</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recipeType&#39;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="n">name</span> <span class="p">,</span> <span class="n">time</span> <span class="p">,</span> <span class="n">calorie</span><span class="p">,</span> <span class="n">date</span> <span class="p">,</span> <span class="n">country</span><span class="p">,</span> <span class="n">serve</span> <span class="p">,</span> <span class="n">recipe</span><span class="p">)</span>
+                    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;UPDATE qualification SET cuisine = </span><span class="si">%s</span><span class="s2"> , timing = </span><span class="si">%s</span><span class="s2">, category = </span><span class="si">%s</span><span class="s2">, calori = </span><span class="si">%s</span><span class="s2">, serve= </span><span class="si">%s</span><span class="s2"> WHERE qualificationid = </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                                                    <span class="p">(</span><span class="n">country</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">category</span><span class="p">,</span> <span class="n">calorie</span><span class="p">,</span> <span class="n">serve</span><span class="p">,</span> <span class="n">qualificationid</span><span class="p">))</span>
+                    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+                            <span class="s2">&quot;UPDATE food SET foodname = </span><span class="si">%s</span><span class="s2"> , foodrecipe = </span><span class="si">%s</span><span class="s2">, foodtype = </span><span class="si">%s</span><span class="s2"> WHERE foodid = </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                            <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">recipe</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="nb">id</span><span class="p">))</span>
+
+                    <span class="n">i</span><span class="o">=</span><span class="mi">0</span>
+                    <span class="k">while</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ingrename&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)):</span>
+                            <span class="n">ingreid</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ingredientid&quot;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+                            <span class="n">ingrename</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ingrename&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+                            <span class="n">ingreamount</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ingreamount&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+                            <span class="n">ingreunit</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ingreunit&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+                            <span class="nb">print</span><span class="p">(</span><span class="n">ingrename</span><span class="p">,</span><span class="n">ingreamount</span><span class="p">,</span><span class="n">ingreunit</span><span class="p">)</span>
+                            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+                                    <span class="s2">&quot;UPDATE ingredient SET ingrename = </span><span class="si">%s</span><span class="s2"> , unit = </span><span class="si">%s</span><span class="s2">, amount = </span><span class="si">%s</span><span class="s2"> WHERE foodid = </span><span class="si">%s</span><span class="s2"> and ingredientid=</span><span class="si">%s</span><span class="s2"> &quot;</span><span class="p">,</span>
+                                    <span class="p">(</span><span class="n">ingrename</span><span class="p">,</span> <span class="n">ingreunit</span><span class="p">,</span> <span class="n">ingreamount</span><span class="p">,</span> <span class="nb">id</span> <span class="p">,</span> <span class="n">ingreid</span><span class="p">))</span>
+                            <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+                            <span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span>
+                    <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+                    <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s2">&quot;profile&quot;</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                    <span class="n">mymemberid</span> <span class="o">=</span> <span class="n">session</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+                    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot; SELECT food.foodname, qualification.cuisine, qualification.calori, qualification.serve,  qualification.timing, qualification.category,food.foodrecipe, food.foodtype, qualification.qualificationid FROM qualification</span>
+<span class="s2">                                            INNER JOIN food</span>
+<span class="s2">                                            ON food.qualificationid = qualification.qualificationid and food.foodid=</span><span class="si">%s</span><span class="s2">&quot;&quot;&quot;</span><span class="p">,</span> <span class="p">(</span><span class="nb">id</span><span class="p">,))</span>
+                    <span class="n">foods</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="n">foods</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span>
+                    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT ingredient.ingrename, ingredient.unit, ingredient.amount, ingredient.ingredientid FROM ingredient INNER JOIN food ON ingredient.foodid = food.foodid AND food.foodid = </span><span class="si">%s</span><span class="s2"> &quot;&quot;&quot;</span><span class="p">,(</span><span class="nb">id</span><span class="p">,))</span>
+                    <span class="n">data3</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="n">data3</span><span class="p">)</span>
+                    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;SELECT members.memberid, personaldata.name, personaldata.surname, personaldata.location, members.e_mail, members.username FROM members</span>
+<span class="s2">                                                           INNER JOIN personaldata</span>
+<span class="s2">                                                           ON personaldata.memberid = members.memberid and members.memberid = </span><span class="si">%s</span><span class="s2"> &quot;&quot;&quot;</span><span class="p">,(</span><span class="n">mymemberid</span><span class="p">,))</span>
+                    <span class="n">memberdata</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+                    <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;change-recipe.html&quot;</span><span class="p">,</span>  <span class="n">authority</span><span class="o">=</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;authority&quot;</span><span class="p">]</span>  <span class="p">,</span><span class="n">datam</span><span class="o">=</span><span class="n">memberdata</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">foods</span> <span class="p">,</span> <span class="n">ingre</span><span class="o">=</span><span class="n">data3</span> <span class="p">,</span> <span class="n">ingrelen</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">data3</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>In this method, the name of the food, the recipe, the ingredient name and amount, and the qualification properties of the food can be changed. So update operation is made.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/change-recipe/dessert/&lt;id&gt;&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+    <span class="k">def</span> <span class="nf">change_dessert</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
+            <span class="n">conn</span> <span class="o">=</span> <span class="n">dpapi</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="n">qualificationId</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+                    <span class="n">memberid</span> <span class="o">=</span> <span class="n">session</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+                    <span class="n">qualificationid</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;qualificationid&#39;</span><span class="p">)</span>
+                    <span class="n">name</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recipename&#39;</span><span class="p">)</span>
+                    <span class="n">time</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recipetime&#39;</span><span class="p">)</span>
+                    <span class="n">calorie</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recipecalorie&#39;</span><span class="p">)</span>
+                    <span class="n">country</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recipecountry&#39;</span><span class="p">)</span>
+                    <span class="nb">type</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recipetype&#39;</span><span class="p">)</span>
+                    <span class="n">date</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recipedate&#39;</span><span class="p">)</span>
+                    <span class="n">serve</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recipeserve&#39;</span><span class="p">)</span>
+                    <span class="n">recipe</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recipes&#39;</span><span class="p">)</span>
+                    <span class="n">category</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recipecategory&#39;</span><span class="p">)</span>
+                    <span class="n">recipeType</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recipeType&#39;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="n">name</span> <span class="p">,</span> <span class="n">time</span> <span class="p">,</span> <span class="n">calorie</span><span class="p">,</span> <span class="n">date</span> <span class="p">,</span> <span class="n">country</span><span class="p">,</span> <span class="n">serve</span> <span class="p">,</span> <span class="n">recipe</span><span class="p">)</span>
+                    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;UPDATE qualification SET cuisine = </span><span class="si">%s</span><span class="s2"> , timing = </span><span class="si">%s</span><span class="s2">, category = </span><span class="si">%s</span><span class="s2">, calori = </span><span class="si">%s</span><span class="s2">, serve= </span><span class="si">%s</span><span class="s2"> WHERE qualificationid = </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                                                    <span class="p">(</span><span class="n">country</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">category</span><span class="p">,</span> <span class="n">calorie</span><span class="p">,</span> <span class="n">serve</span><span class="p">,</span> <span class="n">qualificationid</span><span class="p">))</span>
+                    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+                            <span class="s2">&quot;UPDATE dessert SET dessertname = </span><span class="si">%s</span><span class="s2"> , dessertrecipe = </span><span class="si">%s</span><span class="s2">, desserttype = </span><span class="si">%s</span><span class="s2"> WHERE dessertid = </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                            <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">recipe</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="nb">id</span><span class="p">))</span>
+
+                    <span class="n">i</span><span class="o">=</span><span class="mi">0</span>
+                    <span class="k">while</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ingrename&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)):</span>
+                            <span class="n">ingreid</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ingredientid&quot;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+                            <span class="n">ingrename</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ingrename&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+                            <span class="n">ingreamount</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ingreamount&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+                            <span class="n">ingreunit</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ingreunit&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+                            <span class="nb">print</span><span class="p">(</span><span class="n">ingrename</span><span class="p">,</span><span class="n">ingreamount</span><span class="p">,</span><span class="n">ingreunit</span><span class="p">)</span>
+                            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+                                    <span class="s2">&quot;UPDATE ingredient SET ingrename = </span><span class="si">%s</span><span class="s2"> , unit = </span><span class="si">%s</span><span class="s2">, amount = </span><span class="si">%s</span><span class="s2"> WHERE dessertid = </span><span class="si">%s</span><span class="s2"> and ingredientid=</span><span class="si">%s</span><span class="s2"> &quot;</span><span class="p">,</span>
+                                    <span class="p">(</span><span class="n">ingrename</span><span class="p">,</span> <span class="n">ingreunit</span><span class="p">,</span> <span class="n">ingreamount</span><span class="p">,</span> <span class="nb">id</span> <span class="p">,</span> <span class="n">ingreid</span><span class="p">))</span>
+                            <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+                            <span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span>
+                    <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+                    <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s2">&quot;profile&quot;</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot; SELECT dessert.dessertname, qualification.cuisine, qualification.calori, qualification.serve,  qualification.timing, qualification.category,dessert.dessertrecipe, dessert.desserttype, qualification.qualificationid FROM qualification</span>
+<span class="s2">                                            INNER JOIN dessert</span>
+<span class="s2">                                            ON dessert.qualificationid = qualification.qualificationid and dessert.dessertid=</span><span class="si">%s</span><span class="s2">&quot;&quot;&quot;</span><span class="p">,</span> <span class="p">(</span><span class="nb">id</span><span class="p">,))</span>
+                    <span class="n">desserts</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+                    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT ingredient.ingrename, ingredient.unit, ingredient.amount, ingredient.ingredientid FROM ingredient INNER JOIN dessert ON ingredient.dessertid = dessert.dessertid AND dessert.dessertid = </span><span class="si">%s</span><span class="s2"> &quot;&quot;&quot;</span><span class="p">,(</span><span class="nb">id</span><span class="p">,))</span>
+                    <span class="n">data3</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="n">data3</span><span class="p">)</span>
+                    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;SELECT members.memberid, personaldata.name, personaldata.surname, personaldata.location, members.e_mail, members.username FROM members</span>
+<span class="s2">                                                       INNER JOIN personaldata</span>
+<span class="s2">                                                       ON personaldata.memberid = members.memberid and members.memberid = </span><span class="si">%s</span><span class="s2"> &quot;&quot;&quot;</span><span class="p">,</span>
+                                               <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]),))</span>
+                    <span class="n">memberdata</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+                    <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;change-recipe.html&quot;</span><span class="p">,</span>  <span class="n">authority</span><span class="o">=</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;authority&quot;</span><span class="p">]</span> <span class="p">,</span> <span class="n">datam</span><span class="o">=</span><span class="n">memberdata</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">desserts</span> <span class="p">,</span> <span class="n">ingre</span><span class="o">=</span><span class="n">data3</span> <span class="p">,</span> <span class="n">ingrelen</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">data3</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>In this method, the name of the dessert, the recipe, the ingredient name and amount, and the qualification properties of the dessert can be changed. So update operation is made.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/change-recipe/drink/&lt;id&gt;&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;GET&#39;</span><span class="p">,</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+    <span class="k">def</span> <span class="nf">change_drink</span><span class="p">(</span><span class="nb">id</span><span class="p">):</span>
+            <span class="n">conn</span> <span class="o">=</span> <span class="n">dpapi</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+            <span class="n">cursor</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">cursor</span><span class="p">()</span>
+            <span class="n">qualificationId</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+                    <span class="n">memberid</span> <span class="o">=</span> <span class="n">session</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span>
+                    <span class="n">qualificationid</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;qualificationid&#39;</span><span class="p">)</span>
+                    <span class="n">name</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recipename&#39;</span><span class="p">)</span>
+                    <span class="n">time</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recipetime&#39;</span><span class="p">)</span>
+                    <span class="n">calorie</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recipecalorie&#39;</span><span class="p">)</span>
+                    <span class="n">country</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recipecountry&#39;</span><span class="p">)</span>
+                    <span class="nb">type</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recipetype&#39;</span><span class="p">)</span>
+                    <span class="n">date</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recipedate&#39;</span><span class="p">)</span>
+                    <span class="n">serve</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recipeserve&#39;</span><span class="p">)</span>
+                    <span class="n">recipe</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recipes&#39;</span><span class="p">)</span>
+                    <span class="n">category</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recipecategory&#39;</span><span class="p">)</span>
+                    <span class="n">recipeType</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;recipeType&#39;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="n">name</span> <span class="p">,</span> <span class="n">time</span> <span class="p">,</span> <span class="n">calorie</span><span class="p">,</span> <span class="n">date</span> <span class="p">,</span> <span class="n">country</span><span class="p">,</span> <span class="n">serve</span> <span class="p">,</span> <span class="n">recipe</span><span class="p">)</span>
+                    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;UPDATE qualification SET cuisine = </span><span class="si">%s</span><span class="s2"> , timing = </span><span class="si">%s</span><span class="s2">, category = </span><span class="si">%s</span><span class="s2">, calori = </span><span class="si">%s</span><span class="s2">, serve= </span><span class="si">%s</span><span class="s2"> WHERE qualificationid = </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                                                    <span class="p">(</span><span class="n">country</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">category</span><span class="p">,</span> <span class="n">calorie</span><span class="p">,</span> <span class="n">serve</span><span class="p">,</span> <span class="n">qualificationid</span><span class="p">))</span>
+                    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+                            <span class="s2">&quot;UPDATE beverage SET beveragename = </span><span class="si">%s</span><span class="s2"> , beveragerecipe = </span><span class="si">%s</span><span class="s2">, beveragetype = </span><span class="si">%s</span><span class="s2"> WHERE beverageid = </span><span class="si">%s</span><span class="s2">&quot;</span><span class="p">,</span>
+                            <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">recipe</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="nb">id</span><span class="p">))</span>
+
+                    <span class="n">i</span><span class="o">=</span><span class="mi">0</span>
+                    <span class="k">while</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ingrename&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)):</span>
+                            <span class="n">ingreid</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ingredientid&quot;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+                            <span class="n">ingrename</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ingrename&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+                            <span class="n">ingreamount</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ingreamount&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+                            <span class="n">ingreunit</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">form</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;ingreunit&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+                            <span class="nb">print</span><span class="p">(</span><span class="n">ingrename</span><span class="p">,</span><span class="n">ingreamount</span><span class="p">,</span><span class="n">ingreunit</span><span class="p">)</span>
+                            <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>
+                                    <span class="s2">&quot;UPDATE ingredient SET ingrename = </span><span class="si">%s</span><span class="s2"> , unit = </span><span class="si">%s</span><span class="s2">, amount = </span><span class="si">%s</span><span class="s2"> WHERE beverageid = </span><span class="si">%s</span><span class="s2"> and ingredientid=</span><span class="si">%s</span><span class="s2"> &quot;</span><span class="p">,</span>
+                                    <span class="p">(</span><span class="n">ingrename</span><span class="p">,</span> <span class="n">ingreunit</span><span class="p">,</span> <span class="n">ingreamount</span><span class="p">,</span> <span class="nb">id</span> <span class="p">,</span> <span class="n">ingreid</span><span class="p">))</span>
+                            <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+                            <span class="n">i</span><span class="o">=</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span>
+                    <span class="n">conn</span><span class="o">.</span><span class="n">commit</span><span class="p">()</span>
+                    <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                    <span class="k">return</span> <span class="n">redirect</span><span class="p">(</span><span class="n">url_for</span><span class="p">(</span><span class="s2">&quot;profile&quot;</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot; SELECT beverage.beveragename, qualification.cuisine, qualification.calori, qualification.serve,  qualification.timing, qualification.category,beverage.beveragerecipe, beverage.beveragetype, qualification.qualificationid FROM qualification</span>
+<span class="s2">                                            INNER JOIN beverage</span>
+<span class="s2">                                            ON beverage.qualificationid = qualification.qualificationid and beverage.beverageid=</span><span class="si">%s</span><span class="s2">&quot;&quot;&quot;</span><span class="p">,</span> <span class="p">(</span><span class="nb">id</span><span class="p">,))</span>
+                    <span class="n">drinks</span><span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
+
+                    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT ingredient.ingrename, ingredient.unit, ingredient.amount, ingredient.ingredientid FROM ingredient INNER JOIN beverage ON ingredient.beverageid = beverage.beverageid AND beverage.beverageid = </span><span class="si">%s</span><span class="s2"> &quot;&quot;&quot;</span><span class="p">,(</span><span class="nb">id</span><span class="p">,))</span>
+                    <span class="n">data3</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="n">data3</span><span class="p">)</span>
+                    <span class="n">cursor</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;SELECT members.memberid, personaldata.name, personaldata.surname, personaldata.location, members.e_mail, members.username FROM members</span>
+<span class="s2">                                                       INNER JOIN personaldata</span>
+<span class="s2">                                                       ON personaldata.memberid = members.memberid and members.memberid = </span><span class="si">%s</span><span class="s2"> &quot;&quot;&quot;</span><span class="p">,</span>
+                                               <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]),))</span>
+                    <span class="n">memberdata</span> <span class="o">=</span> <span class="n">cursor</span><span class="o">.</span><span class="n">fetchall</span><span class="p">()</span>
+                    <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+                    <span class="k">return</span> <span class="n">render_template</span><span class="p">(</span><span class="s2">&quot;change-recipe.html&quot;</span><span class="p">,</span>  <span class="n">authority</span><span class="o">=</span><span class="n">session</span><span class="p">[</span><span class="s2">&quot;authority&quot;</span><span class="p">]</span> <span class="p">,</span> <span class="n">datam</span><span class="o">=</span><span class="n">memberdata</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">drinks</span> <span class="p">,</span> <span class="n">ingre</span><span class="o">=</span><span class="n">data3</span> <span class="p">,</span> <span class="n">ingrelen</span><span class="o">=</span><span class="nb">len</span><span class="p">(</span><span class="n">data3</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>In this method, the name of the beverage, the recipe, the ingredient name and amount, and the qualification properties of the beverage can be changed. So update operation is made.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nd">@app</span><span class="o">.</span><span class="n">route</span><span class="p">(</span><span class="s1">&#39;/file-upload&#39;</span><span class="p">,</span> <span class="n">methods</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;POST&#39;</span><span class="p">])</span>
+    <span class="k">def</span> <span class="nf">upload_file</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">files</span><span class="p">)</span>
+            <span class="n">content_length</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">content_length</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Content_length : </span><span class="si">{content_length}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">request</span><span class="o">.</span><span class="n">method</span> <span class="o">==</span> <span class="s1">&#39;POST&#39;</span><span class="p">:</span>
+                    <span class="c1"># check if the post request has the file part</span>
+                    <span class="k">if</span> <span class="s1">&#39;file&#39;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">request</span><span class="o">.</span><span class="n">files</span><span class="p">:</span>
+                            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No file part&#39;</span><span class="p">)</span>
+                            <span class="k">return</span> <span class="n">jsonify</span> <span class="p">({</span> <span class="s2">&quot; text&quot;</span> <span class="p">:</span> <span class="s2">&quot; No File&quot;</span><span class="p">})</span>
+
+                    <span class="n">file</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">files</span><span class="p">[</span><span class="s1">&#39;file&#39;</span><span class="p">]</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+                    <span class="c1"># if user does not select file, browser also</span>
+                    <span class="c1"># submit an empty part without filename</span>
+                    <span class="k">if</span> <span class="n">file</span><span class="o">.</span><span class="n">filename</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+                            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;No selected file&#39;</span><span class="p">)</span>
+                            <span class="k">return</span> <span class="n">jsonify</span> <span class="p">({</span> <span class="s2">&quot; text&quot;</span> <span class="p">:</span> <span class="s2">&quot; File hasn&#39;t selected&quot;</span><span class="p">})</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="n">allowed_file</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">filename</span><span class="p">))</span>
+                    <span class="k">if</span> <span class="n">file</span> <span class="ow">and</span> <span class="n">allowed_file</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">filename</span><span class="p">):</span>
+                            <span class="n">filename</span> <span class="o">=</span> <span class="n">secure_filename</span><span class="p">(</span><span class="n">file</span><span class="o">.</span><span class="n">filename</span><span class="p">)</span>
+                            <span class="n">file</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;UPLOAD_FOLDER&#39;</span><span class="p">],</span> <span class="n">filename</span><span class="p">))</span>
+                            <span class="k">return</span> <span class="n">jsonify</span> <span class="p">({</span> <span class="s2">&quot; text&quot;</span> <span class="p">:</span> <span class="s2">&quot; File Uploaded Successfully&quot;</span><span class="p">})</span>
+                    <span class="k">return</span> <span class="s2">&quot;&quot;</span>
+</pre></div>
+</div>
+<p>This method allows to upload photo to recipes.</p>
+</div></blockquote>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="member2.html" class="btn btn-neutral float-right" title="Parts Implemented by Ilgin Balkan" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="index.html" class="btn btn-neutral float-left" title="Developer Guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, ITUCSDB1941
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
